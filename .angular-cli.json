@@ -19,9 +19,13 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.css",
+        "assets/css/reset.css",
+        "../node_modules/font-awesome/css/font-awesome.min.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "assets/js/tianditu.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
