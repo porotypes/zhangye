@@ -1,0 +1,13 @@
+.loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -200px;
+  margin-left: -200px;
+  width: 400px;
+  height: 400px;
+  line-height: 400px;
+  font-size: 100px;
+  text-align: center;
+  color: #999;
+}
