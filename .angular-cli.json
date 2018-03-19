@@ -19,6 +19,7 @@
       "prefix": "app",
       "styles": [
         "styles.css",
+        "../node_modules/bootstrap/dist/css/bootstrap.css",
         "assets/css/reset.css",
         "../node_modules/font-awesome/css/font-awesome.min.css"
       ],

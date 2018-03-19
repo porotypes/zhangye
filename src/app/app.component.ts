@@ -6,14 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app';
+  title = '张掖市自然灾害监测预警系统';
 
   ngOnInit(): void {
-    this.createdMap();
-  }
-
-  private createdMap(): void {
-    const map = new T.Map('map');
-    map.centerAndZoom(new T.LngLat(116.40769, 39.89945), 12);
   }
 }
