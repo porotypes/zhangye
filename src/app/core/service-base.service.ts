@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
-import { Http, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -11,15 +11,15 @@ export abstract class ServiceBaseService<T> {
   api_url: string;
 
   constructor(
-    private http: Http,
+    private http: HttpClient,
     private router: Router,
   ) {
     this.api_url = this.API_URL;
 
   }
 
-  private getHeader(): Headers {
-    const header: Headers = new Headers();
+  private getHeader(): HttpHeaders {
+    const header: HttpHeaders = new HttpHeaders();
     header.append('Authorization', localStorage.getItem('token'));
     return header;
   }
