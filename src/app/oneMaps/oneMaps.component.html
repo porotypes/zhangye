@@ -1,9 +1,6 @@
-<div class="nav">
+<div class="nav" *ngIf="mapsList">
   <ul>
-    <li>323</li><li>123</li><li>123</li>
-    <li>123</li><li>123</li><li>123</li>
-    <li>123</li><li>123</li><li>123</li>
-    <li>123</li><li>123</li><li>123</li>
+    <li *ngFor="let map of mapsList" (click)="getMapDetails(map.id)">{{ map.name }}</li>
   </ul>
 </div>
 
