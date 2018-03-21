@@ -1,9 +1,6 @@
-footer {
-  border-top: 1px solid #ccc;
-  text-align: center;
-}
-footer p {
-  line-height: 69px;
+#map {
+  height: 100%;
+  min-height: 500px;
 }
 
 .app-content {
@@ -38,7 +35,11 @@ footer p {
   border-left: 1px solid #ccc;
   overflow-y: auto;
 }
-#map {
-  height: 100%;
-  min-height: 500px;
+
+footer {
+  border-top: 1px solid #ccc;
+  text-align: center;
+}
+footer p {
+  line-height: 69px;
 }

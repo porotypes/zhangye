@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit, DoCheck {
   ) { }
 
   ngDoCheck(): void {
+    this.router.navigate(['/admin']);
   }
 
   ngOnInit() {
