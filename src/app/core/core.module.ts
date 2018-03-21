@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 // service
 import { AdminMenuService } from "./admin/admin-menu.service";
+import { OneMapService } from "./one-map.service";
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { AdminMenuService } from "./admin/admin-menu.service";
   exports: [
   ],
   providers: [
-    AdminMenuService
+    AdminMenuService,
+    OneMapService,
   ]
 })
 export class CoreModule {}

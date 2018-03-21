@@ -19,48 +19,48 @@ export abstract class ServiceBaseService<T> {
   }
 
   private getHeader(): HttpHeaders {
-    const header: HttpHeaders = new HttpHeaders();
-    header.append('Authorization', localStorage.getItem('token'));
-    return header;
+    //{ headers: this.getHeader(), params: request }
+    const headers = new HttpHeaders().set("Authorization", localStorage.getItem('token'));
+    return headers;
   }
 
   get(url: string, request: Object = {}): Promise<T> {
-    return this.http.get(this.api_url + url, { headers: this.getHeader(), params: request })
+    return this.http.get(this.api_url + url)
       .toPromise()
       .then(response => {
-        return response.json();
+        return response['result'];
       })
       .catch(error => this.responseError(error.json()));
   }
 
   getAll(url: string, request: Object = {}): Promise<T[]> {
-    return this.http.get(this.api_url + url, { headers: this.getHeader(), params: request })
+    return this.http.get(this.api_url + url)
       .toPromise()
       .then(response => {
-        return response.json();
+        return response['result'];
       })
       .catch(error => this.responseError(error.json()));
   }
 
   put(url: string, request: Object = {}): Promise<T> {
-    return this.http.put(this.api_url + url, request, { headers: this.getHeader() })
+    return this.http.put(this.api_url + url, request)
       .toPromise()
       .then(response => {
-        return response.json();
+        return response['result'];
       })
       .catch(error => this.responseError(error.json()));
   }
 
   post(url: string, request: Object = {}): Promise<T> {
-    return this.http.post(this.api_url + url, request, { headers: this.getHeader() })
+    return this.http.post(this.api_url + url, request)
       .toPromise()
       .then(response => {
-        return response.json();
+        return response['result'];
       })
       .catch(error => this.responseError(error.json()));
   }
 
   responseError(error): void {
-
+    console.log(error);
   }
 }

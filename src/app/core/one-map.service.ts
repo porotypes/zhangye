@@ -6,7 +6,7 @@ import { ServiceBaseService } from './service-base.service';
 export class OneMapService extends ServiceBaseService<any> {
 
   getOneMaps(): Promise<any> {
-    return super.get('onemaps').then( maps => { return maps } );
+    return super.getAll('onemaps').then( maps => { return maps } );
   }
 
 }
