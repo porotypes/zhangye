@@ -15,6 +15,7 @@ export class OneMapsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.map = new T.Map('map');
     this.oneMapService.getOneMaps().then( maps => {
       this.mapsList = maps;
       this.createdMap(maps[0]);
@@ -29,7 +30,7 @@ export class OneMapsComponent implements OnInit {
   }
 
   private createdMap(mapDetails: Map): void {
-    this.map = new T.Map('map');
+    this.map.clearOverLays();
     this.map.centerAndZoom(new T.LngLat(mapDetails.longitude, mapDetails.latitude), mapDetails.zoomLevel);
 
     /* 标注物列表 */
