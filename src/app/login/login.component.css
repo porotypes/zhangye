@@ -1,0 +1,94 @@
+.login-page {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: url(/assets/img/login/login_bg.jpg);
+  repeat: no-repeat;
+  background-attachment:fixed;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/assets/images/background.jpg', sizingMethod='scale');
+  -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/assets/images/background.jpg', sizingMethod='scale');
+  background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+}
+* { color: #eee;}
+.login_box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 530px;
+  height: 430px;
+  margin: -250px 0 0 -265px;
+  background-color: rgba(0,0,0,.2);
+  border-radius: 25px;
+}
+.login_content {
+  width: 400px;
+  margin: 0 auto;
+}
+.title {
+  margin-top: 25px;
+  font-size: 35px;
+  text-align: center;
+}
+.input_box, .login {
+  height: 50px;
+  margin-top: 25px;
+  border-radius: 15px;
+}
+.input_box {
+  background-color: #fff;
+}
+.input_box i, .input_box input {
+  height: 26px;
+  float: left;
+  margin-top: 12px;
+  color: #666;
+}
+.input_box i {
+  display: block;
+  width: 26px;
+  margin-left: 30px;
+  margin-right: 10px;
+}
+.username {
+  background-image: url(/assets/img/login/username.png);
+}
+.password {
+  background-image: url(/assets/img/login/password.png);
+}
+.input_box input {
+  width: 250px;
+  line-height: 100%;
+  border: none;
+  font-size: 20px;
+}
+.remember {
+  height: 25px;
+  margin-top: 10px;
+  margin-left: 15px;
+}
+.remember input {
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin-top: 2px;
+  margin-right: 5px;
+}
+.remember span {
+  line-height: 25px;
+  float: left;
+}
+.remember .forget {
+  float: right;
+  margin-right: 15px;
+  cursor: pointer;
+}
+.login {
+  display: block;
+  width: 100%;
+  line-height: 50px;
+  font-size: 25px;
+  background-color: #00b3ee;
+  text-align: center;
+}
