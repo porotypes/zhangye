@@ -1,35 +1,35 @@
 <div class="user-manage-wrap">
 
   <div class="add">
-    <h4 class="admin-title">用户管理</h4>
+    <h4 class="admin-title">数据源(集合)管理</h4>
     <div class="add-button">
       <button class="btn btn-primary btn-sm" title="添加用户" (click)="openAddUserModal(AddUser)">
-        <i class="fa fa-plus"></i> 添加用户
+        <i class="fa fa-plus"></i> 添加
       </button>
     </div>
   </div>
 
   <table class="table table-hover table-bordered">
     <thead class="table-active">
-      <th>ID</th>
-      <th>名称</th>
-      <th>权限</th>
-      <th>操作</th>
+    <th>ID</th>
+    <th>名称</th>
+    <th>所用地图列表</th>
+    <th>操作</th>
     </thead>
-    <tbody *ngIf="userList">
-      <tr *ngFor="let user of userList">
-        <td>{{user.id}}</td>
-        <td>{{user.username}}</td>
-        <td></td>
-        <td>
-          <button class="btn btn-primary btn-sm" title="编辑" (click)="openEditUserModal(EditUser, user)">
-            <i class="fa fa-pencil"></i>
-          </button>
-          <button class="btn btn-danger btn-sm" title="删除" (click)="deleteUser(user)">
-            <i class="fa fa-times"></i>
-          </button>
-        </td>
-      </tr>
+    <tbody *ngIf="dataList">
+    <tr *ngFor="let data of dataList">
+      <td>{{ data.id }}</td>
+      <td>{{ data.name }}</td>
+      <td>{{ getMapNames(data.mapList) }}</td>
+      <td>
+        <button class="btn btn-primary btn-sm" title="编辑" (click)="openEditUserModal(EditUser, user)">
+          <i class="fa fa-pencil"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" title="删除" (click)="deleteUser(user)">
+          <i class="fa fa-times"></i>
+        </button>
+      </td>
+    </tr>
     </tbody>
   </table>
 </div>
