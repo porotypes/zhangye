@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { ServiceBaseService } from './service-base.service';
-import { Map } from '../common/map'
+import { Map } from '../common/map';
 
 @Injectable()
 export class OneMapService extends ServiceBaseService<Map> {

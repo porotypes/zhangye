@@ -1,0 +1,89 @@
+<div class="user-manage-wrap">
+
+  <div class="add">
+    <h4 class="admin-title">用户管理</h4>
+    <div class="add-button">
+      <button class="btn btn-primary btn-sm" title="添加用户" (click)="openAddUserModal(AddUser)">
+        <i class="fa fa-plus"></i> 添加用户
+      </button>
+    </div>
+  </div>
+
+  <table class="table table-hover table-bordered">
+    <thead class="table-active">
+      <th>ID</th>
+      <th>名称</th>
+      <th>权限</th>
+      <th>操作</th>
+    </thead>
+    <tbody *ngIf="userList">
+      <tr *ngFor="let user of userList">
+        <td>{{user.id}}</td>
+        <td>{{user.username}}</td>
+        <td></td>
+        <td>
+          <button class="btn btn-primary btn-sm" title="编辑" (click)="openEditUserModal(EditUser, user)">
+            <i class="fa fa-pencil"></i>
+          </button>
+          <button class="btn btn-danger btn-sm" title="删除" (click)="deleteUser(user)">
+            <i class="fa fa-times"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #AddUser>
+  <div class="modal-header">
+    <h4 class="modal-title">新增用户</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="addUserModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form formGroup="addUserForm">
+      <div class="form-group">
+        <label for="username">用户名:</label>
+        <input type="text" id="username" class="form-control" formControlName="username">
+      </div>
+      <div class="form-group">
+        <label for="password">密码:</label>
+        <input type="password" id="password" class="form-control" formControlName="password">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary btn-sm">确定</button>
+    <button class="btn btn-default btn-sm" (click)="addUserModalRef.hide()">取消</button>
+  </div>
+</ng-template>
+
+<ng-template #EditUser>
+  <div class="modal-header">
+    <h4 class="modal-title">修改用户信息</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="editUserModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="EditUserForm">
+      <div class="form-group">
+        <label for="username1">用户名:</label>
+        <input type="text" id="username1" class="form-control" formControlName="username">
+      </div>
+      <div class="form-group">
+        <label for="password1">密码:</label>
+        <input type="password" id="password1" class="form-control" formControlName="password">
+      </div>
+      <div class="form-group">
+        <label for="password2">确认密码:</label>
+        <input type="password" id="password2" class="form-control">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary btn-sm">确定</button>
+    <button class="btn btn-default btn-sm" (click)="editUserModalRef.hide()">取消</button>
+  </div>
+</ng-template>
