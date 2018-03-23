@@ -60,6 +60,15 @@ export abstract class ServiceBaseService<T> {
       .catch(error => this.responseError(error.json()));
   }
 
+  delete(url: string): Promise<T> {
+    return this.http.delete(this.api_url + url)
+      .toPromise()
+      .then(response => {
+        return null;
+      })
+      .catch(error => this.responseError(error.json()));
+  }
+
   responseError(error): void {
     console.log(error);
   }

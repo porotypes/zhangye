@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 export const ADMIN_MENE = [
-  { url: '', title: '用户管理' },
+  { url: 'userManage', title: '用户管理' },
   { url: '', title: '一张图数据管理' },
   { url: '', title: '数据源管理' },
   { url: '', title: '自然灾害类型管理' },

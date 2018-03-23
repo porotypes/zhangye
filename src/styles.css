@@ -6,3 +6,21 @@ body {
   min-width: 800px;
   min-height: 600px;
 }
+
+/* public */
+.add {
+  position: relative;
+  margin: 10px 0;
+  min-height: 31px;
+}
+.admin-title {
+  min-height: 31px;
+  line-height: 31px ;
+  font-size: 18px;
+  font-weight: bold;
+}
+.add-button {
+  position: absolute;
+  top: 0;
+  right: 10px;
+}
