@@ -54,7 +54,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary btn-sm">确定</button>
+    <button class="btn btn-primary btn-sm" (click)="confirm(addUserForm)">确定</button>
     <button class="btn btn-default btn-sm" (click)="addUserModalRef.hide()">取消</button>
   </div>
 </ng-template>
@@ -67,7 +67,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="EditUserForm">
+    <form formGroup="editUserForm">
       <div class="form-group">
         <label for="username1">用户名:</label>
         <input type="text" id="username1" class="form-control" formControlName="username">

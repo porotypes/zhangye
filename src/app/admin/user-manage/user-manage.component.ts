@@ -16,6 +16,7 @@ export class UserManageComponent implements OnInit {
   addUserForm: FormGroup;
   editUserForm: FormGroup;
   userList: UserManage[];
+  user: UserManage;
   addUserModalRef: BsModalRef;
   editUserModalRef: BsModalRef;
 
@@ -49,10 +50,23 @@ export class UserManageComponent implements OnInit {
     });
   }
 
+  populateAddUserForm(user: UserManage, form: FormGroup): void {
+    user.username = form.get('username').value;
+    user.password = form.get('password').value;
+  }
+
   getUserList(): void {
     this.userManageService.getUserManageList().then(userList => {
       this.userList = userList;
     });
+  }
+
+  confirm(form: FormGroup): void {
+    if (!this.user) {
+      this.user = new UserManage;
+    }
+    this.populateAddUserForm(this.user, form);
+    console.log(this.user);
   }
 
   deleteUser(user: UserManage): void {
