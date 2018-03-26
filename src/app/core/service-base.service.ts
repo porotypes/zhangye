@@ -64,7 +64,16 @@ export abstract class ServiceBaseService<T> {
     return this.http.delete(this.api_url + url)
       .toPromise()
       .then(response => {
-        return null;
+        return response['result'];
+      })
+      .catch(error => this.responseError(error.json()));
+  }
+
+  patch(url: string, request: Object = {}): Promise<T> {
+    return this.http.patch(url, request)
+      .toPromise()
+      .then(response => {
+        return response['result'];
       })
       .catch(error => this.responseError(error.json()));
   }

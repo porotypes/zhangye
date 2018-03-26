@@ -1,9 +1,9 @@
 <div class="p15">
 
   <div class="add">
-    <h4 class="admin-title">数据源(集合)列表</h4>
+    <h4 class="admin-title">{{ hintText }}列表</h4>
     <div class="add-button">
-      <button class="btn btn-primary btn-sm" title="添加用户" (click)="openAddUserModal(Add)">
+      <button class="btn btn-primary btn-sm" title="添加用户" (click)="openAddModal(Add)">
         <i class="fa fa-plus"></i> 添加
       </button>
     </div>
@@ -22,10 +22,10 @@
       <td>{{ data.name }}</td>
       <td>{{ getMapNames(data.mapList) }}</td>
       <td>
-        <button class="btn btn-primary btn-sm" title="编辑" (click)="openEditModal(Edit, user)">
+        <button class="btn btn-primary btn-sm" title="编辑" (click)="openEditModal(Edit, data)">
           <i class="fa fa-pencil"></i>
         </button>
-        <button class="btn btn-danger btn-sm" title="删除" (click)="deleteUser(user)">
+        <button class="btn btn-danger btn-sm" title="删除" (click)="openDeleteModal(Delete, data)">
           <i class="fa fa-times"></i>
         </button>
       </td>
@@ -36,7 +36,7 @@
 
 <ng-template #Add>
   <div class="modal-header">
-    <h4 class="modal-title">新增</h4>
+    <h4 class="modal-title">新增{{ hintText }}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="addModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -44,26 +44,26 @@
   <div class="modal-body">
     <form [formGroup]="addForm">
       <div class="form-group">
-        <label for="name">集合名称:</label>
+        <label for="name">{{ hintText }}名称:</label>
         <input type="text" id="name" class="form-control" formControlName="name">
       </div>
       <div class="form-group">
         <label for="mapList">对应地图名称:</label>
-        <select class="form-control" id="mapList"  formControlName="map">
+        <select class="form-control" id="mapList"  formControlName="mapId">
           <option *ngFor="let map of mapList" [value]="map.id">{{ map.name }}</option>
         </select>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary btn-sm" (click)="addConfirmation(addForm, addForm.get('map').value)">确定</button>
+    <button class="btn btn-primary btn-sm" (click)="addConfirmation(addForm)">确定</button>
     <button class="btn btn-default btn-sm" (click)="addModalRef.hide()">取消</button>
   </div>
 </ng-template>
 
 <ng-template #Edit>
   <div class="modal-header">
-    <h4 class="modal-title">修改用户信息</h4>
+    <h4 class="modal-title">修改{{ hintText }}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="editModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -71,21 +71,35 @@
   <div class="modal-body">
     <form [formGroup]="editForm">
       <div class="form-group">
-        <label for="username1">用户名:</label>
-        <input type="text" id="username1" class="form-control" formControlName="username">
+        <label for="editName">{{ hintText }}名称:</label>
+        <input type="text" id="editName" class="form-control" formControlName="name">
       </div>
       <div class="form-group">
-        <label for="password1">密码:</label>
-        <input type="password" id="password1" class="form-control" formControlName="password">
-      </div>
-      <div class="form-group">
-        <label for="password2">确认密码:</label>
-        <input type="password" id="password2" class="form-control">
+        <label for="editMapList">对应地图名称:</label>
+        <select class="form-control" id="editMapList"  formControlName="mapId">
+          <option *ngFor="let map of mapList" [value]="map.id">{{ map.name }}</option>
+        </select>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary btn-sm">确定</button>
+    <button class="btn btn-primary btn-sm" (click)="editConfirmation(editForm)">确定</button>
     <button class="btn btn-default btn-sm" (click)="editModalRef.hide()">取消</button>
+  </div>
+</ng-template>
+
+<ng-template #Delete>
+  <div class="modal-header">
+    <h4 class="modal-title">删&nbsp;除{{ hintText }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>你确定要删除吗?</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary btn-sm" (click)="deleteConfirmation()">确定</button>
+    <button class="btn btn-default btn-sm" (click)="deleteModalRef.hide()">取消</button>
   </div>
 </ng-template>
