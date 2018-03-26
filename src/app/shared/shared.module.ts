@@ -3,15 +3,19 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalModule } from 'ngx-bootstrap';
 
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
+
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    ToastModule.forRoot()
   ],
   declarations: [],
   exports: [
-    CommonModule
+    CommonModule,
+    ToastModule
   ],
   providers: [
 

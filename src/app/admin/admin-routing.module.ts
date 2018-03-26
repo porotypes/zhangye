@@ -6,7 +6,8 @@ import { AdminComponent } from './admin.component';
 const routes: Routes = [
   { path: '', component: AdminComponent,
     children: [
-      { path: 'userManage', loadChildren: './user-manage/user-manage.module#UserManageModule' }
+      { path: 'userManage', loadChildren: './user-manage/user-manage.module#UserManageModule' },
+      { path: 'dataSources', loadChildren: './data-sources/data-sources.module#DataSourcesModule' },
     ]
   },
 ];
