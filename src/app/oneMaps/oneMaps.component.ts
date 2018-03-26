@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OneMapService } from '../core/one-map.service';
-import { Map } from '../common/map'
+import { Map } from '../common/map';
 
 @Component({
   templateUrl: './oneMaps.component.html',
@@ -71,10 +71,10 @@ export class OneMapsComponent implements OnInit {
 
   /*创建标注物*/
   private createMarker(markerData: Object): void {
-    //创建标注对象
-    let marker = new T.Marker(new T.LngLat(markerData['longitude'], markerData['latitude']));
+    // 创建标注对象
+    const marker = new T.Marker(new T.LngLat(markerData['longitude'], markerData['latitude']));
     marker.data = markerData['data'];
-    //添加标注
+    // 添加标注
     this.map.addOverLay(marker);
     marker.addEventListener("click", this.markerClick);
   }

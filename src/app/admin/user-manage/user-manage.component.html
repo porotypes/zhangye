@@ -1,9 +1,9 @@
-<div class="user-manage-wrap">
+<div class="p15">
 
   <div class="add">
     <h4 class="admin-title">用户管理</h4>
     <div class="add-button">
-      <button class="btn btn-primary btn-sm" title="添加用户" (click)="openAddUserModal(AddUser)">
+      <button class="btn btn-primary btn-sm" title="添加用户" (click)="openAddModal(Add)">
         <i class="fa fa-plus"></i> 添加用户
       </button>
     </div>
@@ -22,10 +22,10 @@
         <td>{{user.username}}</td>
         <td></td>
         <td>
-          <button class="btn btn-primary btn-sm" title="编辑" (click)="openEditUserModal(EditUser, user)">
+          <button class="btn btn-primary btn-sm" title="编辑" (click)="openEditModal(Edit, user)">
             <i class="fa fa-pencil"></i>
           </button>
-          <button class="btn btn-danger btn-sm" title="删除" (click)="deleteUser(user)">
+          <button class="btn btn-danger btn-sm" title="删除" (click)="deleteConfirmation(user, Detele)">
             <i class="fa fa-times"></i>
           </button>
         </td>
@@ -34,15 +34,15 @@
   </table>
 </div>
 
-<ng-template #AddUser>
+<ng-template #Add>
   <div class="modal-header">
     <h4 class="modal-title">新增用户</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="addUserModalRef.hide()">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="addModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form formGroup="addUserForm">
+    <form [formGroup]="addForm">
       <div class="form-group">
         <label for="username">用户名:</label>
         <input type="text" id="username" class="form-control" formControlName="username">
@@ -54,36 +54,52 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary btn-sm" (click)="confirm(addUserForm)">确定</button>
-    <button class="btn btn-default btn-sm" (click)="addUserModalRef.hide()">取消</button>
+    <button class="btn btn-primary btn-sm" (click)="confirm(addForm)">确定</button>
+    <button class="btn btn-default btn-sm" (click)="addModalRef.hide()">取消</button>
   </div>
 </ng-template>
 
-<ng-template #EditUser>
+<ng-template #Edit>
   <div class="modal-header">
     <h4 class="modal-title">修改用户信息</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="editUserModalRef.hide()">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="editModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form formGroup="editUserForm">
+    <form [formGroup]="editForm">
       <div class="form-group">
         <label for="username1">用户名:</label>
         <input type="text" id="username1" class="form-control" formControlName="username">
       </div>
-      <div class="form-group">
-        <label for="password1">密码:</label>
-        <input type="password" id="password1" class="form-control" formControlName="password">
-      </div>
-      <div class="form-group">
-        <label for="password2">确认密码:</label>
-        <input type="password" id="password2" class="form-control">
-      </div>
+      <!--<div class="form-group">-->
+        <!--<label for="password1">密码:</label>-->
+        <!--<input type="password" id="password1" class="form-control" formControlName="password">-->
+      <!--</div>-->
+      <!--<div class="form-group">-->
+        <!--<label for="password2">确认密码:</label>-->
+        <!--<input type="password" id="password2" class="form-control">-->
+      <!--</div>-->
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary btn-sm">确定</button>
-    <button class="btn btn-default btn-sm" (click)="editUserModalRef.hide()">取消</button>
+    <button class="btn btn-primary btn-sm" (click)="changeInfo(editForm)">确定</button>
+    <button class="btn btn-default btn-sm" (click)="editModalRef.hide()">取消</button>
+  </div>
+</ng-template>
+
+<ng-template #Detele>
+  <div class="modal-header">
+    <h4 class="modal-title">删&nbsp;除</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>你确定要删除吗?</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary btn-sm" (click)="delete()">确定</button>
+    <button class="btn btn-default btn-sm" (click)="deleteModalRef.hide()">取消</button>
   </div>
 </ng-template>

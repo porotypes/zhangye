@@ -7,7 +7,8 @@ const routes: Routes = [
   { path: '', component: AdminComponent,
     children: [
       { path: 'userManage', loadChildren: './user-manage/user-manage.module#UserManageModule' },
-      { path: 'dataSources', loadChildren: './data-sources/data-sources.module#DataSourcesModule' },
+      { path: 'one-maps', loadChildren: './one-maps/one-maps.module#OneMapsModule' },
+      { path: 'dataSources', loadChildren: './data-sources/data-sources.module#DataSourcesModule' }
     ]
   },
 ];

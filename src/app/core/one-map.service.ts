@@ -7,11 +7,28 @@ import { Map } from '../common/map';
 export class OneMapService extends ServiceBaseService<Map> {
 
   getOneMaps(): Promise<Map[]> {
-    return super.getAll('onemaps').then( maps => { return maps } );
+    return super.getAll('onemaps').then( maps => {
+      return maps;
+    } );
   }
 
   getMapDetails(id: number): Promise<Map> {
-    return super.get('onemaps/' + id).then( map => { return map } );
+    return super.get('onemaps/' + id).then( map => {
+      return map;
+    } );
+  }
+
+  createMap(map: Map): Promise<Map> {
+    return super.post('onemaps/', map).then(map => {
+      return map;
+    });
+  }
+
+  delMap(map: Map): Promise<any> {
+    const url = 'onemaps/' + map.id;
+    return super.delete(url).then(res => {
+      return res;
+    });
   }
 
 }
