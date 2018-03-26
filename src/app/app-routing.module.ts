@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 
+import { LoginComponent } from './login/login.component';
+
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   {
@@ -12,6 +14,9 @@ const routes: Routes = [
   },
   {
     path: 'admin', loadChildren: './admin/admin.module#AdminModule'
+  },
+  {
+    path: 'login', component: LoginComponent
   }
 ];
 
