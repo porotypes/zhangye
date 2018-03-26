@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from "../core/auth/auth.service";
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
 
@@ -14,7 +15,8 @@ export class LoginComponent {
 
   constructor(
     public router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    public authService: AuthService
   ) { }
 
   login() {
@@ -32,5 +34,6 @@ export class LoginComponent {
     //   });
     localStorage.setItem("loginData", 'logined');
     this.router.navigate(['/dashboard']);
+    this.authService.isLogin = true;
   }
 }

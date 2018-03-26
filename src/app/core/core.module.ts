@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 // service
+import { AuthService } from "./auth/auth.service";
+import { AuthGuard } from "./auth/auth-guard.service";
 import { AdminMenuService } from "./admin/admin-menu.service";
 import { OneMapService } from "./one-map.service";
 import { UserManageService } from "./admin/user-manage.service";
@@ -17,6 +19,8 @@ import { DataSourcesService } from "./admin/data-sources.service";
   exports: [
   ],
   providers: [
+    AuthGuard,
+    AuthService,
     AdminMenuService,
     OneMapService,
     UserManageService,

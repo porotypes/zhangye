@@ -1,5 +1,4 @@
-<div class="header" *ngIf="!isLogin">
+<div class="header" *ngIf="authService.isLogin">
   <h1>{{title}}</h1>
 </div>
 <router-outlet></router-outlet>
-

@@ -3,17 +3,18 @@ import { RouterModule, Routes } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
 
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from "./core/auth/auth-guard.service";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
-    path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule'
+    path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule', canActivate: [AuthGuard]
   },
   {
-    path: 'oneMaps', loadChildren: './oneMaps/oneMaps.module#OneMapsModule'
+    path: 'oneMaps', loadChildren: './oneMaps/oneMaps.module#OneMapsModule', canActivate: [AuthGuard]
   },
   {
-    path: 'admin', loadChildren: './admin/admin.module#AdminModule'
+    path: 'admin', loadChildren: './admin/admin.module#AdminModule', canActivate: [AuthGuard]
   },
   {
     path: 'login', component: LoginComponent
