@@ -98,7 +98,7 @@ export class DataSourcesComponent implements OnInit {
   addConfirmation(form: FormGroup): void {
     this.dataSourcesService.addSources(this.getFormValue(form)).then(res => {
       // TODO
-      this.toastr.success('新增成功!', 'Success!');
+      this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
       this.addModalRef.hide();
       console.log(res);
     });
@@ -107,7 +107,7 @@ export class DataSourcesComponent implements OnInit {
   editConfirmation(form: FormGroup): void {
     this.dataSourcesService.editSources(form.get('id').value, this.getFormValue(form)).then(res => {
       // TODO
-      this.toastr.success('修改成功!', 'Success!');
+      this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
       this.editModalRef.hide();
       console.log(res);
     });
@@ -116,7 +116,8 @@ export class DataSourcesComponent implements OnInit {
   delete(sources: DataSources): void {
     this.dataSourcesService.deleteSource(sources).then(res => {
       // TODO
-      this.toastr.success('删除成功!', 'Success!');
+      this.getList();
+      this.toastr.success('删除' + this.hintText + '成功!', 'Success!');
       this.deleteModalRef.hide();
     });
   }

@@ -5,7 +5,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule'
   },
