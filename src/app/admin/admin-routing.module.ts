@@ -8,7 +8,8 @@ const routes: Routes = [
     children: [
       { path: 'userManage', loadChildren: './user-manage/user-manage.module#UserManageModule' },
       { path: 'one-maps', loadChildren: './one-maps/one-maps.module#OneMapsModule' },
-      { path: 'dataSources', loadChildren: './data-sources/data-sources.module#DataSourcesModule' }
+      { path: 'dataSources', loadChildren: './data-sources/data-sources.module#DataSourcesModule' },
+      { path: 'dataSpot', loadChildren: './data-spot/data-spot.module#DataSpotModule' },
     ]
   },
 ];
