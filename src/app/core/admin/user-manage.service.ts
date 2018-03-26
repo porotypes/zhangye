@@ -8,13 +8,27 @@ import { UserManage } from "../../common/user-manage";
 export class UserManageService extends ServiceBaseService<UserManage> {
 
   getUserManageList(): Promise<UserManage[]> {
-    return super.getAll('users').then(userList => {
+    return super.getAll('users/').then(userList => {
       return userList;
     });
   }
 
+  addUser(user: UserManage): Promise<any> {
+    const url = 'users/';
+    return super.post(url, user).then(user => {
+      return user;
+    });
+  }
+
+  changeUser(user: UserManage): Promise<any> {
+    const url = 'users/';
+    return super.put(url, user).then(user => {
+      return user;
+    });
+  }
+
   delUser(user: UserManage): Promise<UserManage> {
-    const url = 'user/' + user.id;
+    const url = 'users/' + user.id;
     return super.delete(url).then(user => {
       return user;
     });

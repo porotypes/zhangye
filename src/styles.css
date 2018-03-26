@@ -8,6 +8,9 @@ body {
 }
 
 /* public */
+.p15 {
+  padding: 15px;
+}
 .add {
   position: relative;
   margin: 10px 0;
