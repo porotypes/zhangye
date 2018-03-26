@@ -13,6 +13,12 @@ export class DataSourcesService extends ServiceBaseService<DataSources> {
     });
   }
 
+  addSource(name: string, mapId: number): Promise<DataSources> {
+    return super.post('datasets', { name: name, mapId: mapId}).then(user => {
+      return user;
+    });
+  }
+
   delUser(user: DataSources): Promise<DataSources> {
     const url = 'user/' + user.id;
     return super.delete(url).then(user => {

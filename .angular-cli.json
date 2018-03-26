@@ -21,10 +21,12 @@
         "styles.css",
         "../node_modules/bootstrap/dist/css/bootstrap.css",
         "assets/css/reset.css",
-        "../node_modules/font-awesome/css/font-awesome.min.css"
+        "../node_modules/font-awesome/css/font-awesome.min.css",
+        "../node_modules/ng2-toastr/bundles/ng2-toastr.min.css"
       ],
       "scripts": [
-        "assets/js/tianditu.js"
+        "assets/js/tianditu.js",
+        "../node_modules/ng2-toastr/bundles/ng2-toastr.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
