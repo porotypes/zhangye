@@ -16,11 +16,11 @@ import { OneMapService } from "../../core/one-map.service";
 })
 export class DataSourcesComponent implements OnInit {
 
-  addUserForm: FormGroup;
-  editUserForm: FormGroup;
+  addForm: FormGroup;
+  editForm: FormGroup;
   dataList: DataSources[];
   addModalRef: BsModalRef;
-  editUserModalRef: BsModalRef;
+  editModalRef: BsModalRef;
   mapList: Map[];
 
   constructor(
@@ -41,17 +41,17 @@ export class DataSourcesComponent implements OnInit {
   }
 
   private createForm(): void {
-    this.addUserForm = this.fb.group({
+    this.addForm = this.fb.group({
       name: ['', Validators.required],
       map: ['', Validators.required]
     });
-    this.editUserForm = this.fb.group({
+    this.editForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-  populateEditUserForm(user: any, form: FormGroup): void {
+  populateEditForm(user: any, form: FormGroup): void {
     form.patchValue({
       name: user,
       map: user
@@ -75,9 +75,9 @@ export class DataSourcesComponent implements OnInit {
     this.addModalRef = this.bsModalService.show(template);
   }
 
-  openEditUserModal(template: TemplateRef<any>, user: DataSources) {
-    this.populateEditUserForm(user, this.editUserForm);
-    this.editUserModalRef = this.bsModalService.show(template);
+  openEditModal(template: TemplateRef<any>, user: DataSources) {
+    this.populateEditForm(user, this.editForm);
+    this.editModalRef = this.bsModalService.show(template);
   }
 
   getMapNames(maps: Map[]): string {

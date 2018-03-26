@@ -22,7 +22,7 @@
       <td>{{ data.name }}</td>
       <td>{{ getMapNames(data.mapList) }}</td>
       <td>
-        <button class="btn btn-primary btn-sm" title="编辑" (click)="openEditUserModal(EditUser, user)">
+        <button class="btn btn-primary btn-sm" title="编辑" (click)="openEditModal(Edit, user)">
           <i class="fa fa-pencil"></i>
         </button>
         <button class="btn btn-danger btn-sm" title="删除" (click)="deleteUser(user)">
@@ -42,7 +42,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="addUserForm">
+    <form [formGroup]="addForm">
       <div class="form-group">
         <label for="name">集合名称:</label>
         <input type="text" id="name" class="form-control" formControlName="name">
@@ -56,20 +56,20 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary btn-sm" (click)="addConfirmation(addUserForm, addUserForm.get('map').value)">确定</button>
+    <button class="btn btn-primary btn-sm" (click)="addConfirmation(addForm, addForm.get('map').value)">确定</button>
     <button class="btn btn-default btn-sm" (click)="addModalRef.hide()">取消</button>
   </div>
 </ng-template>
 
-<ng-template #EditUser>
+<ng-template #Edit>
   <div class="modal-header">
     <h4 class="modal-title">修改用户信息</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="editUserModalRef.hide()">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="editModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form formGroup="editUserForm">
+    <form [formGroup]="editForm">
       <div class="form-group">
         <label for="username1">用户名:</label>
         <input type="text" id="username1" class="form-control" formControlName="username">
@@ -86,6 +86,6 @@
   </div>
   <div class="modal-footer">
     <button class="btn btn-primary btn-sm">确定</button>
-    <button class="btn btn-default btn-sm" (click)="editUserModalRef.hide()">取消</button>
+    <button class="btn btn-default btn-sm" (click)="editModalRef.hide()">取消</button>
   </div>
 </ng-template>
