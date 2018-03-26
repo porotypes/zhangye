@@ -15,6 +15,7 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
   declarations: [],
   exports: [
     CommonModule,
+    ReactiveFormsModule,
     ToastModule
   ],
   providers: [
