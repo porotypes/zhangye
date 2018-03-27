@@ -7,9 +7,12 @@ const routes: Routes = [
   { path: '', component: AdminComponent,
     children: [
       { path: 'userManage', loadChildren: './user-manage/user-manage.module#UserManageModule' },
-      { path: 'one-maps', loadChildren: './one-maps/one-maps.module#OneMapsModule' },
+      { path: 'oneMaps', loadChildren: './one-maps/one-maps.module#OneMapsModule' },
       { path: 'dataSources', loadChildren: './data-sources/data-sources.module#DataSourcesModule' },
       { path: 'dataSpot', loadChildren: './data-spot/data-spot.module#DataSpotModule' },
+      { path: 'typeOfDisaster', loadChildren: './type-of-disaster/type-of-disaster.module#TypeOfDisasterModule' },
+      { path: 'WarningRules', loadChildren: './warning-rules/warning-rules.module#WarningRulesModule' },
+      { path: 'WarningLevel', loadChildren: './warning-level/warning-level.module#WarningLevelModule' },
     ]
   },
 ];

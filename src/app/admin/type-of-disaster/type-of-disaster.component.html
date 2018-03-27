@@ -1,5 +1,4 @@
 <div class="p15">
-
   <div class="add">
     <h4 class="admin-title">{{ hintText }}管理</h4>
     <div class="add-button">
@@ -11,25 +10,29 @@
 
   <table class="table table-hover table-bordered">
     <thead class="table-active">
-      <th>ID</th>
-      <th>名称</th>
-      <th>权限</th>
-      <th>操作</th>
+    <th>ID</th>
+    <th>名称</th>
+    <th>描述</th>
+    <th>等级标准</th>
+    <th>备注</th>
+    <th>操作</th>
     </thead>
-    <tbody *ngIf="userList">
-      <tr *ngFor="let user of userList">
-        <td>{{user.id}}</td>
-        <td>{{user.username}}</td>
-        <td></td>
-        <td>
-          <button class="btn btn-primary btn-sm" title="编辑" (click)="openEditModal(Edit, user)">
-            <i class="fa fa-pencil"></i>
-          </button>
-          <button class="btn btn-danger btn-sm" title="删除" (click)="deleteConfirmation(user, Detele)">
-            <i class="fa fa-times"></i>
-          </button>
-        </td>
-      </tr>
+    <tbody *ngIf="disasterList">
+    <tr *ngFor="let disaster of disasterList">
+      <td>{{disaster.id}}</td>
+      <td>{{disaster.name}}</td>
+      <td>{{disaster.description}}</td>
+      <td>{{disaster.levelStandard}}</td>
+      <td>{{disaster.comment}}</td>
+      <td>
+        <button class="btn btn-primary btn-sm" title="编辑" (click)="openEditModal(Edit, disaster)">
+          <i class="fa fa-pencil"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" title="删除" (click)="deleteConfirmation(Detele, disaster)">
+          <i class="fa fa-times"></i>
+        </button>
+      </td>
+    </tr>
     </tbody>
   </table>
 </div>
@@ -44,12 +47,20 @@
   <div class="modal-body">
     <form [formGroup]="addForm">
       <div class="form-group">
-        <label for="username">用户名:</label>
-        <input type="text" id="username" class="form-control" formControlName="username">
+        <label for="name">名称:</label>
+        <input type="text" id="name" class="form-control" formControlName="name">
       </div>
       <div class="form-group">
-        <label for="password">密码:</label>
-        <input type="password" id="password" class="form-control" formControlName="password">
+        <label for="description">描述:</label>
+        <textarea id="description" rows="5" class="form-control" formControlName="description"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="levelStandard">等级标准:</label>
+        <textarea id="levelStandard" rows="5" class="form-control" formControlName="levelStandard"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="comment">备注:</label>
+        <textarea id="comment" rows="5" class="form-control" formControlName="comment"></textarea>
       </div>
     </form>
   </div>
@@ -61,7 +72,7 @@
 
 <ng-template #Edit>
   <div class="modal-header">
-    <h4 class="modal-title">修改{{ hintText }}信息</h4>
+    <h4 class="modal-title">修改{{ hintText }}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="editModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -69,17 +80,21 @@
   <div class="modal-body">
     <form [formGroup]="editForm">
       <div class="form-group">
-        <label for="username1">用户名:</label>
-        <input type="text" id="username1" class="form-control" formControlName="username">
+        <label for="name1">名称:</label>
+        <input type="text" id="name1" class="form-control" formControlName="name">
       </div>
-      <!--<div class="form-group">-->
-        <!--<label for="password1">密码:</label>-->
-        <!--<input type="password" id="password1" class="form-control" formControlName="password">-->
-      <!--</div>-->
-      <!--<div class="form-group">-->
-        <!--<label for="password2">确认密码:</label>-->
-        <!--<input type="password" id="password2" class="form-control">-->
-      <!--</div>-->
+      <div class="form-group">
+        <label for="description1">描述:</label>
+        <textarea id="description1" rows="5" class="form-control" formControlName="description"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="levelStandard1">等级标准:</label>
+        <textarea id="levelStandard1" rows="5" class="form-control" formControlName="levelStandard"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="comment1">备注:</label>
+        <textarea id="comment1" rows="5" class="form-control" formControlName="comment"></textarea>
+      </div>
     </form>
   </div>
   <div class="modal-footer">

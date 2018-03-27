@@ -67,7 +67,7 @@ export class DataSourcesComponent implements OnInit {
     return {
       name: form.get('name').value,
       mapId: form.get('mapId').value,
-    }
+    };
   }
 
   getList(): void {

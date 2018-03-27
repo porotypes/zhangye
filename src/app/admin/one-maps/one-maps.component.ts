@@ -13,12 +13,14 @@ import { OneMapService } from "../../core/one-map.service";
 })
 export class OneMapsComponent implements OnInit {
 
+  hintText = '一张图';
   addForm: FormGroup;
   editForm: FormGroup;
   oneMapsList: Map[];
   addModalRef: BsModalRef;
   editModalRef: BsModalRef;
   deleteModalRef: BsModalRef;
+  deleteData: Map;
 
   constructor(
     private oneMapService: OneMapService,
@@ -47,6 +49,17 @@ export class OneMapsComponent implements OnInit {
     });
   }
 
+  populateEditUserForm(map: Map, form: FormGroup): void {
+    form.patchValue({
+      name: map.name,
+      latitude: map.latitude,
+      longitude: map.longitude,
+      zoomLevel: map.zoomLevel,
+      priority: map.priority,
+      type: map.type
+    });
+  }
+
   getOneMapsList(): void {
     this.oneMapService.getOneMaps().then(list => {
       this.oneMapsList = list;
@@ -71,6 +84,7 @@ export class OneMapsComponent implements OnInit {
 
   deleteConfirmation(template: TemplateRef<any>, map: Map): void {
     this.deleteModalRef = this.bsModalService.show(template);
+    this.deleteData = map;
   }
 
   delete(): void {
@@ -83,6 +97,7 @@ export class OneMapsComponent implements OnInit {
 
   openEditModal(template: TemplateRef<any>, map: Map) {
     this.editModalRef = this.bsModalService.show(template);
+    this.populateEditUserForm(map, this.editForm);
   }
 
 }

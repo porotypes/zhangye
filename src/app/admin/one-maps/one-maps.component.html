@@ -1,9 +1,9 @@
 <div class="p15">
   <div class="add">
-    <h4 class="admin-title">一张图管理</h4>
+    <h4 class="admin-title">{{ hintText }}管理</h4>
     <div class="add-button">
-      <button class="btn btn-primary btn-sm" title="添加一张图" (click)="openAddModal(Add)">
-        <i class="fa fa-plus"></i> 添加一张图
+      <button class="btn btn-primary btn-sm" (click)="openAddModal(Add)">
+        <i class="fa fa-plus"></i> 添加{{ hintText }}
       </button>
     </div>
   </div>
@@ -25,10 +25,10 @@
         <td>{{map.zoomLevel}}</td>
         <td>{{map.priority}}</td>
         <td>
-          <button class="btn btn-primary btn-sm" title="编辑" (click)="openEditModal(Edit)">
+          <button class="btn btn-primary btn-sm" title="编辑" (click)="openEditModal(Edit, map)">
             <i class="fa fa-pencil"></i>
           </button>
-          <button class="btn btn-danger btn-sm" title="删除" (click)="deleteConfirmation(Detele)">
+          <button class="btn btn-danger btn-sm" title="删除" (click)="deleteConfirmation(Detele, map)">
             <i class="fa fa-times"></i>
           </button>
         </td>
@@ -39,7 +39,7 @@
 
 <ng-template #Add>
   <div class="modal-header">
-    <h4 class="modal-title">新增一张图</h4>
+    <h4 class="modal-title">新增{{ hintText }}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="addModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -76,7 +76,7 @@
 
 <ng-template #Edit>
   <div class="modal-header">
-    <h4 class="modal-title">修改用户信息</h4>
+    <h4 class="modal-title">修改{{ hintText }}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="editModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -113,7 +113,7 @@
 
 <ng-template #Detele>
   <div class="modal-header">
-    <h4 class="modal-title">删&nbsp;除</h4>
+    <h4 class="modal-title">删&nbsp;除{{ hintText }}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>

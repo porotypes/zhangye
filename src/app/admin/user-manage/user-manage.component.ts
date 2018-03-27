@@ -13,6 +13,7 @@ import { UserManageService } from "../../core/admin/user-manage.service";
 })
 export class UserManageComponent implements OnInit {
 
+  hintText = '用户';
   addForm: FormGroup;
   editForm: FormGroup;
   userList: UserManage[];
