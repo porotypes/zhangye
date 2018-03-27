@@ -10,6 +10,7 @@ const routes: Routes = [
       { path: 'one-maps', loadChildren: './one-maps/one-maps.module#OneMapsModule' },
       { path: 'dataSources', loadChildren: './data-sources/data-sources.module#DataSourcesModule' },
       { path: 'dataSpot', loadChildren: './data-spot/data-spot.module#DataSpotModule' },
+      { path: 'warningLevels', loadChildren: './warning-levels/warning-levels.module#WarningLevelsModule' },
     ]
   },
 ];

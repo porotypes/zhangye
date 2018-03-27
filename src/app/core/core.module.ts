@@ -10,6 +10,7 @@ import { OneMapService } from "./one-map.service";
 import { UserManageService } from "./admin/user-manage.service";
 import { DataSourcesService } from "./admin/data-sources.service";
 import { DataSpotService } from "./admin/data-spot.service";
+import { WarningLevelsService } from "./admin/warning-levels.service";
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { DataSpotService } from "./admin/data-spot.service";
     UserManageService,
     DataSourcesService,
     DataSpotService,
+    WarningLevelsService,
   ]
 })
 export class CoreModule {}
