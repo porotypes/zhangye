@@ -13,15 +13,15 @@ export class UserManageService extends ServiceBaseService<UserManage> {
     });
   }
 
-  addUser(user: UserManage): Promise<any> {
+  addUser(user: object): Promise<UserManage> {
     const url = 'users/';
     return super.post(url, user).then(user => {
       return user;
     });
   }
 
-  changeUser(user: UserManage): Promise<any> {
-    const url = 'users/';
+  changeUser(id: number, user: object): Promise<UserManage> {
+    const url = 'users/' + id;
     return super.put(url, user).then(user => {
       return user;
     });

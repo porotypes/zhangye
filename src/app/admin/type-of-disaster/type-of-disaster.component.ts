@@ -1,10 +1,12 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 import { TypeOfDisaster } from "../../common/type-of-disaster";
 import { TypeOfDisasterService } from "../../core/admin/type-of-disaster.service";
+import { FormUtil } from "../../core/util/form.util";
 
 @Component({
   selector: 'app-type-of-disaster',
@@ -22,36 +24,31 @@ export class TypeOfDisasterComponent implements OnInit {
   deleteModalRef: BsModalRef;
   deleteData: TypeOfDisaster;
 
+  dataKeys = [
+    { key: 'name', text: '名称', isRequired: true },
+    { key: 'description', text: '描述', isRequired: true },
+    { key: 'levelStandard', text: '等级标准', isRequired: true },
+    { key: 'comment', text: '备注', isRequired: true },
+  ];
+
   constructor(
     private typeOfDisasterService: TypeOfDisasterService,
     private bsModalService: BsModalService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public toastr: ToastsManager,
+    vcr: ViewContainerRef
   ) {
     this.createForm();
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   private createForm(): void {
-    this.addForm = this.fb.group({
-      name: ['', Validators.required],
-      description: [''],
-      levelStandard: [''],
-      comment: ['']
-    });
-    this.editForm = this.fb.group({
-      name: ['', Validators.required],
-      description: [''],
-      levelStandard: [''],
-      comment: ['']
-    });
+    this.addForm = this.fb.group(FormUtil.setControl(this.dataKeys, false));
+    this.editForm = this.fb.group(FormUtil.setControl(this.dataKeys, true));
   }
 
   populateEditUserForm(disasterList: TypeOfDisaster, form: FormGroup): void {
-    form.patchValue({
-      name: disasterList.name,
-      description: disasterList.description,
-      levelStandard: disasterList.levelStandard,
-      comment: disasterList.comment
-    });
+    form.patchValue(FormUtil.populateForm(this.dataKeys, disasterList));
   }
 
   getDisasterList(): void {
@@ -68,12 +65,25 @@ export class TypeOfDisasterComponent implements OnInit {
     if (form.status === 'INVALID') {
       return;
     }
+    this.typeOfDisasterService.addDisaster(FormUtil.getFormValue(this.dataKeys, form))
+      .then(res => {
+        this.getDisasterList();
+        this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
+        this.addModalRef.hide();
+        this.addForm.reset();
+      });
   }
 
   changeInfo(form: FormGroup): void {
     if (form.status === 'INVALID') {
       return;
     }
+    this.typeOfDisasterService.changeDisaster(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form))
+      .then(res => {
+        this.getDisasterList();
+        this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
+        this.editModalRef.hide();
+      });
   }
 
   deleteConfirmation(template: TemplateRef<any>, disaster: TypeOfDisaster): void {
@@ -82,7 +92,11 @@ export class TypeOfDisasterComponent implements OnInit {
   }
 
   delete(): void {
-
+    this.typeOfDisasterService.deleteDisaster(this.deleteData).then(res => {
+      this.getDisasterList();
+      this.toastr.success('删除' + this.hintText + '成功!', 'Success!');
+      this.deleteModalRef.hide();
+    });
   }
 
   openAddModal(template: TemplateRef<any>) {

@@ -1,10 +1,12 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 import { UserManage } from "../../common/user-manage";
 import { UserManageService } from "../../core/admin/user-manage.service";
+import { FormUtil } from "../../core/util/form.util";
 
 @Component({
   selector: 'app-user-manage',
@@ -17,18 +19,25 @@ export class UserManageComponent implements OnInit {
   addForm: FormGroup;
   editForm: FormGroup;
   userList: UserManage[];
-  user: UserManage;
   deleteUserData: UserManage;
   addModalRef: BsModalRef;
   editModalRef: BsModalRef;
   deleteModalRef: BsModalRef;
 
+  dataKeys = [
+    { key: 'username', text: '姓名', isRequired: true },
+    { key: 'password', text: '密码', isRequired: true },
+  ];
+
   constructor(
     private userManageService: UserManageService,
     private bsModalService: BsModalService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public toastr: ToastsManager,
+    vcr: ViewContainerRef
   ) {
     this.createForm();
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -36,31 +45,12 @@ export class UserManageComponent implements OnInit {
   }
 
   private createForm(): void {
-    this.addForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-    });
-    this.editForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['']
-    });
+    this.addForm = this.fb.group(FormUtil.setControl(this.dataKeys, false));
+    this.editForm = this.fb.group(FormUtil.setControl(this.dataKeys, true));
   }
 
   populateEditUserForm(user: UserManage, form: FormGroup): void {
-    form.patchValue({
-      username: user.username,
-      password: user.password
-    });
-  }
-
-  populateAddUserObj(user: UserManage, form: FormGroup): void {
-    user.username = form.get('username').value;
-    user.password = form.get('password').value;
-  }
-
-  populateEditUserObj(user: UserManage, form: FormGroup): void {
-    user.username = form.get('username').value;
-    user.password = form.get('password').value;
+    form.patchValue(FormUtil.populateForm(this.dataKeys, user));
   }
 
   getUserList(): void {
@@ -73,12 +63,11 @@ export class UserManageComponent implements OnInit {
     if (form.status === 'INVALID') {
       return;
     }
-    if (!this.user) {
-      this.user = new UserManage;
-    }
-    this.populateAddUserObj(this.user, form);
-    this.userManageService.addUser(this.user).then(res => {
-      console.log(res);
+    this.userManageService.addUser(FormUtil.getFormValue(this.dataKeys, form)).then(res => {
+      this.getUserList();
+      this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
+      this.addModalRef.hide();
+      this.addForm.reset();
     });
   }
 
@@ -86,13 +75,12 @@ export class UserManageComponent implements OnInit {
     if (form.status === 'INVALID') {
       return;
     }
-    if (!this.user) {
-      this.user = new UserManage;
-    }
-    this.populateEditUserObj(this.user, form);
-    this.userManageService.changeUser(this.user).then(res => {
-      console.log(res);
-    });
+    this.userManageService.changeUser(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form))
+      .then(res => {
+        this.getUserList();
+        this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
+        this.editModalRef.hide();
+      });
   }
 
   deleteConfirmation(user: UserManage, template: TemplateRef<any>): void {
@@ -102,7 +90,9 @@ export class UserManageComponent implements OnInit {
 
   delete(): void {
     this.userManageService.delUser(this.deleteUserData).then(res => {
-      console.log(res);
+      this.getUserList();
+      this.toastr.success('删除' + this.hintText + '成功!', 'Success!');
+      this.deleteModalRef.hide();
     });
   }
 
