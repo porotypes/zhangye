@@ -75,7 +75,7 @@ export class WarningLevelsComponent implements OnInit {
   }
 
   addConfirmation(form: FormGroup): void {
-    this.warningLevelsService.addSources(FormUtil.getFormValue(this.dataKeys, form)).then(res => {
+    this.warningLevelsService.addWarning(FormUtil.getFormValue(this.dataKeys, form)).then(res => {
       this.getList();
       this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
       this.addModalRef.hide();
@@ -84,7 +84,7 @@ export class WarningLevelsComponent implements OnInit {
   }
 
   editConfirmation(form: FormGroup): void {
-    this.warningLevelsService.editSources(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form)).then(res => {
+    this.warningLevelsService.editWarning(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form)).then(res => {
       this.getList();
       this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
       this.editModalRef.hide();
@@ -92,13 +92,13 @@ export class WarningLevelsComponent implements OnInit {
   }
 
   delete(warningLevel: WarningLevel): void {
-    this.warningLevelsService.deleteSource(warningLevel).then(res => {
+    this.warningLevelsService.deleteWarning(warningLevel).then(res => {
       this.getList();
       this.toastr.success('删除' + this.hintText + '成功!', 'Success!');
       this.deleteModalRef.hide();
     });
   }
-  deleteConfirmation(warningLevel: WarningLevel): void {
+  deleteConfirmation(): void {
     this.delete(this.deleteData);
   }
 }
