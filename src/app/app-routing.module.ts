@@ -6,7 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from "./core/auth/auth-guard.service";
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   {
     path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule', canActivate: [AuthGuard]
   },
@@ -16,9 +16,8 @@ const routes: Routes = [
   {
     path: 'admin', loadChildren: './admin/admin.module#AdminModule', canActivate: [AuthGuard]
   },
-  {
-    path: 'login', component: LoginComponent
-  }
+  { path: 'login', component: LoginComponent },
+  { path: '**', redirectTo: '/dashboard', pathMatch: 'full' },
 ];
 
 @NgModule({
