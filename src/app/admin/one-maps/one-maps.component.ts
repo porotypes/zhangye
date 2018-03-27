@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
@@ -94,7 +94,11 @@ export class OneMapsComponent implements OnInit {
   }
 
   delete(): void {
-
+    this.oneMapService.delMap(this.deleteData).then(res => {
+      this.getOneMapsList();
+      this.toastr.success('删除' + this.hintText + '成功!', 'Success!');
+      this.deleteModalRef.hide();
+    });
   }
 
   openAddModal(template: TemplateRef<any>) {

@@ -6,6 +6,9 @@ body {
   min-width: 800px;
   min-height: 600px;
 }
+td {
+  min-width: 100px;
+}
 
 /* public */
 .p15 {
