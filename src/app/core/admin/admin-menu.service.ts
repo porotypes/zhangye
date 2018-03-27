@@ -7,7 +7,7 @@ export const ADMIN_MENE = [
   { url: 'dataSpot', title: '数据源(点)管理' },
   { url: 'typeOfDisaster', title: '自然灾害类型管理' },
   { url: 'WarningRules', title: '预警规则管理' },
-  { url: 'WarningLevel', title: '灾害预警等级管理' },
+  { url: 'WarningLevels', title: '灾害预警等级管理' },
 ];
 
 @Injectable()

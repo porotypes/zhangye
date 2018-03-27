@@ -12,7 +12,7 @@ const routes: Routes = [
       { path: 'dataSpot', loadChildren: './data-spot/data-spot.module#DataSpotModule' },
       { path: 'typeOfDisaster', loadChildren: './type-of-disaster/type-of-disaster.module#TypeOfDisasterModule' },
       { path: 'WarningRules', loadChildren: './warning-rules/warning-rules.module#WarningRulesModule' },
-      { path: 'WarningLevel', loadChildren: './warning-level/warning-level.module#WarningLevelModule' },
+      { path: 'WarningLevels', loadChildren: './warning-levels/warning-levels.module#WarningLevelsModule' },
     ]
   },
 ];

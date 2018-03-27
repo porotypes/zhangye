@@ -11,6 +11,7 @@ import { UserManageService } from "./admin/user-manage.service";
 import { DataSourcesService } from "./admin/data-sources.service";
 import { DataSpotService } from "./admin/data-spot.service";
 import { TypeOfDisasterService } from "./admin/type-of-disaster.service";
+import { WarningLevelsService } from "./admin/warning-levels.service";
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { TypeOfDisasterService } from "./admin/type-of-disaster.service";
     DataSourcesService,
     DataSpotService,
     TypeOfDisasterService,
+    WarningLevelsService
   ]
 })
 export class CoreModule {}

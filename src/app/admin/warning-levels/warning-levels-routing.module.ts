@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { WarningLevelComponent } from "./warning-level.component";
+import { WarningLevelsComponent } from "./warning-levels.component";
 
 const routes: Routes = [
-  { path: '', component: WarningLevelComponent },
+  { path: '', component: WarningLevelsComponent },
 ];
 
 @NgModule({
   imports: [ RouterModule.forChild(routes) ],
   exports: [ RouterModule ]
 })
-export class WarningLevelRoutingModule {}
+export class WarningLevelsRoutingModule {}

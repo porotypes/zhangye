@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WarningLevelComponent } from './warning-level.component';
+import { WarningLevelsComponent } from './warning-levels.component';
 
-describe('WarningLevelComponent', () => {
-  let component: WarningLevelComponent;
-  let fixture: ComponentFixture<WarningLevelComponent>;
+describe('WarningLevelsComponent', () => {
+  let component: WarningLevelsComponent;
+  let fixture: ComponentFixture<WarningLevelsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WarningLevelComponent ]
+      declarations: [ WarningLevelsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WarningLevelComponent);
+    fixture = TestBed.createComponent(WarningLevelsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
