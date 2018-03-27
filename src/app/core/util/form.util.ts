@@ -7,8 +7,8 @@ import { FormGroup, Validators } from '@angular/forms';
 export class FormUtil {
 
   static setControl(array: Object[], isEdit: boolean = false): Object {
-    let data = {};
-    if (isEdit) data['id'] = ['', Validators.required];
+    const data = {};
+    if (isEdit) { data['id'] = ['', Validators.required]; }
     array.forEach(item => {
       data[item['key']] = item['isRequired'] ? ['', Validators.required] : '';
     });
@@ -16,16 +16,16 @@ export class FormUtil {
   }
 
   static populateForm(array: Object[], obj: Object): Object {
-    let data = {};
+    const data = {};
     data['id'] = obj['id'];
-      array.forEach(item => {
+    array.forEach(item => {
       data[item['key']] = obj[item['key']];
     });
     return data;
   }
 
   static getFormValue(array: Object[], form: FormGroup): Object {
-    let data = {};
+    const data = {};
     array.forEach(item => {
       data[item['key']] = form.get(item['key']).value;
     });

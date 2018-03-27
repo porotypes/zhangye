@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule, BsDropdownModule } from 'ngx-bootstrap';
 
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 
@@ -10,13 +10,15 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
     CommonModule,
     ReactiveFormsModule,
     ModalModule.forRoot(),
+    BsDropdownModule.forRoot(),
     ToastModule.forRoot()
   ],
   declarations: [],
   exports: [
     CommonModule,
     ToastModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BsDropdownModule
   ],
   providers: [
 

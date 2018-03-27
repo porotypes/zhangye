@@ -1,12 +1,12 @@
 import { Component, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 import { WarningLevel } from "../../common/warning-level";
 import { WarningLevelsService } from "../../core/admin/warning-levels.service";
-import { FormUtil } from "../../core/util/form.util"
+import { FormUtil } from "../../core/util/form.util";
 
 @Component({
   selector: 'app-warning-levels',
@@ -14,7 +14,7 @@ import { FormUtil } from "../../core/util/form.util"
   styleUrls: ['./warning-levels.component.css']
 })
 export class WarningLevelsComponent implements OnInit {
-  hintText: string = '灾害预警等级';
+  hintText = '灾害预警等级';
   addForm: FormGroup;
   editForm: FormGroup;
   addModalRef: BsModalRef;
@@ -22,10 +22,9 @@ export class WarningLevelsComponent implements OnInit {
   deleteModalRef: BsModalRef;
   dataList: WarningLevel[];
   deleteData: WarningLevel;
-  editData: WarningLevel;
 
   dataKeys = [
-    { key: 'name', text: this.hintText + '名称', isRequired: true },
+    { key: 'name', text: '名称', isRequired: true },
     { key: 'signal', text: '信号', isRequired: true },
     { key: 'content', text: '描述', isRequired: true },
   ];
@@ -61,7 +60,6 @@ export class WarningLevelsComponent implements OnInit {
   }
 
   openAddModal(template: TemplateRef<any>) {
-    this.editData = null;
     this.addModalRef = this.bsModalService.show(template);
   }
 
@@ -78,25 +76,23 @@ export class WarningLevelsComponent implements OnInit {
 
   addConfirmation(form: FormGroup): void {
     this.warningLevelsService.addSources(FormUtil.getFormValue(this.dataKeys, form)).then(res => {
-      // TODO
+      this.getList();
       this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
       this.addModalRef.hide();
-      console.log(res);
+      this.addForm.reset();
     });
   }
 
   editConfirmation(form: FormGroup): void {
     this.warningLevelsService.editSources(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form)).then(res => {
-      // TODO
+      this.getList();
       this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
       this.editModalRef.hide();
-      console.log(res);
     });
   }
 
   delete(warningLevel: WarningLevel): void {
     this.warningLevelsService.deleteSource(warningLevel).then(res => {
-      // TODO
       this.getList();
       this.toastr.success('删除' + this.hintText + '成功!', 'Success!');
       this.deleteModalRef.hide();

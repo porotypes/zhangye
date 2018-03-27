@@ -70,7 +70,7 @@ export abstract class ServiceBaseService<T> {
   }
 
   patch(url: string, request: Object = {}): Promise<T> {
-    return this.http.patch(url, request)
+    return this.http.patch(this.api_url + url, request)
       .toPromise()
       .then(response => {
         return response['result'];

@@ -20,7 +20,7 @@ export class WarningLevelsService extends ServiceBaseService<WarningLevel> {
   }
 
   editSources(id: number, request: Object): Promise<WarningLevel> {
-    return super.patch('prewarning-levels/' + id, request).then(WarningLevel => {
+    return super.put('prewarning-levels/' + id, request).then(WarningLevel => {
       return WarningLevel;
     });
   }

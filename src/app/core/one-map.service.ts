@@ -18,8 +18,14 @@ export class OneMapService extends ServiceBaseService<Map> {
     } );
   }
 
-  createMap(map: Map): Promise<Map> {
+  createMap(map: object): Promise<Map> {
     return super.post('onemaps/', map).then(map => {
+      return map;
+    });
+  }
+
+  changeMap(id: number, map: object): Promise<Map> {
+    return super.put('onemaps/' + id, map).then(map => {
       return map;
     });
   }

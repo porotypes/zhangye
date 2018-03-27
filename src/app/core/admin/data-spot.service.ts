@@ -20,7 +20,7 @@ export class DataSpotService extends ServiceBaseService<DataSpot> {
   }
 
   editSources(id: number, request: Object): Promise<DataSpot> {
-    return super.patch('data-columns/' + id, request).then(dataSpot => {
+    return super.put('data-columns/' + id, request).then(dataSpot => {
       return dataSpot;
     });
   }
