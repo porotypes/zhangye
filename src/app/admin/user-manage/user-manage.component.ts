@@ -26,6 +26,11 @@ export class UserManageComponent implements OnInit {
 
   dataKeys = [
     { key: 'username', text: '姓名', isRequired: true },
+    { key: 'password', text: '密码', isRequired: true },
+  ];
+
+  editDataKeys = [
+    { key: 'username', text: '姓名', isRequired: true },
     { key: 'password', text: '密码', isRequired: false },
   ];
 
@@ -46,11 +51,11 @@ export class UserManageComponent implements OnInit {
 
   private createForm(): void {
     this.addForm = this.fb.group(FormUtil.setControl(this.dataKeys, false));
-    this.editForm = this.fb.group(FormUtil.setControl(this.dataKeys, true));
+    this.editForm = this.fb.group(FormUtil.setControl(this.editDataKeys, true));
   }
 
   populateEditUserForm(user: UserManage, form: FormGroup): void {
-    form.patchValue(FormUtil.populateForm(this.dataKeys, user));
+    form.patchValue(FormUtil.populateForm(this.editDataKeys, user));
   }
 
   getUserList(): void {
@@ -75,7 +80,7 @@ export class UserManageComponent implements OnInit {
     if (form.status === 'INVALID') {
       return;
     }
-    this.userManageService.changeUser(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form))
+    this.userManageService.changeUser(form.get('id').value, FormUtil.getFormValue(this.editDataKeys, form))
       .then(res => {
         this.getUserList();
         this.toastr.success('修改' + this.hintText + '成功!', 'Success!');

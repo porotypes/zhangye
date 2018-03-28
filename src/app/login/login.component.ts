@@ -28,9 +28,9 @@ export class LoginComponent {
     //     username: this.username,
     //     password: this.password
     //   })
-    //   .toPromise().then(
-    //   response => {
-    //
+    //   .toPromise()
+    //   .then(response => {
+    //     console.log(response);
     //   });
     localStorage.setItem("loginData", 'logined');
     this.router.navigate(['/dashboard']);

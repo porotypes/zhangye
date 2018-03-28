@@ -4,4 +4,6 @@ export class TypeOfDisaster {
   description: string;
   levelStandard: string;
   comment: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

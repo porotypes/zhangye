@@ -16,7 +16,7 @@ import { FormUtil } from "../../core/util/form.util";
   styleUrls: ['./data-spot.component.css']
 })
 export class DataSpotComponent implements OnInit {
-  hintText: string = '数据源(点)';
+  hintText = '数据源(点)';
   addForm: FormGroup;
   editForm: FormGroup;
   dataList: DataSpot[];
