@@ -13,7 +13,7 @@ export class DataSourcesService extends ServiceBaseService<DataSources> {
     });
   }
 
-  addSources(request: Object): Promise<DataSources> {
+  addSources(request: any): Promise<DataSources> {
     return super.post('datasets', request).then(sources => {
       return sources;
     });

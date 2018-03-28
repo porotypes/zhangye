@@ -30,3 +30,11 @@ td {
   top: 0;
   right: 10px;
 }
+/*ng2-select*/
+.ui-select-choices.dropdown-menu {
+  display: block;
+}
+.ui-select-match-item{
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+}

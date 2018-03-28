@@ -13,7 +13,8 @@ export class DataSpotService extends ServiceBaseService<DataSpot> {
     });
   }
 
-  addSpot(request: Object): Promise<DataSpot> {
+  addSpot(request: any): Promise<DataSpot> {
+    request['dataSet'] = { id: request.dataSetId };
     return super.post('data-columns', request).then(dataSpot => {
       return dataSpot;
     });

@@ -48,11 +48,12 @@
         <input type="text" id="name" class="form-control" formControlName="name">
       </div>
       <div class="form-group">
-        <label for="mapList">对应地图名称:</label>
-        <select class="form-control" id="mapList"  formControlName="mapId">
-          <option *ngFor="let map of mapList" [value]="map.id">{{ map.name }}</option>
-        </select>
-      </div>
+        <label>对应地图名称:</label>
+        <ng-select  [multiple]="true"
+                    [items]="mapList | ngSelect"
+                    (data)="selectedMap($event)"
+                    placeholder="No selected"></ng-select>
+       </div>
     </form>
   </div>
   <div class="modal-footer">
@@ -75,10 +76,12 @@
         <input type="text" id="editName" class="form-control" formControlName="name">
       </div>
       <div class="form-group">
-        <label for="editMapList">对应地图名称:</label>
-        <select class="form-control" id="editMapList"  formControlName="mapId">
-          <option *ngFor="let map of mapList" [value]="map.id">{{ map.name }}</option>
-        </select>
+        <label>对应地图名称:</label>
+        <ng-select  [multiple]="true"
+                    [items]="mapList | ngSelect"
+                    [active]="activeMaps | ngSelect"
+                    (data)="selectedMap($event)"
+                    placeholder="No selected"></ng-select>
       </div>
     </form>
   </div>
