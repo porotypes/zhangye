@@ -6,6 +6,8 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 import { WarningRules } from "../../common/warning-rules";
 import { WarningRulesService } from "../../core/admin/warning-rules.service";
+import { WarningLevel } from "../../common/warning-level";
+import { WarningLevelsService } from "../../core/admin/warning-levels.service";
 import { FormUtil } from "../../core/util/form.util";
 
 @Component({
@@ -23,6 +25,8 @@ export class WarningRulesComponent implements OnInit {
   addModalRef: BsModalRef;
   editModalRef: BsModalRef;
   deleteModalRef: BsModalRef;
+  warningLevelList: WarningLevel[];
+  selectedWarningLevel: WarningLevel;
 
   dataKeys = [
     { key: 'name', text: '姓名', isRequired: true },
@@ -36,6 +40,7 @@ export class WarningRulesComponent implements OnInit {
 
   constructor(
     private warningRulesService: WarningRulesService,
+    private warningLevelsService: WarningLevelsService,
     private bsModalService: BsModalService,
     private fb: FormBuilder,
     public toastr: ToastsManager,
@@ -51,8 +56,15 @@ export class WarningRulesComponent implements OnInit {
     });
   }
 
+  getWarningLevelsList(): void {
+    this.warningLevelsService.getSourcesList().then(list => {
+      this.warningLevelList = list;
+    });
+  }
+
   ngOnInit() {
     this.getList();
+    this.getWarningLevelsList()
   }
 
   private createForm(): void {
@@ -113,6 +125,11 @@ export class WarningRulesComponent implements OnInit {
 
   deleteConfirmation(): void {
     this.delete(this.deleteData);
+  }
+
+  selected(warningLevel: WarningLevel): void {
+    console.log(warningLevel);
+    this.selectedWarningLevel = warningLevel;
   }
 
 }
