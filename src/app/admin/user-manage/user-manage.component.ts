@@ -26,7 +26,7 @@ export class UserManageComponent implements OnInit {
 
   dataKeys = [
     { key: 'username', text: '姓名', isRequired: true },
-    { key: 'password', text: '密码', isRequired: true },
+    { key: 'password', text: '密码', isRequired: false },
   ];
 
   constructor(
