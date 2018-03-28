@@ -127,9 +127,8 @@ export class WarningRulesComponent implements OnInit {
     this.delete(this.deleteData);
   }
 
-  selected(warningLevel: WarningLevel): void {
-    console.log(warningLevel);
-    this.selectedWarningLevel = warningLevel;
+  selected(event: any): void {
+    console.log(event.target.value);
   }
 
 }

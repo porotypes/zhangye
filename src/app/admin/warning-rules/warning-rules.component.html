@@ -60,10 +60,14 @@
         <input type="text" id="description" class="form-control" formControlName="description">
       </div>
       <div class="form-group">
-        <label>预警等级:</label>
-        <ng-select  [items]="warningLevelList | ngSelect"
-                    (data)="selected($event)"
-                    placeholder="No selected"></ng-select>
+        <label for="prewarningLevel">预警等级:</label>
+        <select class="form-control" id="prewarningLevel" (change)="selected($event)">
+          <ng-container *ngIf="warningLevelList">
+            <option *ngFor="let warningLevel of warningLevelList" [value]="warningLevel.id">
+              {{warningLevel.name}}
+            </option>
+          </ng-container>
+        </select>
       </div>
       <div class="form-group">
         <label for="disaster">灾害类型:</label>

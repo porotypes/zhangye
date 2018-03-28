@@ -15,7 +15,7 @@ export abstract class ServiceBaseService<T> {
     private router: Router,
   ) {
     this.api_url = this.API_URL;
-
+    this.getHeader()
   }
 
   private getHeader(): HttpHeaders {
