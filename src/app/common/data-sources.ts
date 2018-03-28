@@ -5,4 +5,5 @@ export class DataSources {
   name: string;
   description: string;
   mapList: Map[];
+  mapId: number
 }

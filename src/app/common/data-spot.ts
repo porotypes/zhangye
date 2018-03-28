@@ -11,4 +11,5 @@ export class DataSpot {
   inputType: number;
   inputSource: string;
   others: string;
+  dataSetId: number;
 }

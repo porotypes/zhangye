@@ -36,6 +36,7 @@ export class DataSpotComponent implements OnInit {
     { key: 'address', text: '地址', isRequired: true },
     { key: 'otherValues', text: '其他', isRequired: true },
     { key: 'dataSet', text: '数据源(集合)', isRequired: true },
+    { key: 'dataSetId', text: '数据源(集合)id', isRequired: true },
   ];
 
   constructor(
@@ -62,8 +63,9 @@ export class DataSpotComponent implements OnInit {
     this.editForm = this.fb.group(FormUtil.setControl(this.dataKeys, false));
   }
 
-  populateEditForm(data: DataSpot, form: FormGroup): void {
-    form.patchValue(FormUtil.populateForm(this.dataKeys, data));
+  populateEditForm(dataSpot: DataSpot, form: FormGroup): void {
+    dataSpot.dataSetId = dataSpot.dataSet.id;
+    form.patchValue(FormUtil.populateForm(this.dataKeys, dataSpot));
   }
 
   getList(): void {

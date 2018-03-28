@@ -138,7 +138,7 @@
       </div>
       <div class="form-group">
         <label for="edit-dataSources">数据源(集合):</label>
-        <select class="form-control" id="edit-dataSources"  formControlName="dataSet">
+        <select class="form-control" id="edit-dataSources"  formControlName="dataSetId">
           <option *ngFor="let dataSources of dataSourcesList" [value]="dataSources.id">{{ dataSources.name }}</option>
         </select>
       </div>
