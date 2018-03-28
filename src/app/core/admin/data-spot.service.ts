@@ -7,25 +7,25 @@ import { DataSpot } from "../../common/data-spot";
 @Injectable()
 export class DataSpotService extends ServiceBaseService<DataSpot> {
 
-  getSourcesList(): Promise<DataSpot[]> {
+  getSpotList(): Promise<DataSpot[]> {
     return super.getAll('data-columns').then(dataSpotList => {
       return dataSpotList;
     });
   }
 
-  addSources(request: Object): Promise<DataSpot> {
+  addSpot(request: Object): Promise<DataSpot> {
     return super.post('data-columns', request).then(dataSpot => {
       return dataSpot;
     });
   }
 
-  editSources(id: number, request: Object): Promise<DataSpot> {
+  editSpot(id: number, request: Object): Promise<DataSpot> {
     return super.put('data-columns/' + id, request).then(dataSpot => {
       return dataSpot;
     });
   }
 
-  deleteSource(dataSpot: DataSpot): Promise<DataSpot> {
+  deleteSpot(dataSpot: DataSpot): Promise<DataSpot> {
     return super.delete('data-columns/' + dataSpot.id).then(dataSpot => {
       return dataSpot;
     });

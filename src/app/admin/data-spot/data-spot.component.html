@@ -54,12 +54,16 @@
         <input type="text" id="name" class="form-control" formControlName="name">
       </div>
       <div class="form-group">
-        <label for="type">{{ hintText }}类型:</label>
-        <input type="text" id="type" class="form-control" formControlName="type">
+        <label for="type">类型:</label>
+        <input type="text" id="type" class="form-control" formControlName="inputType">
       </div>
       <div class="form-group">
-        <label for="source">数据来源:</label>
-        <input type="text" id="source" class="form-control" formControlName="source">
+        <label for="setting">资源配置:</label>
+        <input type="text" id="setting" class="form-control" formControlName="inputSetting">
+      </div>
+      <div class="form-group">
+        <label for="source">来源:</label>
+        <input type="text" id="source" class="form-control" formControlName="inputSource">
       </div>
       <div class="form-group">
         <label for="longitude">经度:</label>
@@ -74,8 +78,12 @@
         <input type="text" id="address" class="form-control" formControlName="address">
       </div>
       <div class="form-group">
-        <label for="dataSources">数据源(集合)名称:</label>
-        <select class="form-control" id="dataSources"  formControlName="setId">
+        <label for="other">其他:</label>
+        <input type="text" id="other" class="form-control" formControlName="otherValues">
+      </div>
+      <div class="form-group">
+        <label for="dataSources">数据源(集合):</label>
+        <select class="form-control" id="dataSources"  formControlName="dataSet">
           <option *ngFor="let dataSources of dataSourcesList" [value]="dataSources.id">{{ dataSources.name }}</option>
         </select>
       </div>
@@ -97,32 +105,40 @@
   <div class="modal-body">
     <form [formGroup]="editForm">
       <div class="form-group">
-        <label for="editName">{{ hintText }}名称:</label>
-        <input type="text" id="editName" class="form-control" formControlName="name">
+        <label for="edit-name">{{ hintText }}名称:</label>
+        <input type="text" id="edit-name" class="form-control" formControlName="name">
       </div>
       <div class="form-group">
-        <label for="editType">{{ hintText }}类型:</label>
-        <input type="text" id="editType" class="form-control" formControlName="type">
+        <label for="edit-type">类型:</label>
+        <input type="text" id="edit-type" class="form-control" formControlName="inputType">
       </div>
       <div class="form-group">
-        <label for="editSource">数据来源:</label>
-        <input type="text" id="editSource" class="form-control" formControlName="source">
+        <label for="edit-setting">资源配置:</label>
+        <input type="text" id="edit-setting" class="form-control" formControlName="inputSetting">
       </div>
       <div class="form-group">
-        <label for="editLongitude">经度:</label>
-        <input type="text" id="editLongitude" class="form-control" formControlName="longitude">
+        <label for="edit-source">来源:</label>
+        <input type="text" id="edit-source" class="form-control" formControlName="inputSource">
       </div>
       <div class="form-group">
-        <label for="editLatitude">纬度:</label>
-        <input type="text" id="editLatitude" class="form-control" formControlName="latitude">
+        <label for="edit-longitude">经度:</label>
+        <input type="text" id="edit-longitude" class="form-control" formControlName="longitude">
       </div>
       <div class="form-group">
-        <label for="editAddress">地址:</label>
-        <input type="text" id="editAddress" class="form-control" formControlName="address">
+        <label for="edit-latitude">纬度:</label>
+        <input type="text" id="edit-latitude" class="form-control" formControlName="latitude">
       </div>
       <div class="form-group">
-        <label for="editDataSources">数据源(集合)名称:</label>
-        <select class="form-control" id="editDataSources"  formControlName="setId">
+        <label for="edit-address">地址:</label>
+        <input type="text" id="edit-address" class="form-control" formControlName="address">
+      </div>
+      <div class="form-group">
+        <label for="edit-other">其他:</label>
+        <input type="text" id="edit-other" class="form-control" formControlName="otherValues">
+      </div>
+      <div class="form-group">
+        <label for="edit-dataSources">数据源(集合):</label>
+        <select class="form-control" id="edit-dataSources"  formControlName="dataSetId">
           <option *ngFor="let dataSources of dataSourcesList" [value]="dataSources.id">{{ dataSources.name }}</option>
         </select>
       </div>

@@ -20,7 +20,7 @@ export class DataSourcesService extends ServiceBaseService<DataSources> {
   }
 
   editSources(id: number, request: Object): Promise<DataSources> {
-    return super.patch('datasets/' + id, request).then(sources => {
+    return super.put('datasets/' + id, request).then(sources => {
       return sources;
     });
   }

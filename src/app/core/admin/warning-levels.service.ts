@@ -8,26 +8,26 @@ import { WarningLevel } from "../../common/warning-level";
 export class WarningLevelsService extends ServiceBaseService<WarningLevel> {
 
   getSourcesList(): Promise<WarningLevel[]> {
-    return super.getAll('prewarning-levels').then(WarningLevelList => {
-      return WarningLevelList;
+    return super.getAll('prewarning-levels').then(warningLevelList => {
+      return warningLevelList;
     });
   }
 
-  addSources(request: Object): Promise<WarningLevel> {
-    return super.post('prewarning-levels', request).then(WarningLevel => {
-      return WarningLevel;
+  addWarning(request: Object): Promise<WarningLevel> {
+    return super.post('prewarning-levels', request).then(warning => {
+      return warning;
     });
   }
 
-  editSources(id: number, request: Object): Promise<WarningLevel> {
-    return super.put('prewarning-levels/' + id, request).then(WarningLevel => {
-      return WarningLevel;
+  editWarning(id: number, request: Object): Promise<WarningLevel> {
+    return super.put('prewarning-levels/' + id, request).then(warning => {
+      return warning;
     });
   }
 
-  deleteSource(warningLevel: WarningLevel): Promise<WarningLevel> {
-    return super.delete('prewarning-levels/' + warningLevel.id).then(WarningLevel => {
-      return WarningLevel;
+  deleteWarning(warningLevel: WarningLevel): Promise<WarningLevel> {
+    return super.delete('prewarning-levels/' + warningLevel.id).then(warning => {
+      return warning;
     });
   }
 

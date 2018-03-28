@@ -4,11 +4,11 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
-import { Map } from "../../common/map";
 import { DataSources } from "../../common/data-sources";
 import { DataSpot } from "../../common/data-spot";
 import { DataSourcesService } from "../../core/admin/data-sources.service";
 import { DataSpotService } from "../../core/admin/data-spot.service";
+import { FormUtil } from "../../core/util/form.util";
 
 @Component({
   selector: 'app-data-spot',
@@ -24,8 +24,20 @@ export class DataSpotComponent implements OnInit {
   editModalRef: BsModalRef;
   deleteModalRef: BsModalRef;
   deleteData: DataSpot;
-  editData: DataSpot;
   dataSourcesList: DataSources[];
+
+  dataKeys = [
+    { key: 'name', text: '名称', isRequired: true },
+    { key: 'inputType', text: '类型', isRequired: true },
+    { key: 'inputSetting', text: '资源配置', isRequired: true },
+    { key: 'inputSource', text: '资源', isRequired: true },
+    { key: 'longitude', text: '经度', isRequired: true },
+    { key: 'latitude', text: '纬度', isRequired: true },
+    { key: 'address', text: '地址', isRequired: true },
+    { key: 'otherValues', text: '其他', isRequired: true },
+    { key: 'dataSet', text: '数据源(集合)', isRequired: true },
+    { key: 'dataSetId', text: '数据源(集合)id', isRequired: true },
+  ];
 
   constructor(
     private dataSourcesService: DataSourcesService,
@@ -47,60 +59,22 @@ export class DataSpotComponent implements OnInit {
   }
 
   private createForm(): void {
-    this.addForm = this.fb.group({
-      name: ['', Validators.required],
-      type: ['', Validators.required],
-      source: ['', Validators.required],
-      longitude: ['', Validators.required],
-      latitude: ['', Validators.required],
-      address: ['', Validators.required],
-      setId: ['', Validators.required]
-    });
-    this.editForm = this.fb.group({
-      id: ['', Validators.required],
-      name: ['', Validators.required],
-      type: ['', Validators.required],
-      source: ['', Validators.required],
-      longitude: ['', Validators.required],
-      latitude: ['', Validators.required],
-      address: ['', Validators.required],
-      setId: ['', Validators.required]
-    });
+    this.addForm = this.fb.group(FormUtil.setControl(this.dataKeys, false));
+    this.editForm = this.fb.group(FormUtil.setControl(this.dataKeys, false));
   }
 
-  populateEditForm(data: DataSpot, form: FormGroup): void {
-    form.patchValue({
-      id: data.id,
-      name: data.name,
-      type: data.inputType,
-      source: data.inputSource,
-      longitude: data.longitude,
-      latitude: data.latitude,
-      address: data.address,
-      setId: data.dataSet.id
-    });
-  }
-
-  getFormValue(form: FormGroup): Object {
-    return {
-      name: form.get('name').value,
-      type: form.get('type').value,
-      source: form.get('source').value,
-      longitude: form.get('longitude').value,
-      latitude: form.get('latitude').value,
-      address: form.get('address').value,
-      setId: form.get('setId').value
-    }
+  populateEditForm(dataSpot: DataSpot, form: FormGroup): void {
+    dataSpot.dataSetId = dataSpot.dataSet.id;
+    form.patchValue(FormUtil.populateForm(this.dataKeys, dataSpot));
   }
 
   getList(): void {
-    this.dataSpotService.getSourcesList().then(dataList => {
+    this.dataSpotService.getSpotList().then(dataList => {
       this.dataList = dataList;
     });
   }
 
   openAddModal(template: TemplateRef<any>) {
-    this.editData = null;
     this.addModalRef = this.bsModalService.show(template);
   }
 
@@ -116,32 +90,29 @@ export class DataSpotComponent implements OnInit {
   }
 
   addConfirmation(form: FormGroup): void {
-    this.dataSpotService.addSources(this.getFormValue(form)).then(res => {
-      // TODO
+    this.dataSpotService.addSpot(FormUtil.getFormValue(this.dataKeys, form)).then(res => {
+      this.getList();
       this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
       this.addModalRef.hide();
-      console.log(res);
     });
   }
 
   editConfirmation(form: FormGroup): void {
-    this.dataSpotService.editSources(form.get('id').value, this.getFormValue(form)).then(res => {
-      // TODO
+    this.dataSpotService.editSpot(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form)).then(res => {
+      this.getList();
       this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
       this.editModalRef.hide();
-      console.log(res);
     });
   }
 
   delete(dataSpot: DataSpot): void {
-    this.dataSpotService.deleteSource(dataSpot).then(res => {
-      // TODO
+    this.dataSpotService.deleteSpot(dataSpot).then(res => {
       this.getList();
       this.toastr.success('删除' + this.hintText + '成功!', 'Success!');
       this.deleteModalRef.hide();
     });
   }
-  deleteConfirmation(dataSpot: DataSpot): void {
+  deleteConfirmation(): void {
     this.delete(this.deleteData);
   }
 }

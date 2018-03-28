@@ -8,6 +8,7 @@ import { Map } from "../../common/map";
 import { DataSources } from "../../common/data-sources";
 import { DataSourcesService } from "../../core/admin/data-sources.service";
 import { OneMapService } from "../../core/one-map.service";
+import { FormUtil } from "../../core/util/form.util";
 
 @Component({
   selector: 'app-data-sources',
@@ -24,7 +25,11 @@ export class DataSourcesComponent implements OnInit {
   mapList: Map[];
   deleteModalRef: BsModalRef;
   deleteData: DataSources;
-  editData: DataSources;
+
+  dataKeys = [
+    { key: 'name', text: '名称', isRequired: true },
+    { key: 'mapId', text: '关联一张图', isRequired: true },
+  ];
 
   constructor(
     private dataSourcesService: DataSourcesService,
@@ -44,30 +49,13 @@ export class DataSourcesComponent implements OnInit {
   }
 
   private createForm(): void {
-    this.addForm = this.fb.group({
-      name: ['', Validators.required],
-      mapId: ['', Validators.required]
-    });
-    this.editForm = this.fb.group({
-      id: ['', Validators.required],
-      name: ['', Validators.required],
-      mapId: ['', Validators.required]
-    });
+    this.addForm = this.fb.group(FormUtil.setControl(this.dataKeys, false));
+    this.editForm = this.fb.group(FormUtil.setControl(this.dataKeys, true));
   }
 
   populateEditForm(sources: DataSources, form: FormGroup): void {
-    form.patchValue({
-      id: sources.id,
-      name: sources.name,
-      mapId: sources.mapList[0].id
-    });
-  }
-
-  getFormValue(form: FormGroup): Object {
-    return {
-      name: form.get('name').value,
-      mapId: form.get('mapId').value,
-    };
+    sources.mapId = sources.mapList.length == 0 ? null : sources.mapList[0].id;
+    form.patchValue(FormUtil.populateForm(this.dataKeys, sources));
   }
 
   getList(): void {
@@ -77,7 +65,6 @@ export class DataSourcesComponent implements OnInit {
   }
 
   openAddModal(template: TemplateRef<any>) {
-    this.editData = null;
     this.addModalRef = this.bsModalService.show(template);
   }
 
@@ -96,32 +83,29 @@ export class DataSourcesComponent implements OnInit {
   }
 
   addConfirmation(form: FormGroup): void {
-    this.dataSourcesService.addSources(this.getFormValue(form)).then(res => {
-      // TODO
+    this.dataSourcesService.addSources(FormUtil.getFormValue(this.dataKeys, form)).then(res => {
+      this.getList();
       this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
       this.addModalRef.hide();
-      console.log(res);
     });
   }
 
   editConfirmation(form: FormGroup): void {
-    this.dataSourcesService.editSources(form.get('id').value, this.getFormValue(form)).then(res => {
-      // TODO
+    this.dataSourcesService.editSources(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form)).then(res => {
+      this.getList();
       this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
       this.editModalRef.hide();
-      console.log(res);
     });
   }
 
   delete(sources: DataSources): void {
     this.dataSourcesService.deleteSource(sources).then(res => {
-      // TODO
       this.getList();
       this.toastr.success('删除' + this.hintText + '成功!', 'Success!');
       this.deleteModalRef.hide();
     });
   }
-  deleteConfirmation(sources: DataSources): void {
+  deleteConfirmation(): void {
     this.delete(this.deleteData);
   }
 }
