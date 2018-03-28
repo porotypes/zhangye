@@ -31,4 +31,8 @@ export class FormUtil {
     });
     return data;
   }
+
+  static getObjArrayIds(datas: any[]): Object {
+    return datas.map(data => { return { id: data.id } });
+  }
 }

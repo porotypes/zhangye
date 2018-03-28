@@ -83,7 +83,7 @@
       </div>
       <div class="form-group">
         <label for="dataSources">数据源(集合):</label>
-        <select class="form-control" id="dataSources"  formControlName="dataSet">
+        <select class="form-control" id="dataSources"  formControlName="dataSetId">
           <option *ngFor="let dataSources of dataSourcesList" [value]="dataSources.id">{{ dataSources.name }}</option>
         </select>
       </div>

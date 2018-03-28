@@ -64,7 +64,6 @@ export class WarningLevelsComponent implements OnInit {
   }
 
   openEditModal(template: TemplateRef<any>, warningLevel: WarningLevel) {
-    console.log(warningLevel);
     this.populateEditForm(warningLevel, this.editForm);
     this.editModalRef = this.bsModalService.show(template);
   }

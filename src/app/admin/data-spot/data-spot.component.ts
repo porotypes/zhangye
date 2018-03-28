@@ -60,7 +60,7 @@ export class DataSpotComponent implements OnInit {
 
   private createForm(): void {
     this.addForm = this.fb.group(FormUtil.setControl(this.dataKeys, false));
-    this.editForm = this.fb.group(FormUtil.setControl(this.dataKeys, false));
+    this.editForm = this.fb.group(FormUtil.setControl(this.dataKeys, true));
   }
 
   populateEditForm(dataSpot: DataSpot, form: FormGroup): void {
@@ -94,11 +94,13 @@ export class DataSpotComponent implements OnInit {
       this.getList();
       this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
       this.addModalRef.hide();
+      this.addForm.reset();
     });
   }
 
   editConfirmation(form: FormGroup): void {
-    this.dataSpotService.editSpot(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form)).then(res => {
+    form.value['dataSet'] = { id: form.value.dataSetId };
+    this.dataSpotService.editSpot(form.get('id').value, form.value).then(res => {
       this.getList();
       this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
       this.editModalRef.hide();

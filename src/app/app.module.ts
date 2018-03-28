@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // module
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
+import { SelectModule } from 'ng2-select';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from "./app-routing.module";
@@ -22,6 +23,7 @@ import { LoginComponent } from './login/login.component';
     BrowserAnimationsModule,
     SharedModule,
     CoreModule,
+    SelectModule,
     AppRoutingModule
   ],
   providers: [],

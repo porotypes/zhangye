@@ -28,8 +28,9 @@ export class DataSourcesComponent implements OnInit {
 
   dataKeys = [
     { key: 'name', text: '名称', isRequired: true },
-    { key: 'mapId', text: '关联一张图', isRequired: true },
   ];
+  selectedMaps: any[];
+  activeMaps: any[];
 
   constructor(
     private dataSourcesService: DataSourcesService,
@@ -69,6 +70,7 @@ export class DataSourcesComponent implements OnInit {
   }
 
   openEditModal(template: TemplateRef<any>, sources: DataSources) {
+    this.activeMaps = sources.mapList;
     this.populateEditForm(sources, this.editForm);
     this.editModalRef = this.bsModalService.show(template);
   }
@@ -79,22 +81,34 @@ export class DataSourcesComponent implements OnInit {
   }
 
   getMapNames(maps: Map[]): string {
-    return maps.map(map => { return map.name }).join();
+    return maps.map(map => { return map.name }).join(' , ');
+  }
+
+  getRequestData(form: FormGroup): any {
+    if (!this.selectedMaps) {
+      this.toastr.info('请选择地图', 'Info!');
+      return;
+    }
+    const request = FormUtil.getFormValue(this.dataKeys, form);
+    request['mapList'] = FormUtil.getObjArrayIds(this.selectedMaps);
+    return request;
   }
 
   addConfirmation(form: FormGroup): void {
-    this.dataSourcesService.addSources(FormUtil.getFormValue(this.dataKeys, form)).then(res => {
+    this.dataSourcesService.addSources(this.getRequestData(form)).then(res => {
       this.getList();
       this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
       this.addModalRef.hide();
+      this.selectedMaps = [];
     });
   }
 
   editConfirmation(form: FormGroup): void {
-    this.dataSourcesService.editSources(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form)).then(res => {
+    this.dataSourcesService.editSources(form.get('id').value, this.getRequestData(form)).then(res => {
       this.getList();
       this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
       this.editModalRef.hide();
+      this.selectedMaps = [];
     });
   }
 
@@ -107,5 +121,9 @@ export class DataSourcesComponent implements OnInit {
   }
   deleteConfirmation(): void {
     this.delete(this.deleteData);
+  }
+
+  selectedMap(maps: Map[]): void {
+    this.selectedMaps = maps;
   }
 }
