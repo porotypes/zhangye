@@ -24,7 +24,6 @@ export class OneMapsComponent implements OnInit {
 
   getMapDetails(id: number): void {
     this.oneMapService.getMapDetails(id).then( mapDetails => {
-      console.log(mapDetails);
       this.createdMap(mapDetails);
     });
   }
@@ -32,37 +31,19 @@ export class OneMapsComponent implements OnInit {
   private createdMap(mapDetails: Map): void {
     this.map.clearOverLays();
     this.map.centerAndZoom(new T.LngLat(mapDetails.longitude, mapDetails.latitude), mapDetails.zoomLevel);
-
+    console.log(mapDetails.setList[0].columnList);
     /* 标注物列表 */
-    const markerDatas = [
-      {
+    const markerDatas = mapDetails.setList[0].columnList.map(item => {
+      return {
         data: {
-          id: 1,
-          name: '测试',
-          value: 123
+          id: item.id,
+          name: item.name
         },
-        longitude: 100.450002,
-        latitude: 38.930301
-      },
-      {
-        data: {
-          id: 2,
-          name: '测试2',
-          value: 1222
-        },
-        longitude: 100.441502,
-        latitude: 38.921502
-      },
-      {
-        data: {
-          id: 3,
-          name: '测试3',
-          value: 576452
-        },
-        longitude: 100.431502,
-        latitude: 38.931502
+        longitude: item.longitude,
+        latitude: item.latitude
       }
-    ];
+    });
+
     markerDatas.forEach( markerData => {
       this.createMarker(markerData);
     });

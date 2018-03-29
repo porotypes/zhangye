@@ -6,4 +6,5 @@ export class Map {
   priority: number;
   type: number;
   zoomLevel: number;
+  setList: any[];
 }

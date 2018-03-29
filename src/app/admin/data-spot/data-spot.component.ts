@@ -38,6 +38,11 @@ export class DataSpotComponent implements OnInit {
     { key: 'dataSet', text: '数据源(集合)', isRequired: true },
     { key: 'dataSetId', text: '数据源(集合)id', isRequired: true },
   ];
+  typeList = [
+    { id: 1, name: 'API' },
+    { id: 2, name: '文件' },
+    { id: 3, name: '手动输入' },
+  ];
 
   constructor(
     private dataSourcesService: DataSourcesService,

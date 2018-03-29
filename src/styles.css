@@ -30,6 +30,9 @@ td {
   top: 0;
   right: 10px;
 }
+.hideSubmitButton {
+  display: none;
+}
 /*ng2-select*/
 .ui-select-choices.dropdown-menu {
   display: block;

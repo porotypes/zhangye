@@ -48,14 +48,17 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="addForm">
+    <form [formGroup]="addForm" (submit)="addConfirmation(addForm)">
+      <button class="hideSubmitButton" type="submit"></button>
       <div class="form-group">
         <label for="name">{{ hintText }}名称:</label>
         <input type="text" id="name" class="form-control" formControlName="name">
       </div>
       <div class="form-group">
         <label for="type">类型:</label>
-        <input type="text" id="type" class="form-control" formControlName="inputType">
+        <select class="form-control" id="type"  formControlName="inputType">
+          <option *ngFor="let type of typeList" [value]="type.id">{{ type.name }}</option>
+        </select>
       </div>
       <div class="form-group">
         <label for="setting">资源配置:</label>
@@ -103,14 +106,17 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="editForm">
+    <form [formGroup]="editForm" (submit)="editConfirmation(editForm)">
+      <button class="hideSubmitButton" type="submit"></button>
       <div class="form-group">
         <label for="edit-name">{{ hintText }}名称:</label>
         <input type="text" id="edit-name" class="form-control" formControlName="name">
       </div>
       <div class="form-group">
         <label for="edit-type">类型:</label>
-        <input type="text" id="edit-type" class="form-control" formControlName="inputType">
+        <select class="form-control" id="edit-type"  formControlName="inputType">
+          <option *ngFor="let type of typeList" [value]="type.id">{{ type.name }}</option>
+        </select>
       </div>
       <div class="form-group">
         <label for="edit-setting">资源配置:</label>
