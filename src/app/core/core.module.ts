@@ -12,6 +12,7 @@ import { DataSourcesService } from "./admin/data-sources.service";
 import { DataSpotService } from "./admin/data-spot.service";
 import { TypeOfDisasterService } from "./admin/type-of-disaster.service";
 import { WarningLevelsService } from "./admin/warning-levels.service";
+import { WarningRulesService } from "./admin/warning-rules.service";
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { WarningLevelsService } from "./admin/warning-levels.service";
     DataSourcesService,
     DataSpotService,
     TypeOfDisasterService,
-    WarningLevelsService
+    WarningLevelsService,
+    WarningRulesService
   ]
 })
 export class CoreModule {}

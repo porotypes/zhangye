@@ -55,7 +55,6 @@ export class DataSourcesComponent implements OnInit {
   }
 
   populateEditForm(sources: DataSources, form: FormGroup): void {
-    sources.mapId = sources.mapList.length == 0 ? null : sources.mapList[0].id;
     form.patchValue(FormUtil.populateForm(this.dataKeys, sources));
   }
 
@@ -123,7 +122,7 @@ export class DataSourcesComponent implements OnInit {
     this.delete(this.deleteData);
   }
 
-  selectedMap(maps: Map[]): void {
+  selected(maps: Map[]): void {
     this.selectedMaps = maps;
   }
 }

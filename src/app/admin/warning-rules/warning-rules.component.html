@@ -1,3 +1,155 @@
-<p>
-  warning-rules works!
-</p>
+<div class="p15">
+
+  <div class="add">
+    <h4 class="admin-title">{{ hintText }}管理</h4>
+    <div class="add-button">
+      <button class="btn btn-primary btn-sm" (click)="openAddModal(Add)">
+        <i class="fa fa-plus"></i> 添加{{ hintText }}
+      </button>
+    </div>
+  </div>
+
+  <table class="table table-hover table-bordered">
+    <thead class="table-active">
+    <th>ID</th>
+    <th>名称</th>
+    <th>描述</th>
+    <th>预警等级</th>
+    <th>灾害类型</th>
+    <th>监测指标</th>
+    <th>监测范围</th>
+    <th>操作</th>
+    </thead>
+    <tbody *ngIf="warningRulesList">
+    <tr *ngFor="let warningRule of warningRulesList">
+      <td>{{warningRule.id}}</td>
+      <td>{{warningRule.name}}</td>
+      <td>{{warningRule.description}}</td>
+      <td>{{warningRule.prewarningLevel.name}}</td>
+      <td>{{warningRule.disaster.name}}</td>
+      <td>{{warningRule.dataColumn.name}}</td>
+      <td>{{warningRule.min}} ~ {{warningRule.max}}</td>
+      <td>
+        <button class="btn btn-primary btn-sm" title="编辑" (click)="openEditModal(Edit, warningRule)">
+          <i class="fa fa-pencil"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" title="删除" (click)="openDeleteModal(Detele, warningRule)">
+          <i class="fa fa-times"></i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #Add>
+  <div class="modal-header">
+    <h4 class="modal-title">新增{{ hintText }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="addModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="addForm">
+      <div class="form-group">
+        <label for="name">名称:</label>
+        <input type="text" id="name" class="form-control" formControlName="name">
+      </div>
+      <div class="form-group">
+        <label for="description">描述:</label>
+        <input type="text" id="description" class="form-control" formControlName="description">
+      </div>
+      <div class="form-group">
+        <label for="prewarningLevel">预警等级:</label>
+        <select class="form-control" id="prewarningLevel" (change)="selected($event)">
+          <ng-container *ngIf="warningLevelList">
+            <option *ngFor="let warningLevel of warningLevelList" [value]="warningLevel.id">
+              {{warningLevel.name}}
+            </option>
+          </ng-container>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="disaster">灾害类型:</label>
+        <input type="text" id="disaster" class="form-control" formControlName="disaster">
+      </div>
+      <div class="form-group">
+        <label for="dataColumn">数据源:</label>
+        <input type="text" id="dataColumn" class="form-control" formControlName="dataColumn">
+      </div>
+      <div class="form-group">
+        <label for="min">最小值:</label>
+        <input type="text" id="min" class="form-control" formControlName="min">
+      </div>
+      <div class="form-group">
+        <label for="max">最大值:</label>
+        <input type="text" id="max" class="form-control" formControlName="max">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary btn-sm" (click)="confirm(addForm)">确定</button>
+    <button class="btn btn-default btn-sm" (click)="addModalRef.hide()">取消</button>
+  </div>
+</ng-template>
+
+<ng-template #Edit>
+  <div class="modal-header">
+    <h4 class="modal-title">修改{{ hintText }}信息</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="editModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editForm">
+      <div class="form-group">
+        <label for="name1">名称:</label>
+        <input type="text" id="name1" class="form-control" formControlName="name">
+      </div>
+      <div class="form-group">
+        <label for="description1">描述:</label>
+        <input type="text" id="description1" class="form-control" formControlName="description">
+      </div>
+      <div class="form-group">
+        <label for="prewarningLevel1">预警等级:</label>
+        <input type="text" id="prewarningLevel1" class="form-control" formControlName="prewarningLevel">
+      </div>
+      <div class="form-group">
+        <label for="disaster1">灾害类型:</label>
+        <input type="text" id="disaster1" class="form-control" formControlName="disaster">
+      </div>
+      <div class="form-group">
+        <label for="dataColumn1">数据源:</label>
+        <input type="text" id="dataColumn1" class="form-control" formControlName="dataColumn">
+      </div>
+      <div class="form-group">
+        <label for="min1">最小值:</label>
+        <input type="text" id="min1" class="form-control" formControlName="min">
+      </div>
+      <div class="form-group">
+        <label for="max1">最大值:</label>
+        <input type="text" id="max1" class="form-control" formControlName="max">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary btn-sm" (click)="editConfirmation(editForm)">确定</button>
+    <button class="btn btn-default btn-sm" (click)="editModalRef.hide()">取消</button>
+  </div>
+</ng-template>
+
+<ng-template #Detele>
+  <div class="modal-header">
+    <h4 class="modal-title">删&nbsp;除{{ hintText }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>你确定要删除吗?</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary btn-sm" (click)="delete()">确定</button>
+    <button class="btn btn-default btn-sm" (click)="deleteModalRef.hide()">取消</button>
+  </div>
+</ng-template>

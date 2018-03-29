@@ -1,17 +1,19 @@
-<div class="header" *ngIf="authService.isLogin">
+<div class="header" *ngIf="authService.checkLogin()">
   <h1>{{title}}</h1>
 
   <div class="menu-item">
     <div class="btn-group" dropdown>
-      <button type="button" class="btn btn-primary">用户名</button>
+      <button type="button" class="btn btn-primary">{{authService.user.username}}</button>
       <button type="button" dropdownToggle class="btn btn-primary dropdown-toggle dropdown-toggle-split">
         <span class="caret"></span>
         <span class="sr-only">Split button!</span>
       </button>
       <ul *dropdownMenu class="dropdown-menu" role="menu">
-        <li role="menuitem"><a class="dropdown-item" href="#">一张图</a></li>
+        <li role="menuitem"><a class="dropdown-item" href="/oneMaps">一张图</a></li>
         <li class="divider dropdown-divider"></li>
-        <li role="menuitem"><a class="dropdown-item" href="#">退出</a></li>
+        <li role="menuitem" (click)="loginOut()">
+          <a class="dropdown-item" href="javascript:void(0);">退出</a>
+        </li>
       </ul>
     </div>
   </div>

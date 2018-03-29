@@ -33,6 +33,12 @@ export class FormUtil {
   }
 
   static getObjArrayIds(datas: any[]): Object {
-    return datas.map(data => { return { id: data.id } });
+    return datas.map(data => {
+      return { id: data.id };
+    });
+  }
+
+  static getObjId(data: any): Object {
+    return { id: data.id };
   }
 }

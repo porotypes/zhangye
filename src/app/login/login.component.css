@@ -84,4 +84,6 @@
   font-size: 25px;
   background-color: #00b3ee;
   text-align: center;
+  border: 0;
+  outline: none;
 }
