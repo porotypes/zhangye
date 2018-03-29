@@ -97,6 +97,10 @@ export class DataSourcesComponent implements OnInit {
   }
 
   getRequestData(form: FormGroup): any {
+    if (form.status === 'INVALID') {
+      this.toastr.info('请完善提交数据', '缺少参数!');
+      return;
+    }
     if (!this.selectedMaps || this.selectedMaps.length == 0) {
       this.toastr.info('请选择地图', 'Info!');
       return null;
