@@ -19,6 +19,7 @@ export class OneMapsComponent implements OnInit {
     this.oneMapService.getOneMaps().then( maps => {
       this.mapsList = maps;
       this.createdMap(maps[0]);
+      this.map.addEventListener("click", this.MapClick);
     });
   }
 
@@ -26,6 +27,10 @@ export class OneMapsComponent implements OnInit {
     this.oneMapService.getMapDetails(id).then( mapDetails => {
       this.createdMap(mapDetails);
     });
+  }
+
+  MapClick(e): void {
+    console.log(e.lnglat.getLng()+","+e.lnglat.getLat());
   }
 
   private createdMap(mapDetails: Map): void {
@@ -58,6 +63,10 @@ export class OneMapsComponent implements OnInit {
     // 添加标注
     this.map.addOverLay(marker);
     marker.addEventListener("click", this.markerClick);
+    const markerInfoWin = new T.InfoWindow(marker.data.name);
+    marker.addEventListener("click", function () {
+      marker.openInfoWindow(markerInfoWin);
+    });
   }
 
   private markerClick(e): void {
