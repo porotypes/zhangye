@@ -10,7 +10,6 @@ import { Router } from "@angular/router";
 export class AppComponent implements OnInit {
 
   title = '张掖市自然灾害监测预警系统';
-  _userToken: any;
 
   constructor(
     public authService: AuthService,
@@ -18,10 +17,6 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-  }
-
-  getUserToken(): void {
-    this._userToken = this.authService.decodeToken();
   }
 
   loginOut(): void {

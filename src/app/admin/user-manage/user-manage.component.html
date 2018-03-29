@@ -13,18 +13,18 @@
     <thead class="table-active">
       <th>ID</th>
       <th>名称</th>
-      <th>权限</th>
+      <!--<th>权限</th>-->
       <th>操作</th>
     </thead>
     <tbody *ngIf="userList">
       <tr *ngFor="let user of userList">
         <td>{{user.id}}</td>
         <td>{{user.username}}</td>
-        <td></td>
+        <!--<td></td>-->
         <td>
-          <button class="btn btn-primary btn-sm" title="编辑" (click)="openEditModal(Edit, user)">
-            <i class="fa fa-pencil"></i>
-          </button>
+          <!--<button class="btn btn-primary btn-sm" title="编辑" (click)="openEditModal(Edit, user)">-->
+            <!--<i class="fa fa-pencil"></i>-->
+          <!--</button>-->
           <button class="btn btn-danger btn-sm" title="删除" (click)="deleteConfirmation(user, Detele)">
             <i class="fa fa-times"></i>
           </button>
@@ -59,19 +59,19 @@
   </div>
 </ng-template>
 
-<ng-template #Edit>
-  <div class="modal-header">
-    <h4 class="modal-title">修改{{ hintText }}信息</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="editModalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form [formGroup]="editForm">
-      <div class="form-group">
-        <label for="username1">用户名:</label>
-        <input type="text" id="username1" class="form-control" formControlName="username">
-      </div>
+<!--<ng-template #Edit>-->
+  <!--<div class="modal-header">-->
+    <!--<h4 class="modal-title">修改{{ hintText }}信息</h4>-->
+    <!--<button type="button" class="close pull-right" aria-label="Close" (click)="editModalRef.hide()">-->
+      <!--<span aria-hidden="true">&times;</span>-->
+    <!--</button>-->
+  <!--</div>-->
+  <!--<div class="modal-body">-->
+    <!--<form [formGroup]="editForm">-->
+      <!--<div class="form-group">-->
+        <!--<label for="username1">用户名:</label>-->
+        <!--<input type="text" id="username1" class="form-control" formControlName="username">-->
+      <!--</div>-->
       <!--<div class="form-group">-->
         <!--<label for="password1">密码:</label>-->
         <!--<input type="password" id="password1" class="form-control" readonly formControlName="password">-->
@@ -80,13 +80,13 @@
         <!--<label for="password2">确认密码:</label>-->
         <!--<input type="password" id="password2" class="form-control">-->
       <!--</div>-->
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button class="btn btn-primary btn-sm" (click)="changeInfo(editForm)">确定</button>
-    <button class="btn btn-default btn-sm" (click)="editModalRef.hide()">取消</button>
-  </div>
-</ng-template>
+    <!--</form>-->
+  <!--</div>-->
+  <!--<div class="modal-footer">-->
+    <!--<button class="btn btn-primary btn-sm" (click)="changeInfo(editForm)">确定</button>-->
+    <!--<button class="btn btn-default btn-sm" (click)="editModalRef.hide()">取消</button>-->
+  <!--</div>-->
+<!--</ng-template>-->
 
 <ng-template #Detele>
   <div class="modal-header">
