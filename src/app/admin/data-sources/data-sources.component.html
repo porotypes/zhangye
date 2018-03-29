@@ -9,6 +9,14 @@
     </div>
   </div>
 
+  <div class="search">
+      地图搜索:
+      <select [(ngModel)]="condition.id" (change)="search()">
+        <option [value]="''">所有</option>
+        <option *ngFor="let map of mapList" [value]="map.id">{{ map.name }}</option>
+      </select>
+  </div>
+
   <table class="table table-hover table-bordered">
     <thead class="table-active">
     <th>ID</th>
@@ -43,6 +51,7 @@
   </div>
   <div class="modal-body">
     <form [formGroup]="addForm" (submit)="addConfirmation(addForm)">
+      <button class="hideSubmitButton" type="submit"></button>
       <div class="form-group">
         <label for="name">{{ hintText }}名称:</label>
         <input type="text" id="name" class="form-control" formControlName="name">
@@ -54,7 +63,6 @@
                     (data)="selected($event)"
                     placeholder="No selected"></ng-select>
        </div>
-      <button type="submit"></button>
     </form>
   </div>
   <div class="modal-footer">
@@ -72,6 +80,7 @@
   </div>
   <div class="modal-body">
     <form [formGroup]="editForm" (submit)="editConfirmation(editForm)">
+      <button class="hideSubmitButton" type="submit"></button>
       <div class="form-group">
         <label for="editName">{{ hintText }}名称:</label>
         <input type="text" id="editName" class="form-control" formControlName="name">

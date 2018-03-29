@@ -44,18 +44,19 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="addForm">
+    <form [formGroup]="addForm" (submit)="addConfirmation(addForm)">
+      <button class="hideSubmitButton" type="submit"></button>
       <div class="form-group">
         <label for="name">{{ hintText }}名称:</label>
         <input type="text" id="name" class="form-control" formControlName="name">
       </div>
       <div class="form-group">
-        <label for="signal">信号:</label>
-        <input type="text" id="signal" class="form-control" formControlName="signal">
-      </div>
-      <div class="form-group">
         <label for="content">描述:</label>
         <textarea type="text" id="content" class="form-control" formControlName="content"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="signal">信号:</label>
+        <input type="text" id="signal" class="form-control" formControlName="signal">
       </div>
     </form>
   </div>
@@ -73,18 +74,19 @@
     </button>
   </div>
   <div class="modal-body">
-    <form [formGroup]="editForm">
+    <form [formGroup]="editForm" (submit)="editConfirmation(editForm)">
+      <button class="hideSubmitButton" type="submit"></button>
       <div class="form-group">
         <label for="edit-name">{{ hintText }}名称:</label>
         <input type="text" id="edit-name" class="form-control" formControlName="name">
       </div>
       <div class="form-group">
-        <label for="edit-signal">信号:</label>
-        <input type="text" id="edit-signal" class="form-control" formControlName="signal">
+        <label for="edit-content">描述:</label>
+        <textarea rows="4" type="text" id="edit-content" class="form-control" formControlName="content"></textarea>
       </div>
       <div class="form-group">
-        <label for="edit-content">描述:</label>
-        <textarea type="text" id="edit-content" class="form-control" formControlName="content"></textarea>
+        <label for="edit-signal">信号:</label>
+        <input type="text" id="edit-signal" class="form-control" formControlName="signal">
       </div>
     </form>
   </div>

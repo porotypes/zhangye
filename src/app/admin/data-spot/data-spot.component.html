@@ -9,6 +9,20 @@
     </div>
   </div>
 
+  <div class="search">
+    集合搜索:
+    <select [(ngModel)]="condition.id" (change)="search()">
+      <option [value]="''">所有</option>
+      <option *ngFor="let dataSources of dataSourcesList" [value]="dataSources.id">{{ dataSources.name }}</option>
+    </select>
+
+    <div>
+      名称:<input [(ngModel)]="condition.name">
+      地址:<input [(ngModel)]="condition.address">
+      <i class="fa fa-search" (click)="otherSearch()"></i>
+    </div>
+  </div>
+
   <table class="table table-hover table-bordered">
     <thead class="table-active">
     <th>ID</th>

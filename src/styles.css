@@ -41,3 +41,28 @@ td {
   background-color: #007bff !important;
   border-color: #007bff !important;
 }
+
+.search select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 0 0 10px;
+}
+.search input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 0 10px 10px 0;
+}
+.search .fa-search {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  background-color: #007bff;
+  border-color: #007bff;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  text-align: center;
+}

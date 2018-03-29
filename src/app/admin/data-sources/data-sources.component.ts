@@ -16,6 +16,9 @@ import { FormUtil } from "../../core/util/form.util";
   styleUrls: ['./data-sources.component.css']
 })
 export class DataSourcesComponent implements OnInit {
+  condition = {
+    id: ''
+  };
   hintText: string = '数据源(集合)';
   addForm: FormGroup;
   editForm: FormGroup;
@@ -58,6 +61,16 @@ export class DataSourcesComponent implements OnInit {
     form.patchValue(FormUtil.populateForm(this.dataKeys, sources));
   }
 
+  search(): void {
+    if (this.condition.id == '') {
+      this.getList();
+      return;
+    }
+    this.dataSourcesService.searchSourcesList(this.condition.id).then(dataList => {
+      this.dataList = dataList;
+    });
+  }
+
   getList(): void {
     this.dataSourcesService.getSourcesList().then(dataList => {
       this.dataList = dataList;
@@ -69,7 +82,7 @@ export class DataSourcesComponent implements OnInit {
   }
 
   openEditModal(template: TemplateRef<any>, sources: DataSources) {
-    this.activeMaps = sources.mapList;
+    this.selectedMaps = this.activeMaps = sources.mapList;
     this.populateEditForm(sources, this.editForm);
     this.editModalRef = this.bsModalService.show(template);
   }
@@ -84,9 +97,9 @@ export class DataSourcesComponent implements OnInit {
   }
 
   getRequestData(form: FormGroup): any {
-    if (!this.selectedMaps) {
+    if (!this.selectedMaps || this.selectedMaps.length == 0) {
       this.toastr.info('请选择地图', 'Info!');
-      return;
+      return null;
     }
     const request = FormUtil.getFormValue(this.dataKeys, form);
     request['mapList'] = FormUtil.getObjArrayIds(this.selectedMaps);
@@ -94,6 +107,9 @@ export class DataSourcesComponent implements OnInit {
   }
 
   addConfirmation(form: FormGroup): void {
+    if (!this.getRequestData(form)) {
+      return;
+    }
     this.dataSourcesService.addSources(this.getRequestData(form)).then(res => {
       this.getList();
       this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
@@ -103,6 +119,10 @@ export class DataSourcesComponent implements OnInit {
   }
 
   editConfirmation(form: FormGroup): void {
+    if (!this.getRequestData(form)) {
+      return;
+    }
+    console.log(this.selectedMaps, this.activeMaps);
     this.dataSourcesService.editSources(form.get('id').value, this.getRequestData(form)).then(res => {
       this.getList();
       this.toastr.success('修改' + this.hintText + '成功!', 'Success!');

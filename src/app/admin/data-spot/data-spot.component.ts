@@ -16,6 +16,11 @@ import { FormUtil } from "../../core/util/form.util";
   styleUrls: ['./data-spot.component.css']
 })
 export class DataSpotComponent implements OnInit {
+  condition = {
+    id: '',
+    name: '',
+    address: ''
+  };
   hintText = '数据源(点)';
   addForm: FormGroup;
   editForm: FormGroup;
@@ -71,6 +76,23 @@ export class DataSpotComponent implements OnInit {
   populateEditForm(dataSpot: DataSpot, form: FormGroup): void {
     dataSpot.dataSetId = dataSpot.dataSet.id;
     form.patchValue(FormUtil.populateForm(this.dataKeys, dataSpot));
+  }
+
+  search(): void {
+    if (this.condition.id == '') {
+      this.getList();
+      return;
+    }
+    this.dataSpotService.searchSpotList(this.condition.id).then(dataList => {
+      this.dataList = dataList;
+    });
+  }
+
+  otherSearch(): void {
+    this.condition.id = '';
+    this.dataSpotService.otherSearchSpotList(this.condition.name, this.condition.address).then(dataList => {
+      this.dataList = dataList;
+    });
   }
 
   getList(): void {

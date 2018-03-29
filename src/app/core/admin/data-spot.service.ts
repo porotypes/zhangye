@@ -32,4 +32,15 @@ export class DataSpotService extends ServiceBaseService<DataSpot> {
     });
   }
 
+  searchSpotList(id: string): Promise<DataSpot[]> {
+    return super.getAll('data-columns/findbysetid?setId=' + id).then(dataSpotList => {
+      return dataSpotList;
+    });
+  }
+
+  otherSearchSpotList(name: string, address: string): Promise<DataSpot[]> {
+    return super.getAll('data-columns/findByName?name=' + name + '&address=' + address).then(dataSpotList => {
+      return dataSpotList;
+    });
+  }
 }

@@ -25,6 +25,7 @@ import { NgSelectPipe } from './pipe/select.pipe'
     SelectModule,
     ToastModule,
     ReactiveFormsModule,
+    FormsModule,
     BsDropdownModule,
 
     NgSelectPipe

@@ -31,4 +31,10 @@ export class DataSourcesService extends ServiceBaseService<DataSources> {
     });
   }
 
+  searchSourcesList(id: string): Promise<DataSources[]> {
+    return super.getAll('datasets/findbymap?mapId=' + id).then(sourcesList => {
+      return sourcesList;
+    });
+  }
+
 }
