@@ -43,7 +43,7 @@ export abstract class ServiceBaseService<T> {
   }
 
   put(url: string, request: Object = {}): Promise<T> {
-    return this.http.put(this.api_url + url, { headers: this.getHeader(), params: request })
+    return this.http.put(this.api_url + url, request, { headers: this.getHeader() })
       .toPromise()
       .then(response => {
         return response['result'];
@@ -52,7 +52,7 @@ export abstract class ServiceBaseService<T> {
   }
 
   post(url: string, request: Object = {}): Promise<T> {
-    return this.http.post(this.api_url + url, { headers: this.getHeader(), params: request })
+    return this.http.post(this.api_url + url, request, { headers: this.getHeader() })
       .toPromise()
       .then(response => {
         return response['result'];
@@ -70,7 +70,7 @@ export abstract class ServiceBaseService<T> {
   }
 
   patch(url: string, request: Object = {}): Promise<T> {
-    return this.http.patch(this.api_url + url, { headers: this.getHeader(), params: request })
+    return this.http.patch(this.api_url + url, request, { headers: this.getHeader() })
       .toPromise()
       .then(response => {
         return response['result'];

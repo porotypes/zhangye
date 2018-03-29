@@ -8,6 +8,10 @@ import { WarningRules } from "../../common/warning-rules";
 import { WarningRulesService } from "../../core/admin/warning-rules.service";
 import { WarningLevel } from "../../common/warning-level";
 import { WarningLevelsService } from "../../core/admin/warning-levels.service";
+import { TypeOfDisaster } from "../../common/type-of-disaster";
+import { TypeOfDisasterService } from "../../core/admin/type-of-disaster.service";
+import { DataSpot } from "../../common/data-spot";
+import { DataSpotService } from "../../core/admin/data-spot.service";
 import { FormUtil } from "../../core/util/form.util";
 
 @Component({
@@ -26,6 +30,8 @@ export class WarningRulesComponent implements OnInit {
   editModalRef: BsModalRef;
   deleteModalRef: BsModalRef;
   warningLevelList: WarningLevel[];
+  dataSpotList: DataSpot[];
+  typeOfDisasterList: TypeOfDisaster[];
   selectedWarningLevel: WarningLevel;
 
   dataKeys = [
@@ -41,6 +47,8 @@ export class WarningRulesComponent implements OnInit {
   constructor(
     private warningRulesService: WarningRulesService,
     private warningLevelsService: WarningLevelsService,
+    private dataSpotService: DataSpotService,
+    private typeOfDisasterService: TypeOfDisasterService,
     private bsModalService: BsModalService,
     private fb: FormBuilder,
     public toastr: ToastsManager,
@@ -62,9 +70,23 @@ export class WarningRulesComponent implements OnInit {
     });
   }
 
+  getTypeOfDisasterList(): void {
+    this.typeOfDisasterService.getDisasterList().then(list => {
+      this.typeOfDisasterList = list;
+    });
+  }
+
+  getDataSpotList(): void {
+    this.dataSpotService.getSpotList().then(list => {
+      this.dataSpotList = list;
+    });
+  }
+
   ngOnInit() {
     this.getList();
-    this.getWarningLevelsList()
+    this.getWarningLevelsList();
+    this.getDataSpotList();
+    this.getTypeOfDisasterList();
   }
 
   private createForm(): void {
@@ -127,7 +149,15 @@ export class WarningRulesComponent implements OnInit {
     this.delete(this.deleteData);
   }
 
-  selected(event: any): void {
+  prewarningLevelSelected(event: any): void {
+    console.log(event.target.value);
+  }
+
+  typeOfDisasterSelected(event: any): void {
+    console.log(event.target.value);
+  }
+
+  dataSpotSelected(event: any): void {
     console.log(event.target.value);
   }
 
