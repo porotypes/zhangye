@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -19,12 +19,11 @@ export abstract class ServiceBaseService<T> {
   }
 
   private getHeader(): HttpHeaders {
-    // { headers: this.getHeader(), params: request }
     const headers = new HttpHeaders().set("Authorization", localStorage.getItem('token'));
     return headers;
   }
 
-  get(url: string, request: HttpParams): Promise<T> {
+  get(url: string, request?: HttpParams): Promise<T> {
     return this.http.get(this.api_url + url, { headers: this.getHeader(), params: request })
       .toPromise()
       .then(response => {
@@ -33,7 +32,7 @@ export abstract class ServiceBaseService<T> {
       .catch(error => this.responseError(error.error));
   }
 
-  getAll(url: string, request: HttpParams): Promise<T[]> {
+  getAll(url: string, request?: HttpParams): Promise<T[]> {
     return this.http.get(this.api_url + url, { headers: this.getHeader(), params: request })
       .toPromise()
       .then(response => {
