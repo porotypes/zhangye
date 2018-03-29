@@ -95,7 +95,15 @@ export class WarningRulesComponent implements OnInit {
   }
 
   populateEditForm(warningRules: WarningRules, form: FormGroup): void {
-    form.patchValue(FormUtil.populateForm(this.dataKeys, warningRules));
+    form.patchValue({
+      name: warningRules.name,
+      description: warningRules.description,
+      prewarningLevel: warningRules.prewarningLevel.id,
+      disaster: warningRules.disaster.id,
+      dataColumn: warningRules.dataColumn.id,
+      min: warningRules.min,
+      max: warningRules.max
+    });
   }
 
   openAddModal(template: TemplateRef<any>) {

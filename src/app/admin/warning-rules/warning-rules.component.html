@@ -61,7 +61,7 @@
       </div>
       <div class="form-group">
         <label for="prewarningLevel">预警等级:</label>
-        <select class="form-control" id="prewarningLevel" (change)="prewarningLevelSelected($event)">
+        <select class="form-control" id="prewarningLevel" formControlName="prewarningLevel">
           <option value="">请选择等级</option>
           <ng-container *ngIf="warningLevelList">
             <option *ngFor="let warningLevel of warningLevelList" [value]="warningLevel.id">
@@ -72,7 +72,7 @@
       </div>
       <div class="form-group">
         <label for="disaster">灾害类型:</label>
-        <select class="form-control" id="disaster" (change)="typeOfDisasterSelected($event)">
+        <select class="form-control" id="disaster" formControlName="disaster">
           <option value="">请选择灾害类型</option>
           <ng-container *ngIf="typeOfDisasterList">
             <option *ngFor="let typeOfDisaster of typeOfDisasterList" [value]="typeOfDisaster.id">
@@ -82,8 +82,8 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="dataSpot">数据源:</label>
-        <select class="form-control" id="dataSpot" (change)="dataSpotSelected($event)">
+        <label for="dataColumn">数据源:</label>
+        <select class="form-control" id="dataColumn" formControlName="dataColumn">
           <option value="">请选择数据源</option>
           <ng-container *ngIf="dataSpotList">
             <option *ngFor="let dataSpot of dataSpotList" [value]="dataSpot.id">
@@ -127,15 +127,36 @@
       </div>
       <div class="form-group">
         <label for="prewarningLevel1">预警等级:</label>
-        <input type="text" id="prewarningLevel1" class="form-control" formControlName="prewarningLevel">
+        <select class="form-control" id="prewarningLevel1" formControlName="prewarningLevel">
+          <option value="">请选择等级</option>
+          <ng-container *ngIf="warningLevelList">
+            <option *ngFor="let warningLevel of warningLevelList" [value]="warningLevel.id">
+              {{warningLevel.name}}
+            </option>
+          </ng-container>
+        </select>
       </div>
       <div class="form-group">
         <label for="disaster1">灾害类型:</label>
-        <input type="text" id="disaster1" class="form-control" formControlName="disaster">
+        <select class="form-control" id="disaster1" formControlName="disaster">
+          <option value="">请选择灾害类型</option>
+          <ng-container *ngIf="typeOfDisasterList">
+            <option *ngFor="let typeOfDisaster of typeOfDisasterList" [value]="typeOfDisaster.id">
+              {{typeOfDisaster.name}}
+            </option>
+          </ng-container>
+        </select>
       </div>
       <div class="form-group">
         <label for="dataColumn1">数据源:</label>
-        <input type="text" id="dataColumn1" class="form-control" formControlName="dataColumn">
+        <select class="form-control" id="dataColumn1" formControlName="dataColumn">
+          <option value="">请选择数据源</option>
+          <ng-container *ngIf="dataSpotList">
+            <option *ngFor="let dataSpot of dataSpotList" [value]="dataSpot.id">
+              {{dataSpot.name}}
+            </option>
+          </ng-container>
+        </select>
       </div>
       <div class="form-group">
         <label for="min1">最小值:</label>

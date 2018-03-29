@@ -13,7 +13,10 @@ export class WarningRulesService extends ServiceBaseService<WarningRules> {
     });
   }
 
-  addWarningRule(request: Object): Promise<WarningRules> {
+  addWarningRule(request: any): Promise<WarningRules> {
+    request['prewarningLevel'] = { id: request.prewarningLevel };
+    request['disaster'] = { id: request.disaster };
+    request['dataColumn'] = { id: request.dataColumn };
     return super.post('prewarning-rules', request).then(warning => {
       return warning;
     });
