@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../../environments/environment';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -15,67 +15,67 @@ export abstract class ServiceBaseService<T> {
     private router: Router,
   ) {
     this.api_url = this.API_URL;
-    this.getHeader()
+    this.getHeader();
   }
 
   private getHeader(): HttpHeaders {
-    //{ headers: this.getHeader(), params: request }
+    // { headers: this.getHeader(), params: request }
     const headers = new HttpHeaders().set("Authorization", localStorage.getItem('token'));
     return headers;
   }
 
-  get(url: string, request: Object = {}): Promise<T> {
-    return this.http.get(this.api_url + url)
+  get(url: string, request: HttpParams): Promise<T> {
+    return this.http.get(this.api_url + url, { headers: this.getHeader(), params: request })
       .toPromise()
       .then(response => {
         return response['result'];
       })
-      .catch(error => this.responseError(error.json()));
+      .catch(error => this.responseError(error.error));
   }
 
-  getAll(url: string, request: Object = {}): Promise<T[]> {
-    return this.http.get(this.api_url + url)
+  getAll(url: string, request: HttpParams): Promise<T[]> {
+    return this.http.get(this.api_url + url, { headers: this.getHeader(), params: request })
       .toPromise()
       .then(response => {
         return response['result'];
       })
-      .catch(error => this.responseError(error.json()));
+      .catch(error => this.responseError(error.error));
   }
 
   put(url: string, request: Object = {}): Promise<T> {
-    return this.http.put(this.api_url + url, request)
+    return this.http.put(this.api_url + url, { headers: this.getHeader(), params: request })
       .toPromise()
       .then(response => {
         return response['result'];
       })
-      .catch(error => this.responseError(error.json()));
+      .catch(error => this.responseError(error.error));
   }
 
   post(url: string, request: Object = {}): Promise<T> {
-    return this.http.post(this.api_url + url, request)
+    return this.http.post(this.api_url + url, { headers: this.getHeader(), params: request })
       .toPromise()
       .then(response => {
         return response['result'];
       })
-      .catch(error => this.responseError(error.json()));
+      .catch(error => this.responseError(error.error));
   }
 
   delete(url: string): Promise<T> {
-    return this.http.delete(this.api_url + url)
+    return this.http.delete(this.api_url + url, { headers: this.getHeader() })
       .toPromise()
       .then(response => {
         return response['result'];
       })
-      .catch(error => this.responseError(error.json()));
+      .catch(error => this.responseError(error.error));
   }
 
   patch(url: string, request: Object = {}): Promise<T> {
-    return this.http.patch(this.api_url + url, request)
+    return this.http.patch(this.api_url + url, { headers: this.getHeader(), params: request })
       .toPromise()
       .then(response => {
         return response['result'];
       })
-      .catch(error => this.responseError(error.json()));
+      .catch(error => this.responseError(error.error));
   }
 
   responseError(error): void {

@@ -16,13 +16,14 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    this.checkLogin();
+    this.checkLogin(state.url);
     return true;
   }
 
-  private checkLogin(): void {
+  private checkLogin(url: string): void {
     if (!this.authService.checkLogin()) {
       this.router.navigate(['/login']);
+      window.localStorage.removeItem('token');
     }
   }
 }
