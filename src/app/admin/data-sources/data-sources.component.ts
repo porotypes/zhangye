@@ -19,7 +19,7 @@ export class DataSourcesComponent implements OnInit {
   condition = {
     id: ''
   };
-  hintText: string = '数据源(集合)';
+  hintText = '数据源(集合)';
   addForm: FormGroup;
   editForm: FormGroup;
   dataList: DataSources[];
@@ -62,7 +62,7 @@ export class DataSourcesComponent implements OnInit {
   }
 
   search(): void {
-    if (this.condition.id == '') {
+    if (this.condition.id === '') {
       this.getList();
       return;
     }
@@ -94,7 +94,9 @@ export class DataSourcesComponent implements OnInit {
   }
 
   getMapNames(maps: Map[]): string {
-    return maps.map(map => { return map.name }).join(' , ');
+    return maps.map(map => {
+      return map.name;
+    }).join(' , ');
   }
 
   addConfirmation(form: FormGroup): void {
