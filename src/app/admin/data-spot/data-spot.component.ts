@@ -40,7 +40,7 @@ export class DataSpotComponent implements OnInit {
     { key: 'latitude', text: '纬度', isRequired: true },
     { key: 'address', text: '地址', isRequired: true },
     { key: 'otherValues', text: '其他', isRequired: true },
-    { key: 'dataSet', text: '数据源(集合)', isRequired: true },
+    { key: 'dataSet', text: '数据源(集合)', isRequired: false },
     { key: 'dataSetId', text: '数据源(集合)id', isRequired: true },
   ];
   typeList = [
@@ -116,8 +116,21 @@ export class DataSpotComponent implements OnInit {
     this.deleteModalRef = this.bsModalService.show(template);
   }
 
+  getRequestData(form: FormGroup): any {
+    if (form.status === 'INVALID') {
+      this.toastr.info('请完善提交数据', '缺少参数!');
+      return null;
+    }
+    const request = FormUtil.getFormValue(this.dataKeys, form);
+    return request;
+  }
+
   addConfirmation(form: FormGroup): void {
-    this.dataSpotService.addSpot(FormUtil.getFormValue(this.dataKeys, form)).then(res => {
+    const request = this.getRequestData(form);
+    if (!request) {
+      return;
+    }
+    this.dataSpotService.addSpot(request).then(() => {
       this.getList();
       this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
       this.addModalRef.hide();
@@ -126,8 +139,12 @@ export class DataSpotComponent implements OnInit {
   }
 
   editConfirmation(form: FormGroup): void {
+    const request = this.getRequestData(form);
+    if (!request) {
+      return;
+    }
     form.value['dataSet'] = { id: form.value.dataSetId };
-    this.dataSpotService.editSpot(form.get('id').value, form.value).then(res => {
+    this.dataSpotService.editSpot(form.get('id').value, form.value).then(() => {
       this.getList();
       this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
       this.editModalRef.hide();
@@ -135,7 +152,7 @@ export class DataSpotComponent implements OnInit {
   }
 
   delete(dataSpot: DataSpot): void {
-    this.dataSpotService.deleteSpot(dataSpot).then(res => {
+    this.dataSpotService.deleteSpot(dataSpot).then(() => {
       this.getList();
       this.toastr.success('删除' + this.hintText + '成功!', 'Success!');
       this.deleteModalRef.hide();
