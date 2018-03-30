@@ -79,7 +79,7 @@ export class DataSpotComponent implements OnInit {
   }
 
   search(): void {
-    if (this.condition.id == '') {
+    if (this.condition.id === '') {
       this.getList();
       return;
     }

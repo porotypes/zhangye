@@ -30,15 +30,15 @@ export class OneMapsComponent implements OnInit {
   }
 
   MapClick(e): void {
-    console.log(e.lnglat.getLng()+","+e.lnglat.getLat());
+    console.log(e.lnglat.getLng() + "," + e.lnglat.getLat());
   }
 
   private createdMap(mapDetails: Map): void {
     this.map.clearOverLays();
     this.map.centerAndZoom(new T.LngLat(mapDetails.longitude, mapDetails.latitude), mapDetails.zoomLevel);
-    console.log(mapDetails.setList[0].columnList);
+    console.log(mapDetails['setList'][0].columnList);
     /* 标注物列表 */
-    const markerDatas = mapDetails.setList[0].columnList.map(item => {
+    const markerDatas = mapDetails['setList'][0].columnList.map(item => {
       return {
         data: {
           id: item.id,
@@ -46,7 +46,7 @@ export class OneMapsComponent implements OnInit {
         },
         longitude: item.longitude,
         latitude: item.latitude
-      }
+      };
     });
 
     markerDatas.forEach( markerData => {

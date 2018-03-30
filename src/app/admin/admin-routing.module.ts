@@ -7,6 +7,7 @@ import { AdminComponent } from './admin.component';
 const routes: Routes = [
   { path: '', component: AdminComponent,
     children: [
+      { path: '', redirectTo: 'oneMaps', pathMatch: 'full' },
       { path: 'userManage',
         loadChildren: './user-manage/user-manage.module#UserManageModule',
         canActivate: [AuthGuard]

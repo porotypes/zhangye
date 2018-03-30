@@ -5,7 +5,7 @@ import { ModalModule, BsDropdownModule } from 'ngx-bootstrap';
 import { SelectModule } from 'ng2-select';
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 
-import { NgSelectPipe } from './pipe/select.pipe'
+import { NgSelectPipe } from './pipe/select.pipe';
 
 @NgModule({
   imports: [
