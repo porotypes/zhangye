@@ -63,6 +63,7 @@ export class TypeOfDisasterComponent implements OnInit {
 
   confirm(form: FormGroup): void {
     if (form.status === 'INVALID') {
+      this.toastr.warning('请填写' + FormUtil.formValidator(this.dataKeys, form));
       return;
     }
     this.typeOfDisasterService.addDisaster(FormUtil.getFormValue(this.dataKeys, form))
@@ -76,6 +77,7 @@ export class TypeOfDisasterComponent implements OnInit {
 
   changeInfo(form: FormGroup): void {
     if (form.status === 'INVALID') {
+      this.toastr.warning('请填写' + FormUtil.formValidator(this.dataKeys, form));
       return;
     }
     this.typeOfDisasterService.changeDisaster(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form))

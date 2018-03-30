@@ -19,7 +19,8 @@
   top: 15px;
   right: 15px;
 }
-.dropdown-menu {
+.menu-item .dropdown-menu {
+  left: -33px !important;
   min-width: 1rem;
 }
 

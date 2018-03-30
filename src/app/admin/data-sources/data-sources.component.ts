@@ -97,26 +97,17 @@ export class DataSourcesComponent implements OnInit {
     return maps.map(map => { return map.name }).join(' , ');
   }
 
-  getRequestData(form: FormGroup): any {
+  addConfirmation(form: FormGroup): void {
     if (form.status === 'INVALID') {
-      this.toastr.info('请完善提交数据', '缺少参数!');
-      return null;
-    }
-    if (!this.selectedMaps || this.selectedMaps.length == 0) {
-      this.toastr.info('请选择地图', 'Info!');
-      return null;
+      this.toastr.warning('请填写' + FormUtil.formValidator(this.dataKeys, form));
+      return;
     }
     const request = FormUtil.getFormValue(this.dataKeys, form);
     request['mapList'] = FormUtil.getObjArrayIds(this.selectedMaps);
-    return request;
-  }
+    this.dataSourcesService.addSources(request).then(res => {
+      if (!res) {
 
-  addConfirmation(form: FormGroup): void {
-    const request = this.getRequestData(form);
-    if (!request) {
-      return;
-    }
-    this.dataSourcesService.addSources(request).then(() => {
+      }
       this.getList();
       this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
       this.addModalRef.hide();
@@ -125,10 +116,12 @@ export class DataSourcesComponent implements OnInit {
   }
 
   editConfirmation(form: FormGroup): void {
-    const request = this.getRequestData(form);
-    if (!request) {
+    if (form.status === 'INVALID') {
+      this.toastr.warning('请填写' + FormUtil.formValidator(this.dataKeys, form));
       return;
     }
+    const request = FormUtil.getFormValue(this.dataKeys, form);
+    request['mapList'] = FormUtil.getObjArrayIds(this.selectedMaps);
     this.dataSourcesService.editSources(form.get('id').value, request).then(() => {
       this.getList();
       this.toastr.success('修改' + this.hintText + '成功!', 'Success!');

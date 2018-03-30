@@ -66,6 +66,7 @@ export class UserManageComponent implements OnInit {
 
   confirm(form: FormGroup): void {
     if (form.status === 'INVALID') {
+      this.toastr.warning('请填写' + FormUtil.formValidator(this.dataKeys, form));
       return;
     }
     this.userManageService.addUser(FormUtil.getFormValue(this.dataKeys, form)).then(res => {

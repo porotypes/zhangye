@@ -28,7 +28,7 @@
       <td>{{warningRule.prewarningLevel.name}}</td>
       <td>{{warningRule.disaster.name}}</td>
       <td>{{warningRule.dataColumn.name}}</td>
-      <td>{{warningRule.min}} ~ {{warningRule.max}}</td>
+      <td>{{warningRule.min}}{{warningRule.unit}} ~ {{warningRule.max}}{{warningRule.unit}}</td>
       <td>
         <button class="btn btn-primary btn-sm" title="编辑" (click)="openEditModal(Edit, warningRule)">
           <i class="fa fa-pencil"></i>
@@ -61,7 +61,7 @@
       </div>
       <div class="form-group">
         <label for="prewarningLevel">预警等级:</label>
-        <select class="form-control" id="prewarningLevel" formControlName="prewarningLevel">
+        <select class="form-control" id="prewarningLevel" formControlName="prewarningLevelId">
           <option value="">请选择等级</option>
           <ng-container *ngIf="warningLevelList">
             <option *ngFor="let warningLevel of warningLevelList" [value]="warningLevel.id">
@@ -72,7 +72,7 @@
       </div>
       <div class="form-group">
         <label for="disaster">灾害类型:</label>
-        <select class="form-control" id="disaster" formControlName="disaster">
+        <select class="form-control" id="disaster" formControlName="disasterId">
           <option value="">请选择灾害类型</option>
           <ng-container *ngIf="typeOfDisasterList">
             <option *ngFor="let typeOfDisaster of typeOfDisasterList" [value]="typeOfDisaster.id">
@@ -83,7 +83,7 @@
       </div>
       <div class="form-group">
         <label for="dataColumn">数据源:</label>
-        <select class="form-control" id="dataColumn" formControlName="dataColumn">
+        <select class="form-control" id="dataColumn" formControlName="dataColumnId">
           <option value="">请选择数据源</option>
           <ng-container *ngIf="dataSpotList">
             <option *ngFor="let dataSpot of dataSpotList" [value]="dataSpot.id">
@@ -99,6 +99,10 @@
       <div class="form-group">
         <label for="max">最大值:</label>
         <input type="text" id="max" class="form-control" formControlName="max">
+      </div>
+      <div class="form-group">
+        <label for="unit">单位:</label>
+        <input type="text" id="unit" class="form-control" formControlName="unit">
       </div>
     </form>
   </div>
@@ -127,7 +131,7 @@
       </div>
       <div class="form-group">
         <label for="prewarningLevel1">预警等级:</label>
-        <select class="form-control" id="prewarningLevel1" formControlName="prewarningLevel">
+        <select class="form-control" id="prewarningLevel1" formControlName="prewarningLevelId">
           <option value="">请选择等级</option>
           <ng-container *ngIf="warningLevelList">
             <option *ngFor="let warningLevel of warningLevelList" [value]="warningLevel.id">
@@ -138,7 +142,7 @@
       </div>
       <div class="form-group">
         <label for="disaster1">灾害类型:</label>
-        <select class="form-control" id="disaster1" formControlName="disaster">
+        <select class="form-control" id="disaster1" formControlName="disasterId">
           <option value="">请选择灾害类型</option>
           <ng-container *ngIf="typeOfDisasterList">
             <option *ngFor="let typeOfDisaster of typeOfDisasterList" [value]="typeOfDisaster.id">
@@ -149,7 +153,7 @@
       </div>
       <div class="form-group">
         <label for="dataColumn1">数据源:</label>
-        <select class="form-control" id="dataColumn1" formControlName="dataColumn">
+        <select class="form-control" id="dataColumn1" formControlName="dataColumnId">
           <option value="">请选择数据源</option>
           <ng-container *ngIf="dataSpotList">
             <option *ngFor="let dataSpot of dataSpotList" [value]="dataSpot.id">
@@ -165,6 +169,10 @@
       <div class="form-group">
         <label for="max1">最大值:</label>
         <input type="text" id="max1" class="form-control" formControlName="max">
+      </div>
+      <div class="form-group">
+        <label for="unit1">单位:</label>
+        <input type="text" id="unit1" class="form-control" formControlName="unit">
       </div>
     </form>
   </div>
@@ -185,7 +193,7 @@
     <p>你确定要删除吗?</p>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary btn-sm" (click)="delete()">确定</button>
+    <button class="btn btn-primary btn-sm" (click)="deleteConfirmation()">确定</button>
     <button class="btn btn-default btn-sm" (click)="deleteModalRef.hide()">取消</button>
   </div>
 </ng-template>

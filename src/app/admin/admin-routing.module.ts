@@ -1,18 +1,40 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from "../core/auth/auth-guard.service";
 
 import { AdminComponent } from './admin.component';
 
 const routes: Routes = [
   { path: '', component: AdminComponent,
     children: [
-      { path: 'userManage', loadChildren: './user-manage/user-manage.module#UserManageModule' },
-      { path: 'oneMaps', loadChildren: './one-maps/one-maps.module#OneMapsModule' },
-      { path: 'dataSources', loadChildren: './data-sources/data-sources.module#DataSourcesModule' },
-      { path: 'dataSpot', loadChildren: './data-spot/data-spot.module#DataSpotModule' },
-      { path: 'typeOfDisaster', loadChildren: './type-of-disaster/type-of-disaster.module#TypeOfDisasterModule' },
-      { path: 'WarningRules', loadChildren: './warning-rules/warning-rules.module#WarningRulesModule' },
-      { path: 'WarningLevels', loadChildren: './warning-levels/warning-levels.module#WarningLevelsModule' },
+      { path: 'userManage',
+        loadChildren: './user-manage/user-manage.module#UserManageModule',
+        canActivate: [AuthGuard]
+      },
+      { path: 'oneMaps',
+        loadChildren: './one-maps/one-maps.module#OneMapsModule',
+        canActivate: [AuthGuard]
+      },
+      { path: 'dataSources',
+        loadChildren: './data-sources/data-sources.module#DataSourcesModule',
+        canActivate: [AuthGuard]
+      },
+      { path: 'dataSpot',
+        loadChildren: './data-spot/data-spot.module#DataSpotModule',
+        canActivate: [AuthGuard]
+      },
+      { path: 'typeOfDisaster',
+        loadChildren: './type-of-disaster/type-of-disaster.module#TypeOfDisasterModule',
+        canActivate: [AuthGuard]
+      },
+      { path: 'WarningRules',
+        loadChildren: './warning-rules/warning-rules.module#WarningRulesModule',
+        canActivate: [AuthGuard]
+      },
+      { path: 'WarningLevels',
+        loadChildren: './warning-levels/warning-levels.module#WarningLevelsModule',
+        canActivate: [AuthGuard]
+      },
     ]
   },
 ];

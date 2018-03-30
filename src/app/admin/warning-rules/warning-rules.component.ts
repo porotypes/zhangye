@@ -32,16 +32,19 @@ export class WarningRulesComponent implements OnInit {
   warningLevelList: WarningLevel[];
   dataSpotList: DataSpot[];
   typeOfDisasterList: TypeOfDisaster[];
-  selectedWarningLevel: WarningLevel;
 
   dataKeys = [
     { key: 'name', text: '姓名', isRequired: true },
-    { key: 'description', text: '描述', isRequired: true },
-    { key: 'prewarningLevel', text: '预警等级', isRequired: true },
-    { key: 'disaster', text: '灾害类型', isRequired: true },
-    { key: 'dataColumn', text: '数据源', isRequired: true },
+    { key: 'description', text: '描述', isRequired: false },
+    { key: 'prewarningLevel', text: '预警等级', isRequired: false },
+    { key: 'disaster', text: '灾害类型', isRequired: false },
+    { key: 'dataColumn', text: '数据源', isRequired: false },
+    { key: 'prewarningLevelId', text: '预警等级Id', isRequired: true },
+    { key: 'disasterId', text: '灾害类型Id', isRequired: true },
+    { key: 'dataColumnId', text: '数据源Id', isRequired: true },
     { key: 'min', text: '最小值', isRequired: true },
     { key: 'max', text: '最大值', isRequired: true },
+    { key: 'unit', text: '单位', isRequired: false },
   ];
 
   constructor(
@@ -52,7 +55,7 @@ export class WarningRulesComponent implements OnInit {
     private bsModalService: BsModalService,
     private fb: FormBuilder,
     public toastr: ToastsManager,
-    vcr: ViewContainerRef
+    private vcr: ViewContainerRef
   ) {
     this.createForm();
     this.toastr.setRootViewContainerRef(vcr);
@@ -95,15 +98,10 @@ export class WarningRulesComponent implements OnInit {
   }
 
   populateEditForm(warningRules: WarningRules, form: FormGroup): void {
-    form.patchValue({
-      name: warningRules.name,
-      description: warningRules.description,
-      prewarningLevel: warningRules.prewarningLevel.id,
-      disaster: warningRules.disaster.id,
-      dataColumn: warningRules.dataColumn.id,
-      min: warningRules.min,
-      max: warningRules.max
-    });
+    warningRules.prewarningLevelId = warningRules.prewarningLevel.id;
+    warningRules.disasterId = warningRules.disaster.id;
+    warningRules.dataColumnId = warningRules.dataColumn.id;
+    form.patchValue(FormUtil.populateForm(this.dataKeys, warningRules));
   }
 
   openAddModal(template: TemplateRef<any>) {
@@ -122,6 +120,7 @@ export class WarningRulesComponent implements OnInit {
 
   confirm(form: FormGroup): void {
     if (form.status === 'INVALID') {
+      this.toastr.warning('请填写' + FormUtil.formValidator(this.dataKeys, form));
       return;
     }
     this.warningRulesService.addWarningRule(FormUtil.getFormValue(this.dataKeys, form))
@@ -135,9 +134,13 @@ export class WarningRulesComponent implements OnInit {
 
   editConfirmation(form: FormGroup): void {
     if (form.status === 'INVALID') {
+      this.toastr.warning('请填写' + FormUtil.formValidator(this.dataKeys, form));
       return;
     }
-    this.warningRulesService.editWarningRules(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form))
+    form.value['prewarningLevel'] = { id: form.value.prewarningLevelId };
+    form.value['disaster'] = { id: form.value.disasterId };
+    form.value['dataColumn'] = { id: form.value.dataColumnId };
+    this.warningRulesService.editWarningRules(form.get('id').value, form.value)
       .then(res => {
         this.getList();
         this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
@@ -155,18 +158,6 @@ export class WarningRulesComponent implements OnInit {
 
   deleteConfirmation(): void {
     this.delete(this.deleteData);
-  }
-
-  prewarningLevelSelected(event: any): void {
-    console.log(event.target.value);
-  }
-
-  typeOfDisasterSelected(event: any): void {
-    console.log(event.target.value);
-  }
-
-  dataSpotSelected(event: any): void {
-    console.log(event.target.value);
   }
 
 }

@@ -65,7 +65,7 @@ export class OneMapsComponent implements OnInit {
 
   confirm(form: FormGroup): void {
     if (form.status === 'INVALID') {
-      console.log(FormUtil.getFormValue(this.dataKeys, form))
+      this.toastr.warning('请填写' + FormUtil.formValidator(this.dataKeys, form));
       return;
     }
     this.oneMapService.createMap(FormUtil.getFormValue(this.dataKeys, form)).then(res => {
@@ -78,6 +78,7 @@ export class OneMapsComponent implements OnInit {
 
   changeInfo(form: FormGroup): void {
     if (form.status === 'INVALID') {
+      this.toastr.warning('请填写' + FormUtil.formValidator(this.dataKeys, form));
       return;
     }
     this.oneMapService.changeMap(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form))

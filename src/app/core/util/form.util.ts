@@ -38,7 +38,14 @@ export class FormUtil {
     });
   }
 
-  static getObjId(data: any): Object {
-    return { id: data.id };
+  static formValidator(array: Object[], form: FormGroup): string {
+    let arrayName = '';
+    for (const key in array) {
+      if (array[key]['isRequired'] && !form.get(array[key]['key']).value) {
+        arrayName =  array[key]['text'];
+        break;
+      }
+    }
+    return arrayName;
   }
 }

@@ -73,21 +73,12 @@ export class WarningLevelsComponent implements OnInit {
     this.deleteModalRef = this.bsModalService.show(template);
   }
 
-  getRequestData(form: FormGroup): any {
-    if (form.status === 'INVALID') {
-      this.toastr.info('请完善提交数据', '缺少参数!');
-      return null;
-    }
-    const request = FormUtil.getFormValue(this.dataKeys, form);
-    return request;
-  }
-
   addConfirmation(form: FormGroup): void {
-    const request = this.getRequestData(form);
-    if (!request) {
+    if (form.status === 'INVALID') {
+      this.toastr.warning('请填写' + FormUtil.formValidator(this.dataKeys, form));
       return;
     }
-    this.warningLevelsService.addWarning(request).then(() => {
+    this.warningLevelsService.addWarning(FormUtil.getFormValue(this.dataKeys, form)).then(() => {
       this.getList();
       this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
       this.addModalRef.hide();
@@ -96,15 +87,16 @@ export class WarningLevelsComponent implements OnInit {
   }
 
   editConfirmation(form: FormGroup): void {
-    const request = this.getRequestData(form);
-    if (!request) {
+    if (form.status === 'INVALID') {
+      this.toastr.warning('请填写' + FormUtil.formValidator(this.dataKeys, form));
       return;
     }
-    this.warningLevelsService.editWarning(form.get('id').value, request).then(() => {
-      this.getList();
-      this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
-      this.editModalRef.hide();
-    });
+    this.warningLevelsService.editWarning(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form))
+      .then(() => {
+        this.getList();
+        this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
+        this.editModalRef.hide();
+      });
   }
 
   delete(warningLevel: WarningLevel): void {

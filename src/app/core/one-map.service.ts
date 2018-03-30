@@ -24,7 +24,7 @@ export class OneMapService extends ServiceBaseService<Map> {
     });
   }
 
-  changeMap(id: number, map: object): Promise<Map> {
+  changeMap(id: number, map: any): Promise<Map> {
     return super.put('onemaps/' + id, map).then(map => {
       return map;
     });

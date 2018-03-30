@@ -9,6 +9,10 @@ export class WarningRules {
   prewarningLevel: WarningLevel;
   disaster: TypeOfDisaster;
   dataColumn: DataSpot;
+  prewarningLevelId: number;
+  disasterId: number;
+  dataColumnId: number;
   min: number;
   max: number;
+  unit: string;
 }

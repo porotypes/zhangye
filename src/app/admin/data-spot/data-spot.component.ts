@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
@@ -106,7 +106,6 @@ export class DataSpotComponent implements OnInit {
   }
 
   openEditModal(template: TemplateRef<any>, dataSpot: DataSpot) {
-    console.log(dataSpot);
     this.populateEditForm(dataSpot, this.editForm);
     this.editModalRef = this.bsModalService.show(template);
   }
@@ -116,21 +115,12 @@ export class DataSpotComponent implements OnInit {
     this.deleteModalRef = this.bsModalService.show(template);
   }
 
-  getRequestData(form: FormGroup): any {
-    if (form.status === 'INVALID') {
-      this.toastr.info('请完善提交数据', '缺少参数!');
-      return null;
-    }
-    const request = FormUtil.getFormValue(this.dataKeys, form);
-    return request;
-  }
-
   addConfirmation(form: FormGroup): void {
-    const request = this.getRequestData(form);
-    if (!request) {
+    if (form.status === 'INVALID') {
+      this.toastr.warning('请填写' + FormUtil.formValidator(this.dataKeys, form));
       return;
     }
-    this.dataSpotService.addSpot(request).then(() => {
+    this.dataSpotService.addSpot(FormUtil.getFormValue(this.dataKeys, form)).then(() => {
       this.getList();
       this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
       this.addModalRef.hide();
@@ -139,8 +129,8 @@ export class DataSpotComponent implements OnInit {
   }
 
   editConfirmation(form: FormGroup): void {
-    const request = this.getRequestData(form);
-    if (!request) {
+    if (form.status === 'INVALID') {
+      this.toastr.warning('请填写' + FormUtil.formValidator(this.dataKeys, form));
       return;
     }
     form.value['dataSet'] = { id: form.value.dataSetId };

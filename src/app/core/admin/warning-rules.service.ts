@@ -14,9 +14,9 @@ export class WarningRulesService extends ServiceBaseService<WarningRules> {
   }
 
   addWarningRule(request: any): Promise<WarningRules> {
-    request['prewarningLevel'] = { id: request.prewarningLevel };
-    request['disaster'] = { id: request.disaster };
-    request['dataColumn'] = { id: request.dataColumn };
+    request['prewarningLevel'] = { id: request.prewarningLevelId };
+    request['disaster'] = { id: request.disasterId };
+    request['dataColumn'] = { id: request.dataColumnId };
     return super.post('prewarning-rules', request).then(warning => {
       return warning;
     });
