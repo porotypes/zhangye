@@ -78,6 +78,7 @@ export class DataSourcesComponent implements OnInit {
   }
 
   openAddModal(template: TemplateRef<any>) {
+    this.selectedMaps = [];
     this.addModalRef = this.bsModalService.show(template);
   }
 
@@ -99,7 +100,7 @@ export class DataSourcesComponent implements OnInit {
   getRequestData(form: FormGroup): any {
     if (form.status === 'INVALID') {
       this.toastr.info('请完善提交数据', '缺少参数!');
-      return;
+      return null;
     }
     if (!this.selectedMaps || this.selectedMaps.length == 0) {
       this.toastr.info('请选择地图', 'Info!');
@@ -111,32 +112,32 @@ export class DataSourcesComponent implements OnInit {
   }
 
   addConfirmation(form: FormGroup): void {
-    if (!this.getRequestData(form)) {
+    const request = this.getRequestData(form);
+    if (!request) {
       return;
     }
-    this.dataSourcesService.addSources(this.getRequestData(form)).then(res => {
+    this.dataSourcesService.addSources(request).then(() => {
       this.getList();
       this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
       this.addModalRef.hide();
-      this.selectedMaps = [];
+      this.addForm.reset();
     });
   }
 
   editConfirmation(form: FormGroup): void {
-    if (!this.getRequestData(form)) {
+    const request = this.getRequestData(form);
+    if (!request) {
       return;
     }
-    console.log(this.selectedMaps, this.activeMaps);
-    this.dataSourcesService.editSources(form.get('id').value, this.getRequestData(form)).then(res => {
+    this.dataSourcesService.editSources(form.get('id').value, request).then(() => {
       this.getList();
       this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
       this.editModalRef.hide();
-      this.selectedMaps = [];
     });
   }
 
   delete(sources: DataSources): void {
-    this.dataSourcesService.deleteSource(sources).then(res => {
+    this.dataSourcesService.deleteSource(sources).then(() => {
       this.getList();
       this.toastr.success('删除' + this.hintText + '成功!', 'Success!');
       this.deleteModalRef.hide();

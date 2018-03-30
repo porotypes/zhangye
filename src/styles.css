@@ -12,7 +12,9 @@ td {
 
 /* public */
 .p15 {
+  height: 100%;
   padding: 15px;
+  overflow-y: auto;
 }
 .add {
   position: relative;

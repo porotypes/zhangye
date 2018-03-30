@@ -73,8 +73,21 @@ export class WarningLevelsComponent implements OnInit {
     this.deleteModalRef = this.bsModalService.show(template);
   }
 
+  getRequestData(form: FormGroup): any {
+    if (form.status === 'INVALID') {
+      this.toastr.info('请完善提交数据', '缺少参数!');
+      return null;
+    }
+    const request = FormUtil.getFormValue(this.dataKeys, form);
+    return request;
+  }
+
   addConfirmation(form: FormGroup): void {
-    this.warningLevelsService.addWarning(FormUtil.getFormValue(this.dataKeys, form)).then(res => {
+    const request = this.getRequestData(form);
+    if (!request) {
+      return;
+    }
+    this.warningLevelsService.addWarning(request).then(() => {
       this.getList();
       this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
       this.addModalRef.hide();
@@ -83,7 +96,11 @@ export class WarningLevelsComponent implements OnInit {
   }
 
   editConfirmation(form: FormGroup): void {
-    this.warningLevelsService.editWarning(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form)).then(res => {
+    const request = this.getRequestData(form);
+    if (!request) {
+      return;
+    }
+    this.warningLevelsService.editWarning(form.get('id').value, request).then(() => {
       this.getList();
       this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
       this.editModalRef.hide();
@@ -91,7 +108,7 @@ export class WarningLevelsComponent implements OnInit {
   }
 
   delete(warningLevel: WarningLevel): void {
-    this.warningLevelsService.deleteWarning(warningLevel).then(res => {
+    this.warningLevelsService.deleteWarning(warningLevel).then(() => {
       this.getList();
       this.toastr.success('删除' + this.hintText + '成功!', 'Success!');
       this.deleteModalRef.hide();
