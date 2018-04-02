@@ -35,6 +35,10 @@ td {
 .hideSubmitButton {
   display: none;
 }
+.active-link {
+  background: #007bff;
+  color: #fff;
+}
 /*ng2-select*/
 .ui-select-choices.dropdown-menu {
   display: block;
