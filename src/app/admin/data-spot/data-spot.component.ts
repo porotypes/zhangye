@@ -35,7 +35,7 @@ export class DataSpotComponent implements OnInit {
     { key: 'name', text: '名称', isRequired: true },
     { key: 'inputType', text: '类型', isRequired: true },
     { key: 'inputSetting', text: '资源配置', isRequired: true },
-    { key: 'inputSource', text: '资源', isRequired: true },
+    { key: 'inputSource', text: '来源', isRequired: true },
     { key: 'longitude', text: '经度', isRequired: true },
     { key: 'latitude', text: '纬度', isRequired: true },
     { key: 'address', text: '地址', isRequired: true },
