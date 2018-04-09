@@ -8,7 +8,8 @@ import { Map } from '../common/map';
 })
 export class OneMapsComponent implements OnInit {
   map: any;
-  mapsList: any[];
+  mapsList: Map[];
+  selectedMapId: number;
 
   constructor(
     private oneMapService: OneMapService
@@ -18,12 +19,14 @@ export class OneMapsComponent implements OnInit {
     this.map = new T.Map('map');
     this.oneMapService.getOneMaps().then( maps => {
       this.mapsList = maps;
+      this.selectedMapId = maps[0].id;
       this.createdMap(maps[0]);
       this.map.addEventListener("click", this.MapClick);
     });
   }
 
   getMapDetails(id: number): void {
+    this.selectedMapId = id;
     this.oneMapService.getMapDetails(id).then( mapDetails => {
       this.createdMap(mapDetails);
     });
