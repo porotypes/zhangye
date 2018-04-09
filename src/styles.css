@@ -40,7 +40,7 @@ td {
   color: #fff;
 }
 /*ng2-select*/
-.ui-select-choices .dropdown-menu {
+.ui-select-choices.dropdown-menu {
   display: block;
 }
 .ui-select-match-item {
