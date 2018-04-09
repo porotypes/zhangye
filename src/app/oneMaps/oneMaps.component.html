@@ -1,6 +1,6 @@
 <div class="nav" *ngIf="mapsList">
   <ul>
-    <li *ngFor="let map of mapsList" (click)="getMapDetails(map.id)">{{ map.name }}</li>
+    <li *ngFor="let map of mapsList" (click)="getMapDetails(map.id)" [class.active-link]="selectedMapId == map.id">{{ map.name }}</li>
   </ul>
 </div>
 
