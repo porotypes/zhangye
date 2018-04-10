@@ -30,20 +30,24 @@ export class DataSpotComponent implements OnInit {
   deleteModalRef: BsModalRef;
   deleteData: DataSpot;
   dataSourcesList: DataSources[];
+  otherValue = [];
+  otherValueName: string;
+  otherValueContent: string;
 
   dataKeys = [
     { key: 'name', text: '名称', isRequired: true },
     { key: 'inputType', text: '类型', isRequired: true },
     { key: 'inputSetting', text: '资源配置', isRequired: true },
-    { key: 'inputSource', text: '来源', isRequired: true },
+    { key: 'inputSource', text: '来源', isRequired: false },
     { key: 'longitude', text: '经度', isRequired: true },
     { key: 'latitude', text: '纬度', isRequired: true },
     { key: 'address', text: '地址', isRequired: true },
-    { key: 'otherValues', text: '其他', isRequired: true },
+    { key: 'otherValues', text: '其他', isRequired: false },
     { key: 'dataSet', text: '数据源(集合)', isRequired: false },
     { key: 'dataSetId', text: '数据源(集合)id', isRequired: true },
   ];
   typeList = [
+    { id: 0, name: '基础资源' },
     { id: 1, name: 'API' },
     { id: 2, name: '文件' },
     { id: 3, name: '手动输入' },
@@ -75,6 +79,7 @@ export class DataSpotComponent implements OnInit {
 
   populateEditForm(dataSpot: DataSpot, form: FormGroup): void {
     dataSpot.dataSetId = dataSpot.dataSet.id;
+    this.otherValue = JSON.parse(dataSpot.otherValues);
     form.patchValue(FormUtil.populateForm(this.dataKeys, dataSpot));
   }
 
@@ -102,6 +107,7 @@ export class DataSpotComponent implements OnInit {
   }
 
   openAddModal(template: TemplateRef<any>) {
+    this.otherValue = [];
     this.addModalRef = this.bsModalService.show(template);
   }
 
@@ -120,7 +126,8 @@ export class DataSpotComponent implements OnInit {
       this.toastr.warning('请填写' + FormUtil.formValidator(this.dataKeys, form));
       return;
     }
-    this.dataSpotService.addSpot(FormUtil.getFormValue(this.dataKeys, form)).then(() => {
+    form.value['otherValues'] = JSON.stringify(this.otherValue);
+    this.dataSpotService.addSpot(form.value).then(() => {
       this.getList();
       this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
       this.addModalRef.hide();
@@ -134,6 +141,7 @@ export class DataSpotComponent implements OnInit {
       return;
     }
     form.value['dataSet'] = { id: form.value.dataSetId };
+    form.value['otherValues'] = JSON.stringify(this.otherValue);
     this.dataSpotService.editSpot(form.get('id').value, form.value).then(() => {
       this.getList();
       this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
@@ -148,7 +156,24 @@ export class DataSpotComponent implements OnInit {
       this.deleteModalRef.hide();
     });
   }
+
   deleteConfirmation(): void {
     this.delete(this.deleteData);
+  }
+
+  pushOtherValue(): void {
+    if (!this.otherValueName || !this.otherValueContent) {
+      this.toastr.warning('请填写内容');
+      return;
+    }
+    this.otherValue.push({name: this.otherValueName, value: this.otherValueContent});
+    this.otherValueName = this.otherValueContent = '';
+  }
+
+  removeOtherValueItem(item: any): void {
+    const index = this.otherValue.indexOf(item);
+    if (index > -1) {
+      this.otherValue.splice(index, 1);
+    }
   }
 }

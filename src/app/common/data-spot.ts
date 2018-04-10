@@ -10,6 +10,6 @@ export class DataSpot {
   dataSet: DataSources;
   inputType: number;
   inputSource: string;
-  others: string;
+  otherValues: string;
   dataSetId: number;
 }

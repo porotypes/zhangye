@@ -95,14 +95,35 @@
         <input type="text" id="address" class="form-control" formControlName="address">
       </div>
       <div class="form-group">
-        <label for="other">其他:</label>
-        <input type="text" id="other" class="form-control" formControlName="otherValues">
-      </div>
-      <div class="form-group">
         <label for="dataSources">数据源(集合):</label>
         <select class="form-control" id="dataSources"  formControlName="dataSetId">
           <option *ngFor="let dataSources of dataSourcesList" [value]="dataSources.id">{{ dataSources.name }}</option>
         </select>
+      </div>
+      <!--配置一张图点的详细信息-->
+      <div class="form-group">
+        <label for="other">详细信息</label>
+        <input type="hidden" id="other" class="form-control"
+               formControlName="otherValues">
+        <div>
+          <label>名称:</label>
+          <input type="text" class="other-value-input"
+                 [(ngModel)]="otherValueName"
+                 [ngModelOptions]="{standalone: true}">
+          <label>值:</label>
+          <input type="text" class="other-value-input"
+                 [(ngModel)]="otherValueContent"
+                 [ngModelOptions]="{standalone: true}">
+          <span class="add-other-value" title="添加" (click)="pushOtherValue()">
+            <i class="fa fa-plus-square-o"></i>
+          </span>
+        </div>
+      </div>
+      <div class="other-value-list" *ngIf="otherValue.length > 0">
+        <div *ngFor="let item of otherValue" class="other-value-item">
+          <span>{{ item.name }}</span>
+          <span>{{ item.value }}</span>
+        </div>
       </div>
     </form>
   </div>
@@ -137,10 +158,6 @@
         <input type="text" id="edit-setting" class="form-control" formControlName="inputSetting">
       </div>
       <div class="form-group">
-        <label for="edit-source">来源:</label>
-        <input type="text" id="edit-source" class="form-control" formControlName="inputSource">
-      </div>
-      <div class="form-group">
         <label for="edit-longitude">经度:</label>
         <input type="text" id="edit-longitude" class="form-control" formControlName="longitude">
       </div>
@@ -153,14 +170,36 @@
         <input type="text" id="edit-address" class="form-control" formControlName="address">
       </div>
       <div class="form-group">
-        <label for="edit-other">其他:</label>
-        <input type="text" id="edit-other" class="form-control" formControlName="otherValues">
-      </div>
-      <div class="form-group">
         <label for="edit-dataSources">数据源(集合):</label>
         <select class="form-control" id="edit-dataSources"  formControlName="dataSetId">
           <option *ngFor="let dataSources of dataSourcesList" [value]="dataSources.id">{{ dataSources.name }}</option>
         </select>
+      </div>
+      <div class="form-group">
+        <label for="edit-other">详细信息</label>
+        <input type="hidden" id="edit-other" class="form-control" formControlName="otherValues">
+        <div>
+          <label>名称:</label>
+          <input type="text" class="other-value-input"
+                 [(ngModel)]="otherValueName"
+                 [ngModelOptions]="{standalone: true}">
+          <label>值:</label>
+          <input type="text" class="other-value-input"
+                 [(ngModel)]="otherValueContent"
+                 [ngModelOptions]="{standalone: true}">
+          <span class="add-other-value" title="添加" (click)="pushOtherValue()">
+            <i class="fa fa-plus-square-o"></i>
+          </span>
+        </div>
+      </div>
+      <div class="other-value-list" *ngIf="otherValue.length > 0">
+        <div *ngFor="let item of otherValue" class="other-value-item">
+          <span>{{ item.name }}</span>
+          <span>{{ item.value }}</span>
+          <span class="remove-item" (click)="removeOtherValueItem(item)" title="移除">
+            <i class="fa fa-minus-circle"></i>
+          </span>
+        </div>
       </div>
     </form>
   </div>
