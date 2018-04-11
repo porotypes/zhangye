@@ -128,7 +128,7 @@ export class DataSpotComponent implements OnInit {
     }
     form.value['otherValues'] = JSON.stringify(this.otherValue);
     this.dataSpotService.addSpot(form.value).then(() => {
-      this.getList();
+      this.search();
       this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
       this.addModalRef.hide();
       this.addForm.reset();
@@ -143,7 +143,7 @@ export class DataSpotComponent implements OnInit {
     form.value['dataSet'] = { id: form.value.dataSetId };
     form.value['otherValues'] = JSON.stringify(this.otherValue);
     this.dataSpotService.editSpot(form.get('id').value, form.value).then(() => {
-      this.getList();
+      this.search();
       this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
       this.editModalRef.hide();
     });
