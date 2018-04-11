@@ -39,22 +39,23 @@ export class OneMapsComponent implements OnInit {
   private createdMap(mapDetails: Map): void {
     this.map.clearOverLays();
     this.map.centerAndZoom(new T.LngLat(mapDetails.longitude, mapDetails.latitude), mapDetails.zoomLevel);
-    console.log(mapDetails['setList'][0].columnList);
     /* 标注物列表 */
-    const markerDatas = mapDetails['setList'][0].columnList.map(item => {
-      return {
-        data: {
-          id: item.id,
-          name: item.name
-        },
-        longitude: item.longitude,
-        latitude: item.latitude
-      };
-    });
-
-    markerDatas.forEach( markerData => {
-      this.createMarker(markerData);
-    });
+    if (mapDetails['setList'].length > 0) {
+      const markerDatas = mapDetails['setList'][0].columnList.map(item => {
+        return {
+          data: {
+            id: item.id,
+            name: item.name,
+            otherValues: item.otherValues
+          },
+          longitude: item.longitude,
+          latitude: item.latitude
+        };
+      });
+      markerDatas.forEach( markerData => {
+        this.createMarker(markerData);
+      });
+    }
   }
 
 
@@ -66,10 +67,27 @@ export class OneMapsComponent implements OnInit {
     // 添加标注
     this.map.addOverLay(marker);
     marker.addEventListener("click", this.markerClick);
-    const markerInfoWin = new T.InfoWindow(marker.data.name);
+    const markerInfoWin = new T.InfoWindow();
+    markerInfoWin.setContent(this.deCodeOtherValues(marker.data));
     marker.addEventListener("click", function () {
       marker.openInfoWindow(markerInfoWin);
     });
+  }
+
+  // 解析otherValues的数据，返回html模板
+  private deCodeOtherValues(markerData: Object): Element {
+    const otherValuesList = document.createElement('div');
+    otherValuesList.innerHTML = `名称：${markerData['name']}`;
+    // TODO modify judgment condition
+    if (markerData['otherValues']) {
+      const otherValues = JSON.parse(markerData['otherValues']);
+      otherValues.forEach(item => {
+        const childEl = document.createElement('div');
+        childEl.innerHTML = `${item['name']}：${item['value']}`;
+        otherValuesList.appendChild(childEl);
+      });
+    }
+    return otherValuesList;
   }
 
   private markerClick(e): void {

@@ -123,6 +123,9 @@
         <div *ngFor="let item of otherValue" class="other-value-item">
           <span>{{ item.name }}</span>
           <span>{{ item.value }}</span>
+          <span class="remove-item" (click)="removeOtherValueItem(item)" title="移除">
+            <i class="fa fa-minus-circle"></i>
+          </span>
         </div>
       </div>
     </form>
@@ -192,7 +195,7 @@
           </span>
         </div>
       </div>
-      <div class="other-value-list" *ngIf="otherValue.length > 0">
+      <div class="other-value-list" *ngIf="otherValue">
         <div *ngFor="let item of otherValue" class="other-value-item">
           <span>{{ item.name }}</span>
           <span>{{ item.value }}</span>

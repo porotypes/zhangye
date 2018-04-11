@@ -79,7 +79,7 @@ export class DataSpotComponent implements OnInit {
 
   populateEditForm(dataSpot: DataSpot, form: FormGroup): void {
     dataSpot.dataSetId = dataSpot.dataSet.id;
-    this.otherValue = JSON.parse(dataSpot.otherValues);
+    this.otherValue = dataSpot.otherValues ? JSON.parse(dataSpot.otherValues) : [];
     form.patchValue(FormUtil.populateForm(this.dataKeys, dataSpot));
   }
 
