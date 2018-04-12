@@ -71,7 +71,11 @@ export class UserManageComponent implements OnInit {
     }
     this.userManageService.addUser(FormUtil.getFormValue(this.dataKeys, form)).then(res => {
       this.getUserList();
-      this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
+      this.toastr.success(
+        '保存' + this.hintText + '成功!',
+        'Success!',
+        {toastLife: '1000'}
+      );
       this.addModalRef.hide();
       this.addForm.reset();
     });
@@ -84,7 +88,11 @@ export class UserManageComponent implements OnInit {
     this.userManageService.changeUser(form.get('id').value, FormUtil.getFormValue(this.editDataKeys, form))
       .then(res => {
         this.getUserList();
-        this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
+        this.toastr.success(
+          '修改' + this.hintText + '成功!',
+          'Success!',
+          {toastLife: '1000'}
+        );
         this.editModalRef.hide();
       });
   }
@@ -97,7 +105,11 @@ export class UserManageComponent implements OnInit {
   delete(): void {
     this.userManageService.delUser(this.deleteUserData).then(res => {
       this.getUserList();
-      this.toastr.success('删除' + this.hintText + '成功!', 'Success!');
+      this.toastr.success(
+        '删除' + this.hintText + '成功!',
+        'Success!',
+        {toastLife: '1000'}
+      );
       this.deleteModalRef.hide();
     });
   }

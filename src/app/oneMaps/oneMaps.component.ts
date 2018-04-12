@@ -46,6 +46,8 @@ export class OneMapsComponent implements OnInit {
           data: {
             id: item.id,
             name: item.name,
+            inputType: item.inputType,
+            inputSource: item.inputSource.split(',')[item.inputSource.split(',').length - 1],
             otherValues: item.otherValues
           },
           longitude: item.longitude,
@@ -78,7 +80,11 @@ export class OneMapsComponent implements OnInit {
   private deCodeOtherValues(markerData: Object): Element {
     const otherValuesList = document.createElement('div');
     otherValuesList.innerHTML = `名称：${markerData['name']}`;
-    // TODO modify judgment condition
+    if (markerData['inputType'] !== 0) {
+      const inputSourceEl = document.createElement('div');
+      inputSourceEl.innerHTML = `当前监控值：${markerData['inputSource']}`;
+      otherValuesList.appendChild(inputSourceEl);
+    }
     if (markerData['otherValues']) {
       const otherValues = JSON.parse(markerData['otherValues']);
       otherValues.forEach(item => {

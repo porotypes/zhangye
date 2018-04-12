@@ -70,7 +70,11 @@ export class OneMapsComponent implements OnInit {
     }
     this.oneMapService.createMap(FormUtil.getFormValue(this.dataKeys, form)).then(res => {
       this.getOneMapsList();
-      this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
+      this.toastr.success(
+        '保存' + this.hintText + '成功!',
+        'Success!',
+        {toastLife: '1000'}
+      );
       this.addModalRef.hide();
       this.addForm.reset();
     });
@@ -84,7 +88,11 @@ export class OneMapsComponent implements OnInit {
     this.oneMapService.changeMap(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form))
       .then(res => {
         this.getOneMapsList();
-        this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
+        this.toastr.success(
+          '修改' + this.hintText + '成功!',
+          'Success!',
+          {toastLife: '1000'}
+        );
         this.editModalRef.hide();
       });
   }
@@ -97,7 +105,11 @@ export class OneMapsComponent implements OnInit {
   delete(): void {
     this.oneMapService.delMap(this.deleteData).then(res => {
       this.getOneMapsList();
-      this.toastr.success('删除' + this.hintText + '成功!', 'Success!');
+      this.toastr.success(
+        '删除' + this.hintText + '成功!',
+        'Success!',
+        {toastLife: '1000'}
+      );
       this.deleteModalRef.hide();
     });
   }

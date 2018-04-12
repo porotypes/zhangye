@@ -16,6 +16,10 @@ import { FormUtil } from "../../core/util/form.util";
   styleUrls: ['./data-spot.component.css']
 })
 export class DataSpotComponent implements OnInit {
+
+  map: any;
+  geocode: any;
+  _this = this;
   condition = {
     id: '',
     name: '',
@@ -33,12 +37,18 @@ export class DataSpotComponent implements OnInit {
   otherValue = [];
   otherValueName: string;
   otherValueContent: string;
+  selectedInputSourceType: string;
+  filePath = '';
+  inputSource= '';
+  lat: any;
+  lng: any;
+  address = '';
 
   dataKeys = [
     { key: 'name', text: '名称', isRequired: true },
     { key: 'inputType', text: '类型', isRequired: true },
-    { key: 'inputSetting', text: '资源配置', isRequired: true },
-    { key: 'inputSource', text: '来源', isRequired: false },
+    { key: 'inputSetting', text: '资源配置', isRequired: false },
+    { key: 'inputSource', text: '监控值', isRequired: false },
     { key: 'longitude', text: '经度', isRequired: true },
     { key: 'latitude', text: '纬度', isRequired: true },
     { key: 'address', text: '地址', isRequired: true },
@@ -72,6 +82,25 @@ export class DataSpotComponent implements OnInit {
     this.getList();
   }
 
+  createMap(): void {
+    this.map = new T.Map('map');
+    this.map.centerAndZoom(new T.LngLat(100.44388, 38.91935), 10);
+    this.geocode = new T.Geocoder();
+    this.map.addEventListener("click", this.selectLatAndLon.bind(this));
+  }
+
+  selectLatAndLon(e): void {
+    this.lng = e.lnglat.getLng();
+    this.lat = e.lnglat.getLat();
+    this.geocode.getLocation(e.lnglat, this.transferAddress.bind(this));
+  }
+
+  transferAddress(res): void {
+    if (res.getStatus() === 0) {
+      this.address = res.getAddress();
+    }
+  }
+
   private createForm(): void {
     this.addForm = this.fb.group(FormUtil.setControl(this.dataKeys, false));
     this.editForm = this.fb.group(FormUtil.setControl(this.dataKeys, true));
@@ -79,8 +108,35 @@ export class DataSpotComponent implements OnInit {
 
   populateEditForm(dataSpot: DataSpot, form: FormGroup): void {
     dataSpot.dataSetId = dataSpot.dataSet.id;
-    this.otherValue = dataSpot.otherValues ? JSON.parse(dataSpot.otherValues) : [];
+    this.getOtherValues(dataSpot);
+    this.selectedInputSourceType = dataSpot.inputType + '';
+    this.getFilePath(dataSpot);
+    this.getCurrentInputSource(dataSpot);
+    this.getLngLatAndAddress(dataSpot);
     form.patchValue(FormUtil.populateForm(this.dataKeys, dataSpot));
+  }
+
+  // 获取文件路径
+  getFilePath(dataSpot: DataSpot): void {
+    this.filePath = dataSpot.inputType === 2 ? JSON.parse(dataSpot.inputSetting)['filePath'] : '';
+  }
+
+  // 获取当前监控的值
+  getCurrentInputSource(dataSpot: DataSpot): void {
+    const inputSourceArr = dataSpot.inputSource.split(",");
+    this.inputSource = inputSourceArr[inputSourceArr.length - 1];
+  }
+
+  // 获取经纬度，地址
+  getLngLatAndAddress(dataSpot: DataSpot): void {
+    this.lng = dataSpot.longitude;
+    this.lat = dataSpot.latitude;
+    this.address = dataSpot.address;
+  }
+
+  // 获取其他详细信息
+  getOtherValues(dataSpot: DataSpot): void {
+    this.otherValue = dataSpot.otherValues ? JSON.parse(dataSpot.otherValues) : [];
   }
 
   search(): void {
@@ -108,12 +164,24 @@ export class DataSpotComponent implements OnInit {
 
   openAddModal(template: TemplateRef<any>) {
     this.otherValue = [];
-    this.addModalRef = this.bsModalService.show(template);
+    this.addModalRef = this.bsModalService.show(template, {keyboard: false, backdrop: 'static'});
+    this.createMap();
+  }
+
+  closeAddModal(): void {
+    this.addModalRef.hide();
+    this.resetData();
   }
 
   openEditModal(template: TemplateRef<any>, dataSpot: DataSpot) {
     this.populateEditForm(dataSpot, this.editForm);
-    this.editModalRef = this.bsModalService.show(template);
+    this.editModalRef = this.bsModalService.show(template, {keyboard: false, backdrop: 'static'});
+    this.createMap();
+  }
+
+  closeEditModal(): void {
+    this.editModalRef.hide();
+    this.resetData();
   }
 
   openDeleteModal(template: TemplateRef<any>, dataSpot: DataSpot) {
@@ -127,11 +195,17 @@ export class DataSpotComponent implements OnInit {
       return;
     }
     form.value['otherValues'] = JSON.stringify(this.otherValue);
+    form.value['inputSetting'] = JSON.stringify({ filePath: this.filePath });
     this.dataSpotService.addSpot(form.value).then(() => {
       this.search();
-      this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
+      this.toastr.success(
+        '保存' + this.hintText + '成功!',
+        'Success!',
+        {toastLife: '1000'}
+      );
       this.addModalRef.hide();
       this.addForm.reset();
+      this.resetData();
     });
   }
 
@@ -142,17 +216,34 @@ export class DataSpotComponent implements OnInit {
     }
     form.value['dataSet'] = { id: form.value.dataSetId };
     form.value['otherValues'] = JSON.stringify(this.otherValue);
+    form.value['inputSetting'] = JSON.stringify({ filePath: this.filePath });
     this.dataSpotService.editSpot(form.get('id').value, form.value).then(() => {
       this.search();
-      this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
+      this.toastr.success(
+        '修改' + this.hintText + '成功!',
+        'Success!',
+        {toastLife: '1000'}
+      );
       this.editModalRef.hide();
+      this.resetData();
     });
+  }
+
+  resetData(): void {
+    this.filePath = '';
+    this.lng = '';
+    this.lat = '';
+    this.address = '';
   }
 
   delete(dataSpot: DataSpot): void {
     this.dataSpotService.deleteSpot(dataSpot).then(() => {
       this.getList();
-      this.toastr.success('删除' + this.hintText + '成功!', 'Success!');
+      this.toastr.success(
+        '删除' + this.hintText + '成功!',
+        'Success!',
+        {toastLife: '1000'}
+      );
       this.deleteModalRef.hide();
     });
   }
@@ -174,6 +265,28 @@ export class DataSpotComponent implements OnInit {
     const index = this.otherValue.indexOf(item);
     if (index > -1) {
       this.otherValue.splice(index, 1);
+    }
+  }
+
+  // 选择数据来源类型显示对应的输入框
+  selectedType(event: any): void {
+    this.selectedInputSourceType = event.target.value;
+    this.filePath = '';
+    this.inputSource = '';
+    // 修改inputSetting是否为必填
+    this.dataKeys.forEach(key => {
+      if (key.key === 'inputSetting') {
+        key.isRequired = false;
+        return;
+      }
+    });
+    if (this.selectedInputSourceType === '2') {
+      this.dataKeys.forEach(key => {
+        if (key.key === 'inputSetting') {
+          key.isRequired = true;
+          return;
+        }
+      });
     }
   }
 }

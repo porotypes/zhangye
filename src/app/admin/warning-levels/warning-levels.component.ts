@@ -80,7 +80,11 @@ export class WarningLevelsComponent implements OnInit {
     }
     this.warningLevelsService.addWarning(FormUtil.getFormValue(this.dataKeys, form)).then(() => {
       this.getList();
-      this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
+      this.toastr.success(
+        '保存' + this.hintText + '成功!',
+        'Success!',
+        {toastLife: '1000'}
+      );
       this.addModalRef.hide();
       this.addForm.reset();
     });
@@ -94,7 +98,11 @@ export class WarningLevelsComponent implements OnInit {
     this.warningLevelsService.editWarning(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form))
       .then(() => {
         this.getList();
-        this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
+        this.toastr.success(
+          '修改' + this.hintText + '成功!',
+          'Success!',
+          {toastLife: '1000'}
+        );
         this.editModalRef.hide();
       });
   }
@@ -102,7 +110,11 @@ export class WarningLevelsComponent implements OnInit {
   delete(warningLevel: WarningLevel): void {
     this.warningLevelsService.deleteWarning(warningLevel).then(() => {
       this.getList();
-      this.toastr.success('删除' + this.hintText + '成功!', 'Success!');
+      this.toastr.success(
+        '删除' + this.hintText + '成功!',
+        'Success!',
+        {toastLife: '1000'}
+      );
       this.deleteModalRef.hide();
     });
   }

@@ -9,6 +9,7 @@ export class DataSpot {
   updatedTime: string;
   dataSet: DataSources;
   inputType: number;
+  inputSetting: string;
   inputSource: string;
   otherValues: string;
   dataSetId: number;

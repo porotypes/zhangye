@@ -126,7 +126,11 @@ export class WarningRulesComponent implements OnInit {
     this.warningRulesService.addWarningRule(FormUtil.getFormValue(this.dataKeys, form))
       .then(res => {
         this.getList();
-        this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
+        this.toastr.success(
+          '保存' + this.hintText + '成功!',
+          'Success!',
+          {toastLife: '1000'}
+        );
         this.addModalRef.hide();
         this.addForm.reset();
       });
@@ -143,7 +147,11 @@ export class WarningRulesComponent implements OnInit {
     this.warningRulesService.editWarningRules(form.get('id').value, form.value)
       .then(res => {
         this.getList();
-        this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
+        this.toastr.success(
+          '修改' + this.hintText + '成功!',
+          'Success!',
+          {toastLife: '1000'}
+        );
         this.editModalRef.hide();
       });
   }
@@ -151,7 +159,11 @@ export class WarningRulesComponent implements OnInit {
   delete(warningRule: WarningRules): void {
     this.warningRulesService.deleteWarningRules(warningRule).then(res => {
       this.getList();
-      this.toastr.success('删除' + this.hintText + '成功!', 'Success!');
+      this.toastr.success(
+        '删除' + this.hintText + '成功!',
+        'Success!',
+        {toastLife: '1000'}
+      );
       this.deleteModalRef.hide();
     });
   }

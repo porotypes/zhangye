@@ -111,7 +111,11 @@ export class DataSourcesComponent implements OnInit {
 
       }
       this.getList();
-      this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
+      this.toastr.success(
+        '保存' + this.hintText + '成功!',
+        'Success!',
+        {toastLife: '1000'}
+      );
       this.addModalRef.hide();
       this.addForm.reset();
     });
@@ -126,7 +130,11 @@ export class DataSourcesComponent implements OnInit {
     request['mapList'] = FormUtil.getObjArrayIds(this.selectedMaps);
     this.dataSourcesService.editSources(form.get('id').value, request).then(() => {
       this.getList();
-      this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
+      this.toastr.success(
+        '修改' + this.hintText + '成功!',
+        'Success!',
+        {toastLife: '1000'}
+      );
       this.editModalRef.hide();
     });
   }
@@ -134,7 +142,11 @@ export class DataSourcesComponent implements OnInit {
   delete(sources: DataSources): void {
     this.dataSourcesService.deleteSource(sources).then(() => {
       this.getList();
-      this.toastr.success('删除' + this.hintText + '成功!', 'Success!');
+      this.toastr.success(
+        '删除' + this.hintText + '成功!',
+        'Success!',
+        {toastLife: '1000'}
+      );
       this.deleteModalRef.hide();
     });
   }

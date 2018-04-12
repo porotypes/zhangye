@@ -69,7 +69,11 @@ export class TypeOfDisasterComponent implements OnInit {
     this.typeOfDisasterService.addDisaster(FormUtil.getFormValue(this.dataKeys, form))
       .then(res => {
         this.getDisasterList();
-        this.toastr.success('新增' + this.hintText + '成功!', 'Success!');
+        this.toastr.success(
+          '保存' + this.hintText + '成功!',
+          'Success!',
+          {toastLife: '1000'}
+        );
         this.addModalRef.hide();
         this.addForm.reset();
       });
@@ -83,7 +87,11 @@ export class TypeOfDisasterComponent implements OnInit {
     this.typeOfDisasterService.changeDisaster(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form))
       .then(res => {
         this.getDisasterList();
-        this.toastr.success('修改' + this.hintText + '成功!', 'Success!');
+        this.toastr.success(
+          '修改' + this.hintText + '成功!',
+          'Success!',
+          {toastLife: '1000'}
+        );
         this.editModalRef.hide();
       });
   }
@@ -96,7 +104,11 @@ export class TypeOfDisasterComponent implements OnInit {
   delete(): void {
     this.typeOfDisasterService.deleteDisaster(this.deleteData).then(res => {
       this.getDisasterList();
-      this.toastr.success('删除' + this.hintText + '成功!', 'Success!');
+      this.toastr.success(
+        '删除' + this.hintText + '成功!',
+        'Success!',
+        {toastLife: '1000'}
+      );
       this.deleteModalRef.hide();
     });
   }
