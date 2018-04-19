@@ -36,8 +36,8 @@ td {
   display: none;
 }
 .active-link {
-  background: #007bff;
-  color: #fff;
+  background: #1e2f49!important;
+  color: #fff!important;
 }
 /*ng2-select*/
 .ui-select-choices.dropdown-menu {

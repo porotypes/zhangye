@@ -19,7 +19,6 @@ export class DataSpotComponent implements OnInit {
 
   map: any;
   geocode: any;
-  _this = this;
   condition = {
     id: '',
     name: '',

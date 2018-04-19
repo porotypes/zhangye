@@ -1,7 +1,8 @@
 <div class="nav">
   <ul>
     <li *ngFor="let menu of menuItem" [routerLink]="[menu.url]" routerLinkActive="active-link">
-      <span>{{ menu.title }}</span>
+      <i class="fa fa-cog"></i>
+      {{ menu.title }}
     </li>
   </ul>
 </div>

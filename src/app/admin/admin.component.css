@@ -9,20 +9,37 @@
   float: left;
   width: 200px;
   height: 100%;
-  padding: 70px 0;
+  padding: 70px 0 0;
 }
 .nav ul {
   width: 100%;
   height: 100%;
-  background-color: #fff;
+  background-color: #1e2f49;
+  border: 1px solid #5aaadb;
   overflow-y: auto;
 }
-.nav li {
+.nav ul:before {
+  content: '';
+  display: block;
   width: 100%;
-  padding: 15px 0;
-  border-bottom: 1px solid #ccc;
+  height: 1px;
+  background: #98d8fe;
+}
+.nav ul li {
+  padding: 15px 0 15px 20px;
+  width: 100%;
+  border-bottom: 1px solid #5aaadb;
+  background-color: #e6f2ff;
+  color: #000;
   cursor: pointer;
-  text-align: center;
+  transition: all .5s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-spacing: normal;
+}
+.nav ul li:hover {
+  background: #1e2f49;
+  color: #fff;
 }
 
 footer {
