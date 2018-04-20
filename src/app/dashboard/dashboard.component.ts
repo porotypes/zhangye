@@ -1,25 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { Router } from "@angular/router";
-import { AuthService } from "../core/auth/auth.service";
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, DoCheck {
+
+  mapCateList: any[];
 
   constructor(
-    public router: Router,
-    private authService: AuthService
-  ) { }
+    public router: Router
+  ) {}
 
   ngOnInit() {
-    // if (!this.authService.checkLogin()) {
-    //   this.router.navigate(['/login']);
-    //   return;
-    // }
-    this.router.navigate(['/admin']);
+  }
+
+  ngDoCheck(): void {
+    this.mapCateList = JSON.parse(window.localStorage.getItem('MAP_CATEGORIES'));
+    if (this.mapCateList) {
+      this.router.navigate(['/oneMaps'], { queryParams: { cateId: this.mapCateList[0].id } });
+    }
   }
 
 }

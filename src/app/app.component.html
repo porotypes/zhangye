@@ -5,39 +5,74 @@
     <li class="nav-item">
       <div>
         <i class="fa fa-file-text"></i>
-        <!--放一张图分类-->
-        一张图管理
+        一张图分类
         <span class="fa fa-angle-down"></span>
       </div>
       <ul class="nav-menu">
-        <li class="nav-menu-item">后台管理</li>
-        <li class="nav-menu-item">后台管理</li>
-        <li class="nav-menu-item">后台管理</li>
+        <li class="list-horn">
+          <span></span>
+        </li>
+        <ng-container *ngIf="oneMapCate">
+          <li class="nav-menu-item"
+              *ngFor="let cate of oneMapCate"
+              (click)="goToOneMap(cate)">{{cate.name}}</li>
+        </ng-container>
+        <li class="nav-menu-last"></li>
       </ul>
     </li>
     <li class="nav-item">
       <div>
         <i class="fa fa-database"></i>
-        <!--放后台三个数据管理栏-->
         数据管理
         <span class="fa fa-angle-down"></span>
       </div>
+      <ul class="nav-menu">
+        <li class="list-horn">
+          <span></span>
+        </li>
+        <li class="nav-menu-item" [routerLink]="'/admin/oneMapCategories'">一张图分类管理</li>
+        <li class="nav-menu-item" [routerLink]="'/admin/oneMaps'">一张图数据管理</li>
+        <li class="nav-menu-item" [routerLink]="'/admin/dataSources'">数据源(集合)管理</li>
+        <li class="nav-menu-item" [routerLink]="'/admin/dataSpot'">数据源(点)管理</li>
+        <li class="nav-menu-last"></li>
+      </ul>
     </li>
     <li class="nav-item">
       <div>
         <i class="fa fa-bell"></i>
-        <!--放后台三个预警管理栏-->
         预警管理
         <span class="fa fa-angle-down"></span>
+      </div>
+      <ul class="nav-menu">
+        <li class="list-horn">
+          <span></span>
+        </li>
+        <li class="nav-menu-item" [routerLink]="'/admin/typeOfDisaster'">自然灾害类型管理</li>
+        <li class="nav-menu-item" [routerLink]="'/admin/WarningRules'">预警规则管理</li>
+        <li class="nav-menu-item" [routerLink]="'/admin/WarningLevels'">灾害预警等级管理</li>
+        <li class="nav-menu-last"></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <div [routerLink]="'/admin/userManage'">
+        <i class="fa fa-users"></i>
+        用户管理
       </div>
     </li>
     <li class="nav-item">
       <div>
         <i class="fa fa-user-circle-o"></i>
         <!--放后台用户管理栏-->
-        用户管理
+        {{authService.user.username}}
         <span class="fa fa-angle-down"></span>
       </div>
+      <ul class="nav-menu">
+        <li class="list-horn">
+          <span></span>
+        </li>
+        <li class="nav-menu-item" (click)="loginOut()">退出</li>
+        <li class="nav-menu-last"></li>
+      </ul>
     </li>
   </ul>
 

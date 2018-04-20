@@ -12,6 +12,10 @@ const routes: Routes = [
         loadChildren: './user-manage/user-manage.module#UserManageModule',
         canActivate: [AuthGuard]
       },
+      { path: 'oneMapCategories',
+        loadChildren: './one-map-categories/one-map-categories.module#OneMapCategoriesModule',
+        canActivate: [AuthGuard]
+      },
       { path: 'oneMaps',
         loadChildren: './one-maps/one-maps.module#OneMapsModule',
         canActivate: [AuthGuard]

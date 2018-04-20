@@ -1,3 +1,5 @@
+import { OneMapCategories } from "./one-map-categories";
+
 export class Map {
   id: number;
   latitude: number;
@@ -7,4 +9,5 @@ export class Map {
   type: number;
   zoomLevel: number;
   setList: any[];
+  categoryList: OneMapCategories[];
 }

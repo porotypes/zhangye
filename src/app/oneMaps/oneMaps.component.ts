@@ -1,39 +1,57 @@
-import { Component, OnInit } from '@angular/core';
-import { OneMapService } from '../core/one-map.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+
 import { Map } from '../common/map';
+import { OneMapService } from '../core/one-map.service';
+import { OneMapCategoriesService } from "../core/admin/one-map-categories.service";
 
 @Component({
   templateUrl: './oneMaps.component.html',
   styleUrls: ['./oneMaps.component.css']
 })
-export class OneMapsComponent implements OnInit {
+export class OneMapsComponent implements OnInit, OnDestroy {
   map: any;
   mapsList: Map[];
   selectedMapId: number;
+  sub: any;
 
   constructor(
-    private oneMapService: OneMapService
-  ) { }
+    private oneMapService: OneMapService,
+    private oneMapCategoriesService: OneMapCategoriesService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.map = new T.Map('map');
-    this.oneMapService.getOneMaps().then( maps => {
-      this.mapsList = maps;
-      this.selectedMapId = maps[0].id;
-      this.createdMap(maps[0]);
-      this.map.addEventListener("click", this.MapClick);
+    this.getOneMapList();
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
+  getOneMapList(): void {
+    this.sub = this.route.queryParams.subscribe(queryParams => {
+      const id = queryParams.cateId;
+
+      this.oneMapCategoriesService.getOneMapCategories(id).then(mapCate => {
+        this.mapsList = mapCate.mapList;
+        this.selectedMapId = mapCate.mapList[0].id;
+        this.getMapDetail(mapCate.mapList[0].id);
+        this.map.addEventListener("click", this.MapClick);
+      });
     });
   }
 
-  getMapDetails(id: number): void {
-    this.selectedMapId = id;
-    this.oneMapService.getMapDetails(id).then( mapDetails => {
-      this.createdMap(mapDetails);
+  getMapDetail(id: number): void {
+    this.oneMapService.getMapDetails(id).then(map => {
+      this.selectedMapId = id;
+      this.createdMap(map);
     });
   }
 
   MapClick(e): void {
-    console.log(e.lnglat.getLng() + "," + e.lnglat.getLat());
+    // console.log(e.lnglat.getLng() + "," + e.lnglat.getLat());
   }
 
   private createdMap(mapDetails: Map): void {
@@ -97,6 +115,6 @@ export class OneMapsComponent implements OnInit {
   }
 
   private markerClick(e): void {
-    console.log(e.target.data);
+    // console.log(e.target.data);
   }
 }

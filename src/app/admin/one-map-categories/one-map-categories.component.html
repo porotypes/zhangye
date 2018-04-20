@@ -1,0 +1,112 @@
+<div class="p15">
+
+  <div class="add">
+    <h4 class="admin-title">{{ hintText }}管理</h4>
+    <div class="add-button">
+      <button class="btn btn-primary btn-sm" (click)="openAddModal(Add)">
+        <i class="fa fa-plus"></i> 添加{{ hintText }}
+      </button>
+    </div>
+  </div>
+
+  <table class="table table-hover table-bordered">
+    <thead class="table-active">
+    <th>ID</th>
+    <th>名称</th>
+    <th>内容</th>
+    <th>优先级</th>
+    <th>操作</th>
+    </thead>
+    <tbody *ngIf="oneMapCategoriesList">
+    <tr *ngFor="let oneMapCategories of oneMapCategoriesList">
+      <td>{{oneMapCategories.id}}</td>
+      <td>{{oneMapCategories.name}}</td>
+      <td>{{oneMapCategories.content}}</td>
+      <td>{{oneMapCategories.priority}}</td>
+      <td>
+        <button class="btn btn-primary btn-sm" title="编辑" (click)="openEditModal(Edit, oneMapCategories)">
+          <i class="fa fa-pencil"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" title="删除" (click)="openDeleteModal(Detele, oneMapCategories)">
+          <i class="fa fa-times"></i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #Add>
+  <div class="modal-header">
+    <h4 class="modal-title">新增{{ hintText }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="addModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="addForm">
+      <div class="form-group">
+        <label for="name">名称:</label>
+        <input type="text" id="name" class="form-control" formControlName="name">
+      </div>
+      <div class="form-group">
+        <label for="content">内容:</label>
+        <input type="text" id="content" class="form-control" formControlName="content">
+      </div>
+      <div class="form-group">
+        <label for="priority">优先级:</label>
+        <input type="text" id="priority" class="form-control" formControlName="priority">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary btn-sm" (click)="confirm(addForm)">确定</button>
+    <button class="btn btn-default btn-sm" (click)="addModalRef.hide()">取消</button>
+  </div>
+</ng-template>
+
+<ng-template #Edit>
+  <div class="modal-header">
+    <h4 class="modal-title">修改{{ hintText }}信息</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="editModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="editForm">
+      <div class="form-group">
+        <label for="edit-name">名称:</label>
+        <input type="text" id="edit-name" class="form-control" formControlName="name">
+      </div>
+      <div class="form-group">
+        <label for="edit-content">内容:</label>
+        <input type="text" id="edit-content" class="form-control" formControlName="content">
+      </div>
+      <div class="form-group">
+        <label for="edit-priority">优先级:</label>
+        <input type="text" id="edit-priority" class="form-control" formControlName="priority">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary btn-sm" (click)="editConfirmation(editForm)">确定</button>
+    <button class="btn btn-default btn-sm" (click)="editModalRef.hide()">取消</button>
+  </div>
+</ng-template>
+
+<ng-template #Detele>
+  <div class="modal-header">
+    <h4 class="modal-title">删&nbsp;除{{ hintText }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>你确定要删除吗?</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary btn-sm" (click)="delete()">确定</button>
+    <button class="btn btn-default btn-sm" (click)="deleteModalRef.hide()">取消</button>
+  </div>
+</ng-template>
+

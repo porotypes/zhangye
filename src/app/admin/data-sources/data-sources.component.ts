@@ -107,9 +107,6 @@ export class DataSourcesComponent implements OnInit {
     const request = FormUtil.getFormValue(this.dataKeys, form);
     request['mapList'] = FormUtil.getObjArrayIds(this.selectedMaps);
     this.dataSourcesService.addSources(request).then(res => {
-      if (!res) {
-
-      }
       this.getList();
       this.toastr.success(
         '保存' + this.hintText + '成功!',

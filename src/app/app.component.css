@@ -53,6 +53,7 @@
   height: 100%;
   line-height: 40px;
   border-left: 1px solid #050e1d;
+  outline: none;
 }
 .nav-bar .nav-item > div:before {
   position: absolute;
@@ -67,21 +68,53 @@
 .nav-bar .nav-item > div > i {
   margin-right: 8px;
 }
-.nav-bar .nav-item .nav-menu {
+.nav-menu {
   display: none;
   position: absolute;
   top: 68px;
   left: 0;
-  padding-bottom: 26px;
   width: 100%;
   height: auto;
-  background-color: #1e2f49;
-  border: 1px solid #5aaadb;
   box-shadow: 2px 2px 5px rgba(255, 255, 255, .4) inset,
               -2px -2px 5px rgba(255, 255, 255, .4) inset;
   text-align: center;
 }
-.nav-bar .nav-item .nav-menu li {
+.nav-menu li.nav-menu-item {
   padding: 16px 0;
+  background-color: #1e2f49;
+  border: 1px solid #5aaadb;
+  border-top: none;
   border-bottom: 1px dotted #5aaadb;
+  outline: none;
+}
+.nav-menu li.nav-menu-item:first-child {
+  border-top: 1px solid #5aaadb;
+}
+.nav-menu li.nav-menu-item:hover {
+  background-color: #205773;
+}
+.nav-menu li.nav-menu-last {
+  height: 26px;
+  background-color: #1e2f49;
+  border: 1px solid #5aaadb;
+  border-top: none;
+}
+.nav-menu li.list-horn {
+  position: relative;
+  height:16px;
+  background: transparent;
+}
+.nav-menu li.list-horn > span {
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  -webkit-transform: rotate(45deg) translateX(-50%);
+  -moz-transform: rotate(45deg) translateX(-50%);
+  -ms-transform: rotate(45deg) translateX(-50%);
+  -o-transform: rotate(45deg) translateX(-50%);
+  transform: rotate(45deg) translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background-color: #1e2f49;
+  z-index: -1;
 }

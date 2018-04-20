@@ -1,7 +1,7 @@
 <div class="nav" *ngIf="mapsList">
   <ul>
     <li *ngFor="let map of mapsList"
-        (click)="getMapDetails(map.id)"
+        (click)="getMapDetail(map.id)"
         [class.active-link]="selectedMapId == map.id">
       <i class="fa fa-image"></i>
       {{ map.name }}

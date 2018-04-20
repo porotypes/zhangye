@@ -5,7 +5,9 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 import { Map } from "../../common/map";
+import { OneMapCategories } from "../../common/one-map-categories";
 import { OneMapService } from "../../core/one-map.service";
+import { OneMapCategoriesService } from "../../core/admin/one-map-categories.service";
 import { FormUtil } from "../../core/util/form.util";
 
 @Component({
@@ -19,10 +21,13 @@ export class OneMapsComponent implements OnInit {
   addForm: FormGroup;
   editForm: FormGroup;
   oneMapsList: Map[];
+  oneMapCategoriesList: OneMapCategories[];
   addModalRef: BsModalRef;
   editModalRef: BsModalRef;
   deleteModalRef: BsModalRef;
   deleteData: Map;
+  selectedCate: any[];
+  activeOneMapCategories: any[];
 
   dataKeys = [
     { key: 'name', text: '名称', isRequired: true },
@@ -30,15 +35,16 @@ export class OneMapsComponent implements OnInit {
     { key: 'longitude', text: '经度', isRequired: true },
     { key: 'zoomLevel', text: '缩放等级', isRequired: false },
     { key: 'priority', text: '优先级', isRequired: true },
-    // { key: 'type', text: '类型', isRequired: false },
+    { key: 'categoryList', text: '分类', isRequired: false }
   ];
 
   constructor(
     private oneMapService: OneMapService,
+    private oneMapCategoriesService: OneMapCategoriesService,
     private bsModalService: BsModalService,
     private fb: FormBuilder,
     public toastr: ToastsManager,
-    vcr: ViewContainerRef
+    private vcr: ViewContainerRef
   ) {
     this.createForm();
     this.toastr.setRootViewContainerRef(vcr);
@@ -59,8 +65,15 @@ export class OneMapsComponent implements OnInit {
     });
   }
 
+  getOneMapCategoriesList(): void {
+    this.oneMapCategoriesService.getOneMapCategoriesList().then(list => {
+      this.oneMapCategoriesList = list;
+    });
+  }
+
   ngOnInit() {
     this.getOneMapsList();
+    this.getOneMapCategoriesList();
   }
 
   confirm(form: FormGroup): void {
@@ -68,7 +81,9 @@ export class OneMapsComponent implements OnInit {
       this.toastr.warning('请填写' + FormUtil.formValidator(this.dataKeys, form));
       return;
     }
-    this.oneMapService.createMap(FormUtil.getFormValue(this.dataKeys, form)).then(res => {
+    const request = FormUtil.getFormValue(this.dataKeys, form);
+    request['categoryList'] = FormUtil.getObjArrayIds(this.selectedCate);
+    this.oneMapService.createMap(request).then(res => {
       this.getOneMapsList();
       this.toastr.success(
         '保存' + this.hintText + '成功!',
@@ -85,7 +100,9 @@ export class OneMapsComponent implements OnInit {
       this.toastr.warning('请填写' + FormUtil.formValidator(this.dataKeys, form));
       return;
     }
-    this.oneMapService.changeMap(form.get('id').value, FormUtil.getFormValue(this.dataKeys, form))
+    const request = FormUtil.getFormValue(this.dataKeys, form);
+    request['categoryList'] = FormUtil.getObjArrayIds(this.selectedCate);
+    this.oneMapService.changeMap(form.get('id').value, request)
       .then(res => {
         this.getOneMapsList();
         this.toastr.success(
@@ -119,8 +136,13 @@ export class OneMapsComponent implements OnInit {
   }
 
   openEditModal(template: TemplateRef<any>, map: Map) {
+    this.selectedCate = this.activeOneMapCategories = map.categoryList;
     this.editModalRef = this.bsModalService.show(template);
     this.populateEditUserForm(map, this.editForm);
+  }
+
+  selected(oneMapCategories: OneMapCategories[]): void {
+    this.selectedCate = oneMapCategories;
   }
 
 }

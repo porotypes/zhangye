@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from "./auth/auth.service";
 import { AuthGuard } from "./auth/auth-guard.service";
 import { AdminMenuService } from "./admin/admin-menu.service";
+import { OneMapCategoriesService } from "./admin/one-map-categories.service";
 import { OneMapService } from "./one-map.service";
 import { UserManageService } from "./admin/user-manage.service";
 import { DataSourcesService } from "./admin/data-sources.service";
@@ -26,6 +27,7 @@ import { WarningRulesService } from "./admin/warning-rules.service";
     AuthGuard,
     AuthService,
     AdminMenuService,
+    OneMapCategoriesService,
     OneMapService,
     UserManageService,
     DataSourcesService,
