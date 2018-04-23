@@ -40,8 +40,17 @@
   text-overflow: ellipsis;
   word-spacing: normal;
 }
+.nav ul > div {
+  padding: 15px 0 15px 20px;
+  color: #fff;
+  border-bottom: 1px solid #5aaadb;
+  background: #212e54;
+}
+.nav ul > div i {
+  vertical-align: middle;
+}
 .nav ul li:hover {
-  background: #1e2f49;
+  background: #3786ff;
   color: #fff;
 }
 

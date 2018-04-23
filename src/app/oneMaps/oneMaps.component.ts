@@ -12,6 +12,7 @@ import { OneMapCategoriesService } from "../core/admin/one-map-categories.servic
 export class OneMapsComponent implements OnInit, OnDestroy {
   map: any;
   mapsList: Map[];
+  mapsListName: string;
   selectedMapId: number;
   sub: any;
 
@@ -36,6 +37,7 @@ export class OneMapsComponent implements OnInit, OnDestroy {
 
       this.oneMapCategoriesService.getOneMapCategories(id).then(mapCate => {
         this.mapsList = mapCate.mapList;
+        this.mapsListName = mapCate.name;
         this.selectedMapId = mapCate.mapList[0].id;
         this.getMapDetail(mapCate.mapList[0].id);
         this.map.addEventListener("click", this.MapClick);

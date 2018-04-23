@@ -1,5 +1,10 @@
 <div class="nav" *ngIf="mapsList">
   <ul>
+    <div>
+      <i class="fa fa-sitemap"></i>
+      {{mapsListName}}
+      <i class="fa fa-angle-down"></i>
+    </div>
     <li *ngFor="let map of mapsList"
         (click)="getMapDetail(map.id)"
         [class.active-link]="selectedMapId == map.id">
