@@ -89,8 +89,13 @@ export class DataSpotComponent implements OnInit {
   }
 
   selectLatAndLon(e): void {
+    this.map.clearOverLays();
     this.lng = e.lnglat.getLng();
     this.lat = e.lnglat.getLat();
+    // 创建标注对象
+    const marker = new T.Marker(new T.LngLat(this.lng, this.lat));
+    // 添加标注
+    this.map.addOverLay(marker);
     this.geocode.getLocation(e.lnglat, this.transferAddress.bind(this));
   }
 

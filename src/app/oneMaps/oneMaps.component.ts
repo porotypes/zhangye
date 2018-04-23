@@ -59,7 +59,7 @@ export class OneMapsComponent implements OnInit, OnDestroy {
   private createdMap(mapDetails: Map): void {
     this.map.clearOverLays();
     this.map.centerAndZoom(new T.LngLat(mapDetails.longitude, mapDetails.latitude), mapDetails.zoomLevel);
-    /* 标注物列表 */
+    // 标注物列表
     if (mapDetails['setList'].length > 0) {
       const markerDatas = mapDetails['setList'][0].columnList.map(item => {
         return {
@@ -81,7 +81,7 @@ export class OneMapsComponent implements OnInit, OnDestroy {
   }
 
 
-  /*创建标注物*/
+  // 创建标注物
   private createMarker(markerData: Object): void {
     // 创建标注对象
     const marker = new T.Marker(new T.LngLat(markerData['longitude'], markerData['latitude']));
