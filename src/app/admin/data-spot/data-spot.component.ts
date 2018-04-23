@@ -199,6 +199,7 @@ export class DataSpotComponent implements OnInit {
       return;
     }
     form.value['otherValues'] = JSON.stringify(this.otherValue);
+    form.value['inputSource'] = form.value['inputSource'] ? form.value['inputSource'] : '0';
     form.value['inputSetting'] = JSON.stringify({ filePath: this.filePath });
     this.dataSpotService.addSpot(form.value).then(() => {
       this.search();
@@ -220,6 +221,7 @@ export class DataSpotComponent implements OnInit {
     }
     form.value['dataSet'] = { id: form.value.dataSetId };
     form.value['otherValues'] = JSON.stringify(this.otherValue);
+    form.value['inputSource'] = form.value['inputSource'] ? form.value['inputSource'] : '0';
     form.value['inputSetting'] = JSON.stringify({ filePath: this.filePath });
     this.dataSpotService.editSpot(form.get('id').value, form.value).then(() => {
       this.search();
